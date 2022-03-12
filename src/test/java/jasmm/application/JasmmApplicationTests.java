@@ -8,6 +8,7 @@ class JasmmApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//Test michèle
 	}
 
 }
