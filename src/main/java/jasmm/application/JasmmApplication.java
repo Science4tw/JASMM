@@ -8,6 +8,8 @@ public class JasmmApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JasmmApplication.class, args);
+		
+		System.out.println("Konsolen Test");
 	}
 
 }

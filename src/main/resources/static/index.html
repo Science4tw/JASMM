@@ -1,12 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="css/login.css">
+	<title>JASMM</title>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
+
 <body>
-    <h1> Test ob Spring Boot läuft </h1>
+	<form id="loginForm">
+		<input type="text" name="name" value="Severin">
+		<input type="text" name="email" value="severin@minotrade.com">
+		<input type="submit">
+	</form>
+
+	<script>
+
+
+
+
+		loginForm.addEventListener('submit', e => {
+			e.preventDefault();
+			alert('Test');
+
+			// Credit: https://stackoverflow.com/questions/22195065/how-to-send-a-json-object-using-html-form-data
+			var formData = JSON.stringify($("#loginform").serializeArray());
+
+
+
+			$.ajax({
+				type: "POST",
+				url: "/api/customer/createCustomer",
+				data: formData,
+				success: testAlert,
+				dataType: "json",
+				contentType: "application/json"
+			});
+
+			console.log('JS Test')
+		});
+
+
+		function testAlert() {
+
+			alert('In Function');
+		}
+
+	</script>
+
 </body>
+
 </html>
+
+<script>
+
+</script>
