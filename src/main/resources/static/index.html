@@ -1,65 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Test -->
+  <head>
+    <title>JASMM Onlineshop</title>
+    <link rel="stylesheet" href="css/main.css">
+    
+  </head>
+  <body>
+    <header>
+      <h1>Mockup</h1>
+    </header>
+    <nav>
+      <section class="container">
+        <center>
+        <a href="index.html">Login</a> | <a href="register.html">Registrieren</a> | 
+        <a href="konto.html">Kundenkonto</a> | <a href="logout.html">Logout</a></center>
+    </section>
+    </nav>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <section class="container">
+      <center><img src="images/Logo.png" width="200" height="100"></center>
+      <form id="my-form">
+        <center><h1>Login</h1></center>
+        <div class="msg"></div>
+        <div>
+          <label for="username">E-Mail- Adresse:</label>
+          <input type="text" id="username" placeholder="max.muster@mail.com">
+        </div>
+        <div>
+          <label for="pwd">Passwort:</label>
+          <input type="password" id="pwd" name="pwd">
+        </div><center>Passwort vergessen?<br>
+          <a href="konto.html">Noch kein Kundenkonto?</a></center>
+        
+        <input class="btn" type="submit" value="Anmelden">
+      </form>
 
-	<link rel="stylesheet" href="css/login.css">
-	<title>JASMM</title>
+      <ul id="users"></ul>
 
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <!-- <ul class="items">
+        <li class="item">Item 1</li>
+        <li class="item">Item 2</li>
+        <li class="item">Item 3</li>
+      </ul> -->
+    </section>
+    
 
-</head>
-
-<body>
-	<form id="loginForm">
-		<input type="text" name="name" value="Severin Hoch">
-		<input type="text" name="email" value="severin@minotrade.com">
-		<input type="submit">
-	</form>
-
-	<script>
-
-
-
-
-		loginForm.addEventListener('submit', e => {
-			e.preventDefault();
-			alert('Test');
-
-			// Credit: https://stackoverflow.com/questions/22195065/how-to-send-a-json-object-using-html-form-data
-			var formData = JSON.stringify($("#loginform").serializeArray());
-
-
-
-			$.ajax({
-				type: "POST",
-				url: "/api/customer/createCustomer",
-				data: formData,
-				success: testAlert,
-				dataType: "json",
-				contentType: "application/json"
-			});
-
-			console.log('JS Test')
-		});
-
-
-		function testAlert() {
-
-			alert('In Function');
-		}
-
-	</script>
-
-</body>
-
+    <script src="js/main.js"></script>
+  </body>
 </html>
-
-<script>
-
-</script>
