@@ -1,4 +1,4 @@
-package jasmm.service.order;
+package jasmm.application;
 
 public class ServiceOrderManagement {
 

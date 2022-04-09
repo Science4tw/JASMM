@@ -23,16 +23,16 @@
         <center><h1>Login</h1></center>
         <div class="msg"></div>
         <div>
-          <label for="username">E-Mail- Adresse:</label>
+          <label for="username">E-Mail-Adresse:</label>
           <input type="text" id="username" placeholder="max.muster@mail.com"> 
         </div>
         <div>
           <label for="pwd">Passwort:</label>
-          <input type="password" id="pwd" name="pwd"> 
+          <input type="text" id="pwd" placeholder="123"> 
         </div><center>Passwort vergessen?<br>
           <a href="konto.html">Noch kein Kundenkonto?</a></center>
         
-        <input class="btn" type="submit" value="Anmelden">
+        <input class="btn" type="button" value="Anmelden" onClick="createCustomer()">
       </form>
 
       <ul id="users"></ul>
@@ -44,7 +44,7 @@
       </ul> -->
     </section>
     
-
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

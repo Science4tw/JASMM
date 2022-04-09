@@ -1,4 +1,4 @@
-package jasmm.business;
+package jasmm.application;
 
 public class OrderCalcualtion {
 

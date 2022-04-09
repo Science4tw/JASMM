@@ -1,4 +1,31 @@
-// USER FORM SCRIPT
+var userId = -1;
+
+function createCustomer() {
+	let usernameInput = document.querySelector('#username');
+	let pwdInput = document.querySelector('#pwd');
+	alert("Der eingegebene UserName lautet: " + usernameInput.value + ", Passwort: " + pwdInput.value);
+	$.ajax({
+		type: "POST",
+		url: "/demo/createCustomer",
+		data: JSON.stringify({ username: usernameInput.value, password: pwdInput.value }),
+		success: response,
+		dataType: 'json',
+		contentType: 'application/json'
+	});
+
+}
+
+function response(response) {
+	if (response != -1) {
+	userId = response;
+	alert("Der Kunde wurde gespeichert. Die ID lautet: " + userId);
+	} else {
+		alert("Fehlgeschlagen");
+	}
+	
+}
+
+/*// Alter Code von Sevi
 
 // Put DOM elements into variables
 const myForm = document.querySelector('#my-form');
@@ -37,4 +64,4 @@ function onSubmit(e) {
     usernameInput.value = '';
     pwdInput.value = '';
   }
-}
+}*/
