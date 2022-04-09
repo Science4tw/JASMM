@@ -10,7 +10,7 @@ public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer customerId;
+	private Integer customerid;
 	
 	private String username;
 	
@@ -28,12 +28,12 @@ public class Customer {
 	
 	private String city;
 
-	public Integer getId() {
-		return customerId;
+	public Integer getCustomerid() {
+		return customerid;
 	}
 
-	public void setId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomerid(Integer customerId) {
+		this.customerid = customerId;
 	}
 	
 	public String getUsername() {

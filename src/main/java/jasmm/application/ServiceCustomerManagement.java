@@ -31,7 +31,7 @@ public class ServiceCustomerManagement {
 			c.setCity(m.getCity());
 			c = customerRepository.save(c);
 
-			return c.getId();
+			return c.getCustomerid();
 		} else {
 			System.out.println("Username " + m.getUsername() + " existiert schon in der DB.");
 			return 0;
@@ -49,7 +49,7 @@ public class ServiceCustomerManagement {
 			String passwordFromDB = c.getPassword();
 			if (m.getPassword().equals(passwordFromDB)) {
 				System.out.println("Korrektes Passwort");
-				return c.getId();
+				return c.getCustomerid();
 			} else {
 				System.out.println("Falsches Passwort");
 				return 0;

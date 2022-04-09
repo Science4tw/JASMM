@@ -67,6 +67,33 @@ function loginResponse(response) {
 
 }
 
+
+// TEIL MATTHIAS (START)
+let oderid = -1;
+let customerid = -1;
+
+function createOrder() {
+			
+	$.ajax({
+		type: "POST",
+		url: "/api/createOrder/",
+		data: JSON.stringify({ customerid: customerid }),
+		success: responseCreateOrder,
+		dataType: 'json',
+		contentType: 'application/json'
+	});
+	
+}
+function responseCreateOrder(response) {
+	
+	orderid = response;
+	
+	// customerid = response;
+	alert("Die Order wurde gespeichert. Die OrderID lautet: " + orderid);
+	
+}
+
+// TEIL MATTHIAS (ENDE)
 /*// Alter Code von Sevi
 
 // Put DOM elements into variables
