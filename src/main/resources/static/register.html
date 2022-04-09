@@ -23,12 +23,12 @@
         <center><h1>Registrieren</h1></center>
         <div class="msg"></div>
         <div>
-          <label for="name">E-Mail- Adresse:</label>
-          <input type="text" id="name">
+          <label for="name">Benutzername (E-Mail- Adresse):</label>
+          <input type="text" id="username">
         </div>
         <div>
           <label for="email">Passwort:</label>
-          <input type="text" id="email">
+          <input type="text" id="pwd">
         </div>
         <div>
           <label for="vname">Vorname:</label>
@@ -46,7 +46,7 @@
           <div class="column-left"><label for="plz">PLZ:</label><input type="text" id="plz"></div>
           <div class="column"><label for="ort">Ort:</label><input type="text" id="ort"></div>
         </div>      
-        <input class="btn" type="submit" value="Konto erstellen">
+        <input type="button" value="Konto erstellen" id="register" class="btn" onClick=createCustomer()>
       </form>
 
       <ul id="users"></ul>
@@ -58,7 +58,7 @@
       </ul> -->
     </section>
     
-
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

@@ -23,7 +23,7 @@
         <center><h1>Login</h1></center>
         <div class="msg"></div>
         <div>
-          <label for="username">E-Mail-Adresse:</label>
+          <label for="username">Benutzername (E-Mail-Adresse):</label>
           <input type="text" id="username" placeholder="max.muster@mail.com"> 
         </div>
         <div>
@@ -32,7 +32,9 @@
         </div><center>Passwort vergessen?<br>
           <a href="konto.html">Noch kein Kundenkonto?</a></center>
         
-        <input class="btn" type="button" value="Anmelden" onClick="createCustomer()">
+        <input class="btn" type="button" value="Anmelden" onClick="loginCustomer()">
+        <i><span id="customerId"></span></i>
+    
       </form>
 
       <ul id="users"></ul>

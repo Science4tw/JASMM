@@ -19,14 +19,6 @@ public class JasmmApplication {
 		System.out.println("Konsolen Test");
 	}
 	
-	@PostConstruct
-	public void createTestData() {
-		
-		Customer c = new Customer();
-		c.setUsername("test.client@mail.com");
-		c.setPassword("TestPwd");
-		c.setName("Test Client");		
-		customerRepository.save(c);
-	}
+	
 
 }
