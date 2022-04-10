@@ -5,13 +5,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "tblarticle")
 public class Article {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer articleid;
-	private Double spacepersquaremeter;
+	
+	private String articlename;
+	
+	private Integer maxprostellplatz;
+	private Double palettenstellplaetze;
 	
 	public Integer getArticleid() {
 		return articleid;
@@ -19,13 +22,29 @@ public class Article {
 	public void setArticleid(Integer articleid) {
 		this.articleid = articleid;
 	}
-	public Double getSpacepersquaremeter() {
-		return spacepersquaremeter;
+	public String getArticlename() {
+		return articlename;
 	}
-	public void setSpacepersquaremeter(Double spacepersquaremeter) {
-		this.spacepersquaremeter = spacepersquaremeter;
+	public void setArticlename(String articlename) {
+		this.articlename = articlename;
+	}
+	public Integer getMaxprostellplatz() {
+		return maxprostellplatz;
+	}
+	public void setMaxprostellplatz(Integer maxprostellplatz) {
+		this.maxprostellplatz = maxprostellplatz;
+	}
+	public Double getPalettenstellplaetze() {
+		return palettenstellplaetze;
+	}
+	public void setPalettenstellplaetze(Double palettenstellplaetze) {
+		this.palettenstellplaetze = palettenstellplaetze;
 	}
 	
+
+
 	
 	
+
+
 }
