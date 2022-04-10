@@ -1,61 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>JASMM Onlineshop</title>
-    <link rel="stylesheet" href="css/main.css">
-    
-  </head>
-  <body>
-    <header>
-      <h1></h1>
-    </header>
-    <nav>
-      <section class="container">
-        <center>
-        <a href="index.html">Login</a> | <a href="register.html">Registrieren</a> | 
-        <a href="konto.html">Kundenkonto</a> | <a href="logout.html">Logout</a></center>
-    </section>
-    </nav>
 
-    <section class="container">
-      <center><img src="images/Logo.png" width="200" height="100"></center>
-      <form id="my-form">
-        <center><h1>Login</h1></center>
-        <div class="msg"></div>
-        <div>
-          <label for="username">Benutzername (E-Mail-Adresse):</label>
-          <input type="text" id="username" placeholder="max.muster@mail.com"> 
-        </div>
-        <div>
-          <label for="pwd">Passwort:</label>
-          <input type="text" id="pwd" placeholder="123"> 
-        </div><center>Passwort vergessen?<br>
-          <a href="konto.html">Noch kein Kundenkonto?</a></center>
-        
-        <input class="btn" type="button" value="Anmelden" onClick="loginCustomer()">
-        <i><span id="customerId"></span></i>
-    
-      </form>
+<head>
+	<title>JASMM Onlineshop</title>
+	<link rel="stylesheet" href="css/main.css">
 
-      <ul id="users"></ul>
+</head>
 
-      <!-- <ul class="items">
+<body>
+	<header>
+		<h1></h1>
+	</header>
+	<nav>
+		<section class="container">
+			<center>
+				<a href="index.html">Login</a> | <a href="register.html">Registrieren</a> |
+				<a href="konto.html">Kundenkonto</a> | <a href="logout.html">Logout</a>
+			</center>
+		</section>
+	</nav>
+
+	<section class="container">
+		<center><img src="images/Logo.png" width="200" height="100"></center>
+		<form id="my-form">
+			<center>
+				<h1>Login</h1>
+			</center>
+			<div class="msg"></div>
+			<div>
+				<label for="username">Benutzername (E-Mail-Adresse):</label>
+				<input type="text" id="username" placeholder="max.muster@mail.com">
+			</div>
+			<div>
+				<label for="pwd">Passwort:</label>
+				<input type="text" id="pwd" placeholder="123">
+			</div>
+			<center>Passwort vergessen?<br>
+				<a href="konto.html">Noch kein Kundenkonto?</a>
+			</center>
+
+			<input class="btn" type="button" value="Anmelden" onClick="loginCustomer()">
+			<i><span id="customerId"></span></i>
+
+		</form>
+
+		<ul id="users"></ul>
+
+		<!-- <ul class="items">
         <li class="item">Item 1</li>
         <li class="item">Item 2</li>
         <li class="item">Item 3</li>
       </ul> -->
-    </section>
-    
+	</section>
+
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="js/main.js"></script>
-    
-    
-    
-<!-- TEIL MATTHIAS (START) -->
-	<div>
-		 <input type="button" class="btn" id="createOrder" value="Bestellung anlegen" onClick="createOrder()"> 
-	</div>
+	<script src="js/main.js"></script>
+
+
+
+	<!-- TEIL MATTHIAS (START) -->
 	
-<!-- TEIL MATTHIAS (ENDE) -->
-  </body>
+	<section class="container">
+
+
+		<!-- Bestellung anlegen Button -->
+		<input type="button" class="btn" id="createOrder" value="Bestellung anlegen" onClick="createOrder()">
+
+		<form id="takeAndSendOrder">
+			<input type="number" id="orderitem1" placeholder="orderitem1">
+			<input type="button" id="addToOrder1" value="1" onCLick="addArticleToOrder()"> <br />
+
+			<input type="number" id="orderitem2" placeholder="orderitem2">
+			<input type="button" id="addToOrder2" value="2" onCLick="addArticleToOrder()"> <br />
+
+			<input type="number" id="orderitem3" placeholder="orderitem3">
+			<input type="button" id="addToOrder3" value="3" onCLick="addArticleToOrder()"> <br />
+
+			<input type="number" id="orderitem4" placeholder="orderitem4">
+			<input type="button" id="addToOrder4" value="4" onCLick="addArticleToOrder()"> <br />
+
+			<input type="button" id="sendOrder" value="Bestellung berechnen" onCLick="calculateCostOfOrder()">
+
+		</form>
+
+
+	</section>
+
+	<!-- TEIL MATTHIAS (ENDE) -->
+</body>
+
 </html>

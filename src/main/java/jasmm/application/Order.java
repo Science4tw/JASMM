@@ -1,11 +1,15 @@
 package jasmm.application;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity(name = "tblorder")
 public class Order {
@@ -18,6 +22,10 @@ public class Order {
 	private Date orderdate;
 	
 	private int customerid;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderItem> items = new ArrayList<>();
 
 	public int getCustomerid() {
 		return customerid;
@@ -49,6 +57,14 @@ public class Order {
 
 	public void setOrderdate(Date orderdate) {
 		this.orderdate = orderdate;
+	}
+
+	public List<OrderItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
 	}
 
 

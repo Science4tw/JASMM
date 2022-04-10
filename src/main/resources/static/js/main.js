@@ -69,9 +69,10 @@ function loginResponse(response) {
 
 
 // TEIL MATTHIAS (START)
-let oderid = -1;
-let customerid = -1;
+let oderid = 55;
+let customerid = 24;
 
+// Anlegen einer neugen Bestellung
 function createOrder() {
 			
 	$.ajax({
@@ -84,6 +85,8 @@ function createOrder() {
 	});
 	
 }
+
+// Antwort von createOrder(), wo wir die orderid speichern
 function responseCreateOrder(response) {
 	
 	orderid = response;
@@ -93,7 +96,56 @@ function responseCreateOrder(response) {
 	
 }
 
+let articleid = -1;
+let amount = -1;
+
+
+// Artikel zu einer Bestellung hinzufügen
+function addArticleToOrder() {
+	
+	// let amout = document.getElementById("addToOrder1");
+	//var amount = parseInt(window.prompt("Anzahl?", "5"), 10);
+	
+	let articleid = document.getElementById("addToOrder1");
+	let article1amount = document.getElementById("orderitem1");
+	
+
+	articleid = articleid.value
+	amount = article1amount.value;
+	
+	alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
+
+	// let article2amount = document.getElementById("orderitem2");
+	// amount2 = article2amount.value;
+	
+	$.ajax({
+		type: "PUT",
+  		url: "/api/order/"+oderid+"/addArticle",
+  		data: JSON.stringify({ articleid : articleid , amount: amount , orderid: orderid }),
+  		success: responseAddArticleToOrder, 
+  		dataType: 'json',
+  		contentType: 'application/json'
+	});
+	
+	console.log(JSON.stringify({ articleid : articleid , amount: amount , orderid: orderid }));
+}
+
+function responseAddArticleToOrder(response) {
+	
+	if (response == true) {
+		alert("Hinzufügen erfolgreich. Die OrderID lautet: " + orderid)
+	} else {
+		alert("Fehlgeschlagen. Die OrderID lautet: " + orderid)
+	}
+
+	
+}
+
 // TEIL MATTHIAS (ENDE)
+
+
+
+
 /*// Alter Code von Sevi
 
 // Put DOM elements into variables
