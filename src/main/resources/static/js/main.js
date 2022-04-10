@@ -1,4 +1,4 @@
-var userId = -1;
+var customerid = -1;
 
 //Michèle
 //Registrierung neuer Kunde - createCustomer()
@@ -27,8 +27,8 @@ function createCustomer() {
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
 	if (response != 0) {
-	userId = response;
-	alert("Kundenregistrierung erfolgreich. Die Kunden-ID lautet: " + userId);
+	customerid = response;
+	alert("Kundenregistrierung erfolgreich. Die Kunden-ID lautet: " + customerid);
 	} else {
 		alert("Registrierung fehlgeschlagen. Bitte waehlen Sie einen anderen Benutzernamen.");
 	}
@@ -60,7 +60,7 @@ function loginResponse(response) {
 		alert("Login fehlgeschlagen.");
 	} else {
 		$("#customerId").text("Login erfolgreich. Hallo Kunde mit ID: " + response);
-		userId = response;
+		customerid = response;
 		$("#username").empty();
 		$("#pwd").empty();
 	}
@@ -69,8 +69,8 @@ function loginResponse(response) {
 
 
 // TEIL MATTHIAS (START)
-let oderid = 55;
-let customerid = 24;
+let orderid = 55;
+//let customerid = 24;
 
 // Anlegen einer neugen Bestellung
 function createOrder() {
@@ -92,7 +92,7 @@ function responseCreateOrder(response) {
 	orderid = response;
 	
 	// customerid = response;
-	alert("Die Order wurde gespeichert. Die OrderID lautet: " + orderid);
+	alert("Die Order für den Kunden mit der ID " + customerid + " wurde gespeichert. Die OrderID lautet: " + orderid);
 	
 }
 
@@ -120,14 +120,14 @@ function addArticleToOrder() {
 	
 	$.ajax({
 		type: "PUT",
-  		url: "/api/order/"+oderid+"/addArticle",
+  		url: "/api/order/"+orderid+"/addArticle",
   		data: JSON.stringify({ articleid : articleid , amount: amount , orderid: orderid }),
   		success: responseAddArticleToOrder, 
   		dataType: 'json',
   		contentType: 'application/json'
 	});
 	
-	console.log(JSON.stringify({ articleid : articleid , amount: amount , orderid: orderid }));
+	console.log(JSON.stringify({ articleid : articleid , amount: amount , orderid: orderid , customerid: customerid}));
 }
 
 function responseAddArticleToOrder(response) {

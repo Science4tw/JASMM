@@ -48,7 +48,7 @@ public class ServiceCustomerManagement {
 			Customer c = customerRepository.findByUsername(m.getUsername());
 			String passwordFromDB = c.getPassword();
 			if (m.getPassword().equals(passwordFromDB)) {
-				System.out.println("Korrektes Passwort");
+				System.out.println("Korrektes Passwort. Customerid: " + c.getCustomerid());
 				return c.getCustomerid();
 			} else {
 				System.out.println("Falsches Passwort");

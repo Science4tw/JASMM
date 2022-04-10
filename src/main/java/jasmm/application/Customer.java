@@ -32,8 +32,8 @@ public class Customer {
 		return customerid;
 	}
 
-	public void setCustomerid(Integer customerId) {
-		this.customerid = customerId;
+	public void setCustomerid(Integer customerid) {
+		this.customerid = customerid;
 	}
 	
 	public String getUsername() {
