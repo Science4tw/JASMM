@@ -69,8 +69,6 @@ function loginResponse(response) {
 
 
 // TEIL MATTHIAS (START)
-let orderid = 55;
-//let customerid = 24;
 
 // Anlegen einer neugen Bestellung
 function createOrder() {
@@ -104,9 +102,6 @@ function responseCreateOrder(response) {
 // Artikel 1 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder1() {
 	
-	// let amout = document.getElementById("addToOrder1");
-	//var amount = parseInt(window.prompt("Anzahl?", "5"), 10);
-	
 	let articleid = document.getElementById("addToOrder1");
 	let article1amount = document.getElementById("orderitem1");
 	
@@ -115,9 +110,6 @@ function addArticleToOrder1() {
 	amount = article1amount.value;
 	
 	alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
-
-	// let article2amount = document.getElementById("orderitem2");
-	// amount2 = article2amount.value;
 	
 	$.ajax({
 		type: "PUT",
@@ -146,9 +138,6 @@ function responseAddArticleToOrder(response) {
 // Artikel 2 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder2() {
 	
-	// let amout = document.getElementById("addToOrder1");
-	//var amount = parseInt(window.prompt("Anzahl?", "5"), 10);
-	
 	let articleid2 = document.getElementById("addToOrder2");
 	let articleamount2 = document.getElementById("orderitem2");
 	
@@ -173,9 +162,6 @@ function addArticleToOrder2() {
 // Artikel 3 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder3() {
 	
-	// let amout = document.getElementById("addToOrder1");
-	//var amount = parseInt(window.prompt("Anzahl?", "5"), 10);
-	
 	let articleid3 = document.getElementById("addToOrder3");
 	let articleamount3 = document.getElementById("orderitem3");
 	
@@ -199,10 +185,7 @@ function addArticleToOrder3() {
 
 // Artikel 4 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder4() {
-	
-	// let amout = document.getElementById("addToOrder1");
-	//var amount = parseInt(window.prompt("Anzahl?", "5"), 10);
-	
+
 	let articleid4 = document.getElementById("addToOrder4");
 	let articleamount4 = document.getElementById("orderitem4");
 	

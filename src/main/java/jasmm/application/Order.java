@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+/*
+ * Repräsentiert die Bestellungen mit den Artikeln und Mengen
+ * @author Matthias
+ */
 @Entity(name = "tblorder")
 public class Order {
 

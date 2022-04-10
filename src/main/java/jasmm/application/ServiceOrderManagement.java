@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/*
- * Controller für das Order Handling
- * Matthias
+/* Controller für das Order Handling
+ * author Matthias
  */
 @RestController
 public class ServiceOrderManagement {
@@ -52,26 +51,29 @@ public class ServiceOrderManagement {
 		return order.getOrderid();
 	}
 
-	// Orderitem zur Bestellung hinzufügen
+
+	/* Menge eines Artikels der Bestellung
+	 * author Matthias
+	 */
 	@PutMapping(path = "/api/order/{orderid}/addArticle", produces = "application/json")
 	public boolean addArticleToOrder(@PathVariable int orderid, @RequestBody MessageAddArticleToOrder message) {
 
 		// Order suchen mittels ID
 		Optional<Order> order = orderRepository.findById(orderid);
 
-		// Varialbe für Article ID um zu prüfen, bei welchem Artikel Mengen hinzugefügt
-		// werden
+		// Varialbe für Article ID um folgend zu prüfen, bei welchem Artikel Mengen hinzugefügt werden
 		int articleid = message.getArticleid();
 
 		// Konsolen Test
-		System.out.println("Order ID: " + orderid);
-		System.out.println("Article ID: " + message.getArticleid());
-		System.out.println("Amount: " + message.getAmount());
+//		System.out.println("Order ID: " + orderid);
+//		System.out.println("Article ID: " + message.getArticleid());
+//		System.out.println("Amount: " + message.getAmount());
 
 		// Prüfung ob Order vorhanden ist
 		if (order.isPresent()) {
 			Order o = order.get();
 
+			// Basierend auf der articleid die Menge beim entsprechenden Artikel hinzufügen
 			switch (articleid) {
 			case 1:
 				articleid = 1;
@@ -103,6 +105,9 @@ public class ServiceOrderManagement {
 
 	}
 
+	/* Zurückgeben einer Order
+	 * author Matthias
+	 */
 	@GetMapping(path = "/api/order/{orderid}", produces = "application/json")
 	public MessageOrderDetails getOrder(@PathVariable int orderid) {
 
@@ -119,13 +124,6 @@ public class ServiceOrderManagement {
 			// Variablen der Order in der Message setzen
 			message.setOrderid(o.getOrderid());
 			message.setCustomerid(o.getCustomerid());
-
-//			for ( OrderItem oderitem : o.getItems()) {
-//				MessageOrderItem messageOrderItem = new MessageOrderItem();
-//				messageOrderItem.setAmount(oderitem.getAmount());
-//				messageOrderItem.setArticleid(oderitem.getArticleid());
-//				message.getItems().add(messageOrderItem);
-//			}
 
 			return message;
 		} else {
