@@ -69,12 +69,11 @@ function loginResponse(response) {
 
 
 // TEIL MATTHIAS (START)
-let orderid = 55;
-//let customerid = 24;
 
 // Anlegen einer neugen Bestellung
 function createOrder() {
-			
+	
+	
 	$.ajax({
 		type: "POST",
 		url: "/api/createOrder/",
@@ -96,27 +95,21 @@ function responseCreateOrder(response) {
 	
 }
 
-let articleid = -1;
-let amount = -1;
+// let articleid = -1;
+// let amount = -1;
 
 
-// Artikel zu einer Bestellung hinzufügen
-function addArticleToOrder() {
-	
-	// let amout = document.getElementById("addToOrder1");
-	//var amount = parseInt(window.prompt("Anzahl?", "5"), 10);
+// Artikel 1 mit Menge zu einer Bestellung hinzufügen
+function addArticleToOrder1() {
 	
 	let articleid = document.getElementById("addToOrder1");
 	let article1amount = document.getElementById("orderitem1");
 	
-
+	// Liest den Wert aus für die Artikel id und die Menge
 	articleid = articleid.value
 	amount = article1amount.value;
 	
 	alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
-
-	// let article2amount = document.getElementById("orderitem2");
-	// amount2 = article2amount.value;
 	
 	$.ajax({
 		type: "PUT",
@@ -141,6 +134,78 @@ function responseAddArticleToOrder(response) {
 	
 }
 
+
+// Artikel 2 mit Menge zu einer Bestellung hinzufügen
+function addArticleToOrder2() {
+	
+	let articleid2 = document.getElementById("addToOrder2");
+	let articleamount2 = document.getElementById("orderitem2");
+	
+	// Liest den Wert aus für die Artikel id und die Menge
+	articleid2 = articleid2.value
+	articleamount2 = articleamount2.value;
+	
+	alert("Article ID : " + articleid2 + "---Order ID : " + orderid + "----Amount : " + articleamount2);
+	
+	$.ajax({
+		type: "PUT",
+  		url: "/api/order/"+orderid+"/addArticle",
+  		data: JSON.stringify({ articleid : articleid2 , amount: articleamount2 , orderid: orderid }),
+  		success: responseAddArticleToOrder, 
+  		dataType: 'json',
+  		contentType: 'application/json'
+	});
+	
+	console.log(JSON.stringify({ articleid : articleid2 , amount: articleamount2 , orderid: orderid , customerid: customerid}));
+}
+
+// Artikel 3 mit Menge zu einer Bestellung hinzufügen
+function addArticleToOrder3() {
+	
+	let articleid3 = document.getElementById("addToOrder3");
+	let articleamount3 = document.getElementById("orderitem3");
+	
+	// Liest den Wert aus für die Artikel id und die Menge
+	articleid3 = articleid3.value
+	articleamount3 = articleamount3.value;
+	
+	alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
+	
+	$.ajax({
+		type: "PUT",
+  		url: "/api/order/"+orderid+"/addArticle",
+  		data: JSON.stringify({ articleid : articleid3 , amount: articleamount3 , orderid: orderid }),
+  		success: responseAddArticleToOrder, 
+  		dataType: 'json',
+  		contentType: 'application/json'
+	});
+	
+	console.log(JSON.stringify({ articleid : articleid3 , amount: articleamount3 , orderid: orderid , customerid: customerid}));
+}
+
+// Artikel 4 mit Menge zu einer Bestellung hinzufügen
+function addArticleToOrder4() {
+
+	let articleid4 = document.getElementById("addToOrder4");
+	let articleamount4 = document.getElementById("orderitem4");
+	
+	// Liest den Wert aus für die Artikel id und die Menge
+	articleid4 = articleid4.value
+	articleamount4 = articleamount4.value;
+	
+	alert("Article ID : " + articleid4 + "---Order ID : " + orderid + "----Amount : " + articleamount4);
+	
+	$.ajax({
+		type: "PUT",
+  		url: "/api/order/"+orderid+"/addArticle",
+  		data: JSON.stringify({ articleid : articleid4 , amount: articleamount4 , orderid: orderid }),
+  		success: responseAddArticleToOrder, 
+  		dataType: 'json',
+  		contentType: 'application/json'
+	});
+	
+	console.log(JSON.stringify({ articleid : articleid4 , amount: articleamount4 , orderid: orderid , customerid: customerid}));
+}
 // TEIL MATTHIAS (ENDE)
 
 // TEIL ANDRÉ (START)
