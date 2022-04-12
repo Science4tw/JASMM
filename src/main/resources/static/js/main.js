@@ -59,12 +59,42 @@ function loginResponse(response) {
 		$("#customerId").empty();
 		alert("Login fehlgeschlagen.");
 	} else {
-		$("#customerId").text("Login erfolgreich. Hallo Kunde mit ID: " + response);
+		$("#customerId").text("Login erfolgreich. Hallo Kunde mit ID " + response + ". Sie koennen nun Bestellungen erfassen und auf Ihr Kundenkonto zugreifen.");
 		customerid = response;
 		$("#username").empty();
 		$("#pwd").empty();
+		getCustomer();
 	}
 
+}
+
+//Michèle
+//Nach erfolgreichem Login: Kundendaten aus DB holen
+function getCustomer() {
+	$.ajax({
+		type: "GET",
+		url: "/demo/getCustomer/"+customerid+"",
+		success: handleCustomerDataResponse,
+		dataType: 'json',
+		contentType: 'application/json',
+
+	});
+	
+}
+
+//Michèle
+//Nach erfolgreichem Login: Kundendaten im Kundenkonto anzeigen
+function handleCustomerDataResponse(customer) {
+	$("#customeridKto").val(customer['customerid']);
+	$("#usernameKto").val(customer['username']);	
+	$("#vnameKto").val(customer['firstName']);
+	$("#nnameKto").val(customer['lastName']);
+	$("#pwdKto").val(customer['password']);
+	$("#strasseKto").val(customer['street']);
+	$("#hnummerKto").val(customer['streetNr']);
+	$("#plzKto").val(customer['zipCode']);
+	$("#ortKto").val(customer['city']);
+		
 }
 
 
@@ -208,9 +238,8 @@ function addArticleToOrder4() {
 }
 // TEIL MATTHIAS (ENDE)
 
+
 // TEIL ANDRÉ (START)
-
-
 function checkEmail(str) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!re.test(str)) {

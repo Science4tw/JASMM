@@ -36,26 +36,71 @@
 				<input type="text" id="pwd" placeholder="123">
 			</div >
 			<center>Passwort vergessen?<br>
-				<a href="konto.html">Noch kein Kundenkonto?</a>
+				<a href="register.html">Noch kein Kundenkonto?</a>
 			</center>
 
 			<input class="btn" type="button" value="Anmelden" onClick="loginCustomer()">
 			<i><span id="customerId"></span></i>
 
 		</form>
-
-		<ul id="users"></ul>
-
-		<!-- <ul class="items">
-        <li class="item">Item 1</li>
-        <li class="item">Item 2</li>
-        <li class="item">Item 3</li>
-      </ul> -->
 	</section>
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/main.js"></script>
 
+<!-- TEIL KUNDENKONTO -->
+	<section class="container">
+      <form id="my-form">
+        <center><h1>Kundenkonto</h1></center>
+        <div class="msg"></div>
+        <!--<div>
+        <br><strong>Benutzername (E-Mail-Adresse):</strong></div>
+       
+         <div>
+          <strong>Passwort:</strong> ********
+        </div> -->
+        <br><hr></br>
+         <div>
+          <label for="customeridKto">Kunden-ID:</label>
+          <input type="text" id="customeridKto" disabled>
+        </div>
+          <div>
+          <label for="usernameKto">Benutzername (E-Mail-Adresse):</label>
+          <input type="text" id="usernameKto" disabled>
+        </div>
+        <div>
+          <label for="pwdKto">Passwort:</label>
+          <input type="text" id="pwdKto">
+        </div>
+        <div>
+        <div>
+          <label for="vnameKto">Vorname:</label>
+          <input type="text" id="vnameKto">
+        </div>
+        <div>
+          <label for="nnameKto">Nachname:</label>
+          <input type="text" id="nnameKto">
+        </div>
+        <div class="row">
+          <div class="column"><label for="strasseKto">Strasse:</label><input type="text" id="strasseKto" value=""></div>
+          <div class="column-right"><label for="hnummerKto">Nr.:</label><input type="text" id="hnummerKto"></div>
+        </div>
+        <div class="row">
+          <div class="column-left"><label for="plzKto">PLZ:</label><input type="text" id="plzKto"></div>
+          <div class="column"><label for="ortKto">Ort:</label><input type="text" id="ortKto"></div>
+        </div>      
+        <input class="btn" type="submit" value="Änderungen speichern">
+      </form>
+
+      <ul id="users"></ul>
+
+      <!-- <ul class="items">
+        <li class="item">Item 1</li>
+        <li class="item">Item 2</li>
+        <li class="item">Item 3</li>
+      </ul> -->
+    </section>
+    <!-- TEIL KUNDENKONTO ENDE -->
 
 
 	<!-- TEIL MATTHIAS (START) -->

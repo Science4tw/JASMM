@@ -2,6 +2,8 @@ package jasmm.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,14 +38,16 @@ public class ServiceCustomerManagement {
 			System.out.println("Username " + m.getUsername() + " existiert schon in der DB.");
 			return 0;
 		}
+		
+		//TODO: Validierung PLZ: return NOK if PLZ in DB nicht auffindbar; save distance in table customer if PLZ in DB auffindbar
 
 	}
-	
-	//Michèle
+
+	// Michèle
 	@PostMapping(path = "/demo/login", produces = "application/json")
 	public int validateLogin(@RequestBody MessageLogin m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
-				
+
 		if (userNameCheck == true) {
 			Customer c = customerRepository.findByUsername(m.getUsername());
 			String passwordFromDB = c.getPassword();
@@ -53,12 +57,19 @@ public class ServiceCustomerManagement {
 			} else {
 				System.out.println("Falsches Passwort");
 				return 0;
-			}			
+			}
 		} else {
 			System.out.println("Username " + m.getUsername() + " in DB NICHT gefunden");
 			return 0;
 		}
-		
+
+	}
+
+	// Michèle
+	@GetMapping(path = "/demo/getCustomer/{customerid}", produces = "application/json")
+	public Customer getCustomer(@PathVariable int customerid) {
+		return customerRepository.findById(customerid).get();
+
 	}
 
 }
