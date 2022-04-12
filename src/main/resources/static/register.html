@@ -24,7 +24,7 @@
         <div class="msg"></div>
         <div>
           <label for="name">Benutzername (E-Mail- Adresse):</label>
-          <input type="text" id="username">
+          <input type="text" id="username" onblur="checkEmail(this.value)">
         </div>
         <div>
           <label for="email">Passwort:</label>
@@ -43,7 +43,7 @@
           <div class="column-right"><label for="hnummer">Nr.:</label><input type="text" id="hnummer"></div>
         </div>
         <div class="row">
-          <div class="column-left"><label for="plz">PLZ:</label><input type="text" id="plz"></div>
+          <div class="column-left"><label for="plz">PLZ:</label><input type="text" id="plz" onblur="isNumberKey()"></div>
           <div class="column"><label for="ort">Ort:</label><input type="text" id="ort"></div>
         </div>      
         <input type="button" value="Konto erstellen" id="register" class="btn" onClick=createCustomer()>

@@ -27,14 +27,14 @@
 				<h1>Login</h1>
 			</center>
 			<div class="msg"></div>
-			<div>
+			<div id = "form">
 				<label for="username">Benutzername (E-Mail-Adresse):</label>
-				<input type="text" id="username" placeholder="max.muster@mail.com">
-			</div>
-			<div>
+				<input type="text" id="username" placeholder="max.muster@mail.com" onblur="checkEmail(this.value)">
+			</div >
+			<div id = "form">
 				<label for="pwd">Passwort:</label>
 				<input type="text" id="pwd" placeholder="123">
-			</div>
+			</div >
 			<center>Passwort vergessen?<br>
 				<a href="konto.html">Noch kein Kundenkonto?</a>
 			</center>
