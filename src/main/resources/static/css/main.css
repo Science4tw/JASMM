@@ -83,3 +83,46 @@
     padding: 5px;
     margin: 5px;
   }
+  
+.btncart {
+    width: 70%;
+    padding: 10px 15px;
+    border: 0;
+    background: #333;
+    color: #fff;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.btncart:hover {
+    background: #eee;
+ 	color: #333;
+}
+
+.num {
+    width: 20%;
+    border: 0;
+    background: #eee;
+    color: #333;
+    border-radius: 5px;
+    margin-right: 5px;
+	padding: 11px 5px 11px 5px;
+}
+
+.containershop {
+    margin-left: 200px;
+    width: 50%;
+    padding: 3rem 2rem;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+  .container2 {
+    width: 50%;
+    padding: 3rem 0rem;
+}
