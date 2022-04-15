@@ -86,16 +86,48 @@ function getCustomer() {
 //Nach erfolgreichem Login: Kundendaten im Kundenkonto anzeigen
 function handleCustomerDataResponse(customer) {
 	$("#customeridKto").val(customer['customerid']);
-	$("#usernameKto").val(customer['username']);	
+	$("#usernameKto").val(customer['username']);
+	$("#pwdKto").val(customer['password']);	
 	$("#vnameKto").val(customer['firstName']);
 	$("#nnameKto").val(customer['lastName']);
-	$("#pwdKto").val(customer['password']);
 	$("#strasseKto").val(customer['street']);
 	$("#hnummerKto").val(customer['streetNr']);
 	$("#plzKto").val(customer['zipCode']);
 	$("#ortKto").val(customer['city']);
 		
 }
+
+//Michèle
+//Kundenkonto: Übermittlung der neuen Kundendaten; alle Daten überschreiben (ausser Kunden-ID und Benutzername)
+function updateCustomerData(){	
+	let pwdInputKto = document.querySelector("#pwdKto");
+	let firstNameInputKto = document.querySelector("#vnameKto");
+	let lastNameInputKto = document.querySelector("#nnameKto");
+	let streetInputKto = document.querySelector('#strasseKto');
+	let streetNrInputKto = document.querySelector('#hnummerKto');
+	let zipCodeInputKto = document.querySelector('#plzKto');
+	let cityInputKto = document.querySelector('#ortKto');
+		
+	$.ajax({
+		type: "PUT",
+		url: "/demo/updateCustomer/"+customerid+"",
+		data: JSON.stringify({ password: pwdInputKto.value, firstName: firstNameInputKto.value, lastName: lastNameInputKto.value, street: streetInputKto.value, streetNr: streetNrInputKto.value, zipCode: zipCodeInputKto.value,  city: cityInputKto.value}),
+		success: handleCustomerUpdateResponse,
+		dataType: 'json',
+		contentType: 'application/json',
+	});	
+}
+
+//Michèle
+//Kundenkonto: Erfolgsmeldung bzgl. Änderung der Kundendaten 
+function handleCustomerUpdateResponse(response) {
+	if (response == true) {
+		alert("Kundendaten erfolgreich geaendert in der DB.");
+	} else {
+		alert("Aenderung fehlgeschlagen.")
+	}
+}
+
 
 
 // TEIL MATTHIAS (START)

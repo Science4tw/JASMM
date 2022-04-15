@@ -17,6 +17,7 @@ public class ServiceCustomerManagement {
 	private CustomerRepository customerRepository;
 
 	// Michèle
+	// Registrierung: neuen Kunden erstellen & in DB speichern
 	@PostMapping(path = "/demo/createCustomer", produces = "application/json")
 	public int createCustomer(@RequestBody MessageNewCustomer m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
@@ -44,6 +45,7 @@ public class ServiceCustomerManagement {
 	}
 
 	// Michèle
+	// Login: Validierung Benutzername & Passwort
 	@PostMapping(path = "/demo/login", produces = "application/json")
 	public int validateLogin(@RequestBody MessageLogin m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
@@ -66,10 +68,30 @@ public class ServiceCustomerManagement {
 	}
 
 	// Michèle
+	// Kundenkonto: Daten eines Kunden abfragen
 	@GetMapping(path = "/demo/getCustomer/{customerid}", produces = "application/json")
 	public Customer getCustomer(@PathVariable int customerid) {
 		return customerRepository.findById(customerid).get();
 
 	}
-
+	
+	// Michèle
+	// Kundenkonto: Kundendaten ändern bzw. überschreiben
+	@PutMapping(path = "/demo/updateCustomer/{customerid}", produces = "application/json")
+	public boolean updateCustomer(@PathVariable int customerid, @RequestBody MessageUpdateCustomer m) {
+		Customer c = customerRepository.getById(customerid);
+		if (c == null)
+			return false;
+		c.setPassword(m.getPassword());
+		c.setFirstName(m.getFirstName());
+		c.setLastName(m.getLastName());
+		c.setStreet(m.getStreet());
+		c.setStreetNr(m.getStreetNr());
+		c.setZipCode(m.getZipCode());
+		c.setCity(m.getCity());
+		c = customerRepository.save(c);
+		return true;
+				
+		//TODO: Validierung PLZ: return NOK if PLZ in DB nicht auffindbar; save distance in table customer if PLZ in DB auffindbar
+	}
 }

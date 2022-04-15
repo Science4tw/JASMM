@@ -50,7 +50,7 @@
 
 <!-- TEIL KUNDENKONTO -->
 	<section class="container">
-      <form id="my-form">
+      <form id="my-form" onsubmit="return false">
         <center><h1>Kundenkonto</h1></center>
         <div class="msg"></div>
         <!--<div>
@@ -82,23 +82,16 @@
           <input type="text" id="nnameKto">
         </div>
         <div class="row">
-          <div class="column"><label for="strasseKto">Strasse:</label><input type="text" id="strasseKto" value=""></div>
+          <div class="column"><label for="strasseKto">Strasse:</label><input type="text" id="strasseKto"></div>
           <div class="column-right"><label for="hnummerKto">Nr.:</label><input type="text" id="hnummerKto"></div>
         </div>
         <div class="row">
           <div class="column-left"><label for="plzKto">PLZ:</label><input type="text" id="plzKto"></div>
           <div class="column"><label for="ortKto">Ort:</label><input type="text" id="ortKto"></div>
         </div>      
-        <input class="btn" type="submit" value="Änderungen speichern">
+        <input class="btn" type="submit" value="Änderungen speichern" onClick="updateCustomerData()">
+        <i><span id="infoUpdateCustomerData"></span></i>
       </form>
-
-      <ul id="users"></ul>
-
-      <!-- <ul class="items">
-        <li class="item">Item 1</li>
-        <li class="item">Item 2</li>
-        <li class="item">Item 3</li>
-      </ul> -->
     </section>
     <!-- TEIL KUNDENKONTO ENDE -->
 
