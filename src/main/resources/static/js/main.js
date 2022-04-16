@@ -128,6 +128,12 @@ function handleCustomerUpdateResponse(response) {
 	}
 }
 
+//Michèle
+//Logout
+function logoutCustomer() {
+	customerid = -1;
+	alert("Logout erfolgreich. Kunden-ID wurde auf -1 gesetzt.")
+}
 
 
 // TEIL MATTHIAS (START)
