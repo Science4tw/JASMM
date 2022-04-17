@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/*
+ * Repräsentiert die Artikel
+ * @author Matthias
+ */
 @Entity(name = "tblarticle")
 public class Article {
 

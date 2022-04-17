@@ -1,5 +1,9 @@
 package jasmm.application;
 
+/*
+ * Repräsentiert die Message zum Artikel der Bestellung hinzuzufügen
+ * @author Matthias
+ */
 public class MessageAddArticleToOrder {
 		
 	private Integer articleid;

@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/*
+ * Repräsentiert die Order Repo
+ * @author Matthias
+ */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 	

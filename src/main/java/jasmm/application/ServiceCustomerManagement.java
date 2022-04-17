@@ -1,5 +1,7 @@
 package jasmm.application;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,9 @@ public class ServiceCustomerManagement {
 
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	// Logger
+	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
 	// Michèle
 	// Registrierung: neuen Kunden erstellen & in DB speichern
@@ -36,7 +41,7 @@ public class ServiceCustomerManagement {
 
 			return c.getCustomerid();
 		} else {
-			System.out.println("Username " + m.getUsername() + " existiert schon in der DB.");
+			logger.info("Username " + m.getUsername() + " existiert schon in der DB.");
 			return 0;
 		}
 		
@@ -54,14 +59,14 @@ public class ServiceCustomerManagement {
 			Customer c = customerRepository.findByUsername(m.getUsername());
 			String passwordFromDB = c.getPassword();
 			if (m.getPassword().equals(passwordFromDB)) {
-				System.out.println("Korrektes Passwort. Customerid: " + c.getCustomerid());
+				logger.info("Korrektes Passwort. Customerid: " + c.getCustomerid());
 				return c.getCustomerid();
 			} else {
-				System.out.println("Falsches Passwort");
+				logger.info("Falsches Passwort");
 				return 0;
 			}
 		} else {
-			System.out.println("Username " + m.getUsername() + " in DB NICHT gefunden");
+			logger.info("Username " + m.getUsername() + " in DB NICHT gefunden");
 			return 0;
 		}
 
@@ -71,6 +76,7 @@ public class ServiceCustomerManagement {
 	// Kundenkonto: Daten eines Kunden abfragen
 	@GetMapping(path = "/demo/getCustomer/{customerid}", produces = "application/json")
 	public Customer getCustomer(@PathVariable int customerid) {
+		logger.info("Customer mit der ID: " + customerid + " abgefragt.");
 		return customerRepository.findById(customerid).get();
 
 	}
@@ -90,6 +96,7 @@ public class ServiceCustomerManagement {
 		c.setZipCode(m.getZipCode());
 		c.setCity(m.getCity());
 		c = customerRepository.save(c);
+		logger.info("Customer mit der ID: " + customerid + " geändert.");
 		return true;
 				
 		//TODO: Validierung PLZ: return NOK if PLZ in DB nicht auffindbar; save distance in table customer if PLZ in DB auffindbar

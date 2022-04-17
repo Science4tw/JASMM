@@ -1,11 +1,17 @@
 package jasmm.application;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 
 /*
  * Repräsentiert die Bestellungen mit den Artikeln und Mengen
@@ -36,6 +42,17 @@ public class Order {
 	@OneToOne
 	private Article article4;
 	private Integer amountarticle4;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderItem> orderitems = new ArrayList<>();
+
+	public List<OrderItem> getOrderitems() {
+		return orderitems;
+	}
+
+	public void setOrderitems(List<OrderItem> orderitems) {
+		this.orderitems = orderitems;
+	}
 
 	public int getOrderid() {
 		return orderid;

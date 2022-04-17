@@ -2,6 +2,7 @@ package jasmm.application;
 
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,110 +26,165 @@ public class ServiceOrderManagement {
 	@Autowired
 	private ArticleRepository articleRepository;
 
+	// Logger
+	Logger logger = ServiceLocator.getServiceLocator().getLogger();
+
 	// Bestellung anlegen
 	@PostMapping(path = "/api/createOrder/", produces = "application/json")
 	public int createOrder(@RequestBody MessageNewOrder message) {
-		Order order = new Order();
 
-		order.setCustomerid(message.getCustomerid());
+		try {
+			Order order = new Order();
 
-		order.setAmountarticle1(0);
-		order.setAmountarticle2(0);
-		order.setAmountarticle3(0);
-		order.setAmountarticle4(0);
+			order.setCustomerid(message.getCustomerid());
 
-		// ATTENTION HARD CODED ID
-		order.setArticle1(articleRepository.getById(1));
-		order.setArticle2(articleRepository.getById(2));
-		order.setArticle3(articleRepository.getById(3));
-		order.setArticle4(articleRepository.getById(4));
+			// Mengen auf 0 setzen
+			order.setAmountarticle1(0);
+			order.setAmountarticle2(0);
+			order.setAmountarticle3(0);
+			order.setAmountarticle4(0);
 
-		Calendar today = Calendar.getInstance();
-		order.setOrderdate(today.getTime());
+			// ATTENTION HARD CODED ID
+			order.setArticle1(articleRepository.getById(1));
+			order.setArticle2(articleRepository.getById(2));
+			order.setArticle3(articleRepository.getById(3));
+			order.setArticle4(articleRepository.getById(4));
 
-		order = orderRepository.save(order);
+			// Zeitpunkt der Bestellung
+			Calendar today = Calendar.getInstance();
+			order.setOrderdate(today.getTime());
 
-		return order.getOrderid();
+			// Order speichern
+			order = orderRepository.save(order);
+
+			// Logging
+			logger.info("Bestellung erfoglreich angelegt - Kunden ID = " + message.getCustomerid());
+
+			return order.getOrderid();
+
+		} catch (Exception e) {
+			logger.info(e.toString());
+			return -1;
+		}
+
 	}
 
-
-	/* Menge eines Artikels der Bestellung
-	 * author Matthias
+	/*
+	 * Menge eines Artikels der Bestellung author Matthias
 	 */
 	@PutMapping(path = "/api/order/{orderid}/addArticle", produces = "application/json")
 	public boolean addArticleToOrder(@PathVariable int orderid, @RequestBody MessageAddArticleToOrder message) {
+	
+		try {
 
-		// Order suchen mittels ID
-		Optional<Order> order = orderRepository.findById(orderid);
+			// Order suchen mittels ID
+			Optional<Order> order = orderRepository.findById(orderid);
 
-		// Varialbe für Article ID um folgend zu prüfen, bei welchem Artikel Mengen hinzugefügt werden
-		int articleid = message.getArticleid();
+			// Varialbe für Article ID um folgend zu prüfen, bei welchem Artikel Mengen hinzugefügt werden
+			int articleid = message.getArticleid();
 
-		// Konsolen Test
-//		System.out.println("Order ID: " + orderid);
-//		System.out.println("Article ID: " + message.getArticleid());
-//		System.out.println("Amount: " + message.getAmount());
+			// Prüfung ob Order vorhanden ist
+			if (order.isPresent()) {
+				Order o = order.get();
 
-		// Prüfung ob Order vorhanden ist
-		if (order.isPresent()) {
-			Order o = order.get();
+				// Basierend auf der articleid die Menge beim entsprechenden Artikel hinzufügen
+				switch (articleid) {
+				case 1:
+					articleid = 1;
+					o.setAmountarticle1(message.getAmount());
 
-			// Basierend auf der articleid die Menge beim entsprechenden Artikel hinzufügen
-			switch (articleid) {
-			case 1:
-				articleid = 1;
-				o.setAmountarticle1(message.getAmount());
-				break;
-			case 2:
-				articleid = 2;
-				o.setAmountarticle2(message.getAmount());
-				break;
-			case 3:
-				articleid = 3;
-				o.setAmountarticle3(message.getAmount());
-				break;
-			case 4:
-				articleid = 4;
-				o.setAmountarticle4(message.getAmount());
-				break;
-			default:
-				break;
+					break;
+				case 2:
+					articleid = 2;
+					o.setAmountarticle2(message.getAmount());
+					break;
+				case 3:
+					articleid = 3;
+					o.setAmountarticle3(message.getAmount());
+					break;
+				case 4:
+					articleid = 4;
+					o.setAmountarticle4(message.getAmount());
+					break;
+				default:
+					break;
 
+				}
+				
+				// Order speichern
+				orderRepository.save(o);
+
+				// Logging
+				logger.info("Artikel der Bestellung hinzugefügt - Artikel ID = " + articleid + " - Mit der Menge: " + message.getAmount());
+
+				// return true;
 			}
+			// Logging
+			// logger.info("Artikel konnte der Bestellung nicht hinzugefügt werden");
 
-			orderRepository.save(o);
-
-			return true;
+			// TEST ORDERITEM
+			Optional<Order> or = orderRepository.findById(orderid);
+			if (or.isPresent()) {
+				OrderItem oi = new OrderItem();
+				oi.setAmount(message.getAmount());
+				oi.setArticleid(message.getArticleid());
+				Order o = or.get();
+				o.getOrderitems().add(oi);
+				// das OrderItem wird automatisch mit gespeichert da es in der Liste vorhanden
+				// ist
+				orderRepository.save(o);
+				logger.info("TEST ORDERITEM - ERFOLGREICH -  Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = " + articleid
+						+ " - Order ID = " + orderid);
+				return true;
+			} else {
+				logger.info("TEST ORDERITEM - FEHLGESCHLAGEN - Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = "
+						+ articleid + " - Order ID = " + orderid);
+				return false;
+			}
+		} catch (Exception e) {
+			logger.info(e.toString());
 		}
-
 		return false;
-
 	}
 
-	/* Zurückgeben einer Order
-	 * author Matthias
+	/*
+	 * Zurückgeben einer Order author Matthias
 	 */
 	@GetMapping(path = "/api/order/{orderid}", produces = "application/json")
 	public MessageOrderDetails getOrder(@PathVariable int orderid) {
+		try {
+			
+			// Order suchen und speichern
+			Optional<Order> order = orderRepository.findById(orderid);
 
-		// Order suchen und speichern
-		Optional<Order> order = orderRepository.findById(orderid);
+			// Wenn die Order vorhanden ist, dann...
+			if (order.isPresent()) {
+				Order o = order.get();
 
-		// Wenn die Order vorhanden ist, dann...
-		if (order.isPresent()) {
-			Order o = order.get();
+				// Message um den Client Order zurückzugeben
+				MessageOrderDetails message = new MessageOrderDetails();
 
-			// Message um den Client Order zurückzugeben
-			MessageOrderDetails message = new MessageOrderDetails();
+				// Variablen der Order in der Message setzen
+				message.setOrderid(o.getOrderid());
+				message.setCustomerid(o.getCustomerid());
 
-			// Variablen der Order in der Message setzen
-			message.setOrderid(o.getOrderid());
-			message.setCustomerid(o.getCustomerid());
+				// Logging
+				logger.info("Order zurückgegeben mit der ID: " + orderid);
 
-			return message;
-		} else {
-			return null;
+				return message;
+			} else {
+				
+				// Logging
+				logger.info("Order zurückgegeben fehlgeschlagen mit der ID: " + orderid);
+				
+				return null;
+			}
+
+		} catch (Exception e) {
+			logger.info(e.toString());
 		}
+		return null;
+		
 
 	}
 

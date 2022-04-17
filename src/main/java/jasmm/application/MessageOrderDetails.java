@@ -1,5 +1,9 @@
 package jasmm.application;
 
+/*
+ * Repräsentiert die Message mit den Order Details
+ * @author Matthias
+ */
 public class MessageOrderDetails {
 
 	private int orderid;
