@@ -13,13 +13,13 @@ public class JasmmApplication {
 	// @Autowired
 	// private CustomerRepository customerRepository;
 	
-	private Article article1;
-	private Article article2;
-	private Article article3;
-	private Article article4;
-		
-	@Autowired
-	private ArticleRepository articleRepository;
+//	private Article article1;
+//	private Article article2;
+//	private Article article3;
+//	private Article article4;
+//		
+//	@Autowired
+//	private ArticleRepository articleRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JasmmApplication.class, args);

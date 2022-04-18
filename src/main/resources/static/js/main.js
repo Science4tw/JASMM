@@ -26,11 +26,13 @@ function createCustomer() {
 //Michèle
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
-	if (response != 0) {
-	customerid = response;
-	alert("Kundenregistrierung erfolgreich. Die Kunden-ID lautet: " + customerid);
-	} else {
+	if (response == 0) {
 		alert("Registrierung fehlgeschlagen. Bitte waehlen Sie einen anderen Benutzernamen.");
+	} else if (response == -2) {
+		alert("Registrierung fehlgeschlagen. Bitt erfassen Sie eine gueltige PLZ.")
+	} else {
+		customerid = response;
+		alert("Kundenregistrierung erfolgreich. Die Kunden-ID lautet: " + customerid);
 	}
 	
 }
@@ -122,9 +124,9 @@ function updateCustomerData(){
 //Kundenkonto: Erfolgsmeldung bzgl. Änderung der Kundendaten 
 function handleCustomerUpdateResponse(response) {
 	if (response == true) {
-		alert("Kundendaten erfolgreich geaendert in der DB.");
+		alert("Kundendaten erfolgreich geaendert in der DB");
 	} else {
-		alert("Aenderung fehlgeschlagen.")
+		alert("Aenderung fehlgeschlagen. Bitte geben Sie eine gueltige PLZ ein.")
 	}
 }
 

@@ -27,6 +27,8 @@ public class Customer {
 	private Integer zipCode;
 	
 	private String city;
+	
+	private Float distance;
 
 	public Integer getCustomerid() {
 		return customerid;
@@ -99,6 +101,14 @@ public class Customer {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Float getDistance() {
+		return distance;
+	}
+
+	public void setDistance(Float distance) {
+		this.distance = distance;
 	}
 
 	

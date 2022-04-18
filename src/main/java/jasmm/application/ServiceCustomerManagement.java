@@ -17,7 +17,10 @@ public class ServiceCustomerManagement {
 
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
+	@Autowired
+	private CityRepository cityRepository;
+
 	// Logger
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
@@ -26,27 +29,34 @@ public class ServiceCustomerManagement {
 	@PostMapping(path = "/demo/createCustomer", produces = "application/json")
 	public int createCustomer(@RequestBody MessageNewCustomer m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
+		boolean plzCheck = cityRepository.existsByZipcode(m.getZipCode());
+		logger.info("PLZ-Check in DB = " + plzCheck);
 
-		if (userNameCheck == false) {
-			Customer c = new Customer();
-			c.setUsername(m.getUsername());
-			c.setPassword(m.getPassword());
-			c.setFirstName(m.getFirstName());
-			c.setLastName(m.getLastName());
-			c.setStreet(m.getStreet());
-			c.setStreetNr(m.getStreetNr());
-			c.setZipCode(m.getZipCode());
-			c.setCity(m.getCity());
-			c = customerRepository.save(c);
-
-			return c.getCustomerid();
+		if (userNameCheck == false) { // Username existiert noch nicht in DB
+			if (plzCheck == true) { // PLZ in DB vorhanden
+				City cityOfCustomer = cityRepository.findByZipcode(m.getZipCode());
+				Float distanceOfCustomer = cityOfCustomer.getDistance();
+				logger.info("Lieferdistanz zum Kunden: " + distanceOfCustomer);
+				Customer c = new Customer();
+				c.setUsername(m.getUsername());
+				c.setPassword(m.getPassword());
+				c.setFirstName(m.getFirstName());
+				c.setLastName(m.getLastName());
+				c.setStreet(m.getStreet());
+				c.setStreetNr(m.getStreetNr());
+				c.setZipCode(m.getZipCode());
+				c.setCity(m.getCity());
+				c.setDistance(distanceOfCustomer);
+				c = customerRepository.save(c);
+				return c.getCustomerid();
+			} else { // PLZ in DB nicht vorhanden
+				logger.info("PLZ " + m.getZipCode() + " in DB nicht vorhanden");
+				return -2;
+			}
 		} else {
-			logger.info("Username " + m.getUsername() + " existiert schon in der DB.");
+			logger.info("Username " + m.getUsername() + " existiert schon in der DB");
 			return 0;
 		}
-		
-		//TODO: Validierung PLZ: return NOK if PLZ in DB nicht auffindbar; save distance in table customer if PLZ in DB auffindbar
-
 	}
 
 	// Michèle
@@ -80,7 +90,7 @@ public class ServiceCustomerManagement {
 		return customerRepository.findById(customerid).get();
 
 	}
-	
+
 	// Michèle
 	// Kundenkonto: Kundendaten ändern bzw. überschreiben
 	@PutMapping(path = "/demo/updateCustomer/{customerid}", produces = "application/json")
@@ -88,17 +98,25 @@ public class ServiceCustomerManagement {
 		Customer c = customerRepository.getById(customerid);
 		if (c == null)
 			return false;
-		c.setPassword(m.getPassword());
-		c.setFirstName(m.getFirstName());
-		c.setLastName(m.getLastName());
-		c.setStreet(m.getStreet());
-		c.setStreetNr(m.getStreetNr());
-		c.setZipCode(m.getZipCode());
-		c.setCity(m.getCity());
-		c = customerRepository.save(c);
-		logger.info("Customer mit der ID: " + customerid + " geändert.");
-		return true;
-				
-		//TODO: Validierung PLZ: return NOK if PLZ in DB nicht auffindbar; save distance in table customer if PLZ in DB auffindbar
+		boolean plzCheck = cityRepository.existsByZipcode(m.getZipCode());
+		logger.info("PLZ-Check in DB = " + plzCheck);
+		if (plzCheck == true) {
+			City cityOfCustomer = cityRepository.findByZipcode(m.getZipCode());
+			Float distanceOfCustomer = cityOfCustomer.getDistance();
+			logger.info("Lieferdistanz zum Kunden: " + distanceOfCustomer);
+			c.setPassword(m.getPassword());
+			c.setFirstName(m.getFirstName());
+			c.setLastName(m.getLastName());
+			c.setStreet(m.getStreet());
+			c.setStreetNr(m.getStreetNr());
+			c.setZipCode(m.getZipCode());
+			c.setCity(m.getCity());
+			c.setDistance(distanceOfCustomer);
+			c = customerRepository.save(c);
+			return true;
+		} else {
+			logger.info("PLZ " + m.getZipCode() + " in DB nicht vorhanden");
+			return false;
+		}
 	}
 }
