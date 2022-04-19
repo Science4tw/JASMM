@@ -86,7 +86,7 @@ public class ServiceCustomerManagement {
 	// Kundenkonto: Daten eines Kunden abfragen
 	@GetMapping(path = "/demo/getCustomer/{customerid}", produces = "application/json")
 	public Customer getCustomer(@PathVariable int customerid) {
-		logger.info("Customer mit der ID: " + customerid + " abgefragt.");
+		//logger.info("Customer mit der ID: " + customerid + " abgefragt.");
 		return customerRepository.findById(customerid).get();
 
 	}
