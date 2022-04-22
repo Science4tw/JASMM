@@ -57,6 +57,14 @@
     border: 1px solid #ccc;
   }
   
+    #my-form input[type='password'] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
   .btn {
     display: block;
     width: 100%;
