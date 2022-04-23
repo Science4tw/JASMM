@@ -66,6 +66,7 @@ function loginResponse(response) {
 		$("#username").empty();
 		$("#pwd").empty();
 		getCustomer();
+		createOrder();
 	}
 
 }
