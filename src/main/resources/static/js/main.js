@@ -1,10 +1,23 @@
 var customerid = -1;
 
+//Severin
+//Control HTML
+$( document ).ready(function() {
+	
+	// initial das Panel für die Auftragsbearbeitung verstecken
+	$("#NavPanel").hide();
+	$("#KontoPanel").hide();
+	$("#ShopPanel").hide();
+	$("#RegPanel").hide();
+	
+});
+
+
 //Michèle
 //Registrierung neuer Kunde - createCustomer()
 function createCustomer() {
-	let usernameInput = document.querySelector('#username');
-	let pwdInput = document.querySelector("#pwd");
+	let usernameInput = document.querySelector('#usernamereg'); // Severin geändert von username zu usernamereg
+	let pwdInput = document.querySelector("#pwdreg"); //Severin geändert von pwd zu pwdreg
 	let firstNameInput = document.querySelector("#vname");
 	let lastNameInput = document.querySelector("#nname");
 	let streetInput = document.querySelector('#strasse');
@@ -33,6 +46,7 @@ function responseRegister(response) {
 	} else {
 		customerid = response;
 		alert("Kundenregistrierung erfolgreich. Die Kunden-ID lautet: " + customerid);
+		window.setTimeout('window.location = "/index.html"',1000);	//Severin -> Weiterleitung mit Delay
 	}
 	
 }
@@ -57,6 +71,8 @@ function loginCustomer() {
 //Michèle
 //Login des Kunden - Verarbeitung der Server-Antwort
 function loginResponse(response) {
+	var button1 = document.getElementById("LoginLogout") //Severin
+	var button2 = document.getElementById("RegKon") //Severin
 	if (response == 0) {
 		$("#customerId").empty();
 		alert("Login fehlgeschlagen.");
@@ -67,6 +83,11 @@ function loginResponse(response) {
 		$("#pwd").empty();
 		getCustomer();
 		createOrder();
+		$("#NavPanel").show(); //Severin
+		$("#ShopPanel").show(); //Severin
+		$("#LoginPanel").hide(); //Severin
+		button1.innerHTML = "Shop"; //Severin
+		button2.innerHTML = "Kundenkonto"; //Severin
 	}
 
 }
@@ -136,7 +157,57 @@ function handleCustomerUpdateResponse(response) {
 function logoutCustomer() {
 	customerid = -1;
 	alert("Logout erfolgreich. Kunden-ID wurde auf -1 gesetzt.")
+	window.setTimeout('window.location = "/index.html"',1000); //Severin -> Weiterleitung mit Delay
 }
+
+//Severin
+//Panel Switcher
+function switchRegKon() {
+	let text = document.getElementById("RegKon").innerHTML;
+	var button1 = document.getElementById("LoginLogout") //Severin
+	if (text == "Registrieren") {
+		$("#RegPanel").show();
+		$("#LoginPanel").hide();
+		$("#KontoPanel").hide();
+		$("#ShopPanel").hide();
+		
+	}
+	else  {
+		$("#RegPanel").hide();
+		$("#LoginPanel").hide();
+		$("#KontoPanel").show();
+		button1.innerHTML = "Shop"; //Severin
+		$("#ShopPanel").hide();
+	
+
+	}
+}
+
+//Severin
+//Shop Switcher
+function switchShopKon() {
+	let text = document.getElementById("LoginLogout").innerHTML;
+	if (text == "Logout") {
+		$("#RegPanel").hide();
+		$("#LoginPanel").show();
+		$("#KontoPanel").hide();
+		$("#ShopPanel").hide();
+		
+	} else if(text == "Shop")  {
+		$("#RegPanel").hide();
+		$("#KontoPanel").hide();
+		$("#ShopPanel").show();
+		$("#LoginPanel").hide();
+	}
+	else  {
+		$("#RegPanel").hide();
+		$("#KontoPanel").hide();
+		$("#ShopPanel").hide();
+		$("#LoginPanel").show();
+	}
+}
+
+
 
 
 // TEIL MATTHIAS (START)
@@ -173,12 +244,14 @@ function responseCreateOrder(response) {
 // Artikel 1 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder1() {
 	
-	let articleid = document.getElementById("addToOrder1");
+	let articleid = 1;//document.getElementById("addToOrder1"); Direkt hier Wert zuweisen
 	let article1amount = document.getElementById("orderitem1");
+	let label = document.getElementById("p1txt");  //Severin
 	
 	// Liest den Wert aus für die Artikel id und die Menge
-	articleid = articleid.value
+	//articleid = articleid.value zu 1 geändert, kann man löschen
 	amount = article1amount.value;
+	label.innerHTML = (amount+ " Stk."); // Severin
 	
 	alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
 	
@@ -209,12 +282,14 @@ function responseAddArticleToOrder(response) {
 // Artikel 2 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder2() {
 	
-	let articleid2 = document.getElementById("addToOrder2");
+	let articleid2 = 2;//document.getElementById("addToOrder2"); // Direkt hier Wert zuweisen
 	let articleamount2 = document.getElementById("orderitem2");
+	let label = document.getElementById("p2txt"); //Severin
 	
 	// Liest den Wert aus für die Artikel id und die Menge
-	articleid2 = articleid2.value
+	//articleid2 = everin articleid2.value  SEVERIN kann man löschen
 	articleamount2 = articleamount2.value;
+	label.innerHTML = (articleamount2+ " Stk."); // Severin
 	
 	alert("Article ID : " + articleid2 + "---Order ID : " + orderid + "----Amount : " + articleamount2);
 	
@@ -233,12 +308,14 @@ function addArticleToOrder2() {
 // Artikel 3 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder3() {
 	
-	let articleid3 = document.getElementById("addToOrder3");
+	let articleid3 = 3; //document.getElementById("addToOrder3"); // Direkt hier Wert zuweisen
 	let articleamount3 = document.getElementById("orderitem3");
+	let label = document.getElementById("p3txt");  // Severin
 	
 	// Liest den Wert aus für die Artikel id und die Menge
-	articleid3 = articleid3.value
+	//articleid3 = articleid3.value SEVERIN kann man löschen
 	articleamount3 = articleamount3.value;
+	label.innerHTML = (articleamount3+ " Stk."); // Severin
 	
 	alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
 	
@@ -257,12 +334,14 @@ function addArticleToOrder3() {
 // Artikel 4 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder4() {
 
-	let articleid4 = document.getElementById("addToOrder4");
+	let articleid4 = 4;//document.getElementById("addToOrder4");
 	let articleamount4 = document.getElementById("orderitem4");
+	let label = document.getElementById("p4txt"); // Severin
 	
 	// Liest den Wert aus für die Artikel id und die Menge
-	articleid4 = articleid4.value
+	//articleid4 = articleid4.value SEVERIN kann man löschen
 	articleamount4 = articleamount4.value;
+	label.innerHTML = (articleamount4+ " Stk."); // Severin
 	
 	alert("Article ID : " + articleid4 + "---Order ID : " + orderid + "----Amount : " + articleamount4);
 	
@@ -291,6 +370,15 @@ function checkEmail(str) {
 }
 	
 // TEIL ANDRÉ (ENDE)
+
+
+//Severin Versand berechnen Button
+function calcship() {
+  let lbtot = document.getElementById("total"); // Severin
+  lbtot.innerHTML = "CHF" + 100.00; // Severin
+
+}
+
 
 
 /*// Alter Code von Sevi

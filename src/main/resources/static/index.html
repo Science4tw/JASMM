@@ -12,18 +12,19 @@
 	<script src="js/main.js"></script>
 
 	<header>
-		<h1></h1>
+		<h1>JASMM.CH</h1>
 	</header>
 	<nav>
 		<section class="container">
 			<center>
-				<a href="index.html">Login</a> | <a href="register.html">Registrieren</a> |
-				<a href="konto.html">Kundenkonto</a> | <a href="logout.html">Logout</a>
+				<button id="LoginLogout" onclick="switchShopKon()">Login</button>
+				<button id="RegKon" onClick="switchRegKon()">Registrieren</button>
 			</center>
 		</section>
 	</nav>
 
 	<!-- TEIL LOGIN -->
+<div id="LoginPanel">
 	<section class="container">
 		<center><img src="images/Logo.png" width="200" height="100"></center>
 		<form id="my-form">
@@ -39,22 +40,24 @@
 				<label for="pwd">Passwort:</label>
 				<input type="password" id="pwd" placeholder="123">
 			</div>
-			<center>Passwort vergessen?<br>
-				<a href="register.html">Noch kein Kundenkonto?</a>
+			<center>
+				<a onClick="switchRegKon()">Noch kein Kundenkonto?</a>
 			</center>
 
 			<input class="btn" type="button" value="Anmelden" onClick="loginCustomer()">
 			<i><span id="customerId"></span></i>
 		</form>
 	</section>
+</div>
 	<!-- TEIL LOGIN ENDE -->
 
 
 	<!-- TEIL LOGOUT -->
+<div id="NavPanel">
 	<section class="container">
 		<form id="my-form">
 			<center>
-				<h1>Logout</h1>
+				<h1>Navigation</h1>
 			</center>
 			<div class="msg"></div>
 			<div>
@@ -64,9 +67,11 @@
 
 		</form>
 	</section>
+</div>
 	<!-- TEIL LOGOUT ENDE-->
 
 	<!-- TEIL KUNDENKONTO -->
+<div id="KontoPanel">
 	<section class="container">
 		<form id="my-form" onsubmit="return false">
 			<center>
@@ -116,15 +121,53 @@
 				<i><span id="infoUpdateCustomerData"></span></i>
 		</form>
 	</section>
+</div>
 	<!-- TEIL KUNDENKONTO ENDE -->
+	
+	<!-- TEIL Reg (Start) -->
+<div id="RegPanel">
+    <section class="container">
+      <center><img src="images/Logo.png" width="200" height="100"></center>
+      <form id="my-form">
+        <center><h1>Registrieren</h1></center>
+        <div class="msg"></div>
+        <div>
+          <label for="name">Benutzername (E-Mail- Adresse):</label>
+          <input type="text" id="usernamereg" onblur="checkEmail(this.value)">
+        </div>
+        <div>
+          <label for="email">Passwort:</label>
+          <input type="password" id="pwdreg">
+        </div>
+        <div>
+          <label for="vname">Vorname:</label>
+          <input type="text" id="vname">
+        </div>
+        <div>
+          <label for="nname">Nachname:</label>
+          <input type="text" id="nname">
+        </div>
+        <div class="row">
+          <div class="column"><label for="strasse">Strasse:</label><input type="text" id="strasse"></div>
+          <div class="column-right"><label for="hnummer">Nr.:</label><input type="text" id="hnummer"></div>
+        </div>
+        <div class="row">
+          <div class="column-left"><label for="plz">PLZ:</label><input type="text" id="plz" onblur="isNumberKey()"></div>
+          <div class="column"><label for="ort">Ort:</label><input type="text" id="ort"></div>
+        </div>      
+        <input type="button" value="Konto erstellen" id="register" class="btn" onClick=createCustomer()>
+      </form>
+    </section>
+</div>    
+    <!-- TEIL Reg (Ende) -->
 
 
 	<!-- TEIL MATTHIAS (START) -->
+<div id="ShopPanel">
+	<!-- <section class="container">
 
-	<section class="container">
 
-
-		<!-- Bestellung anlegen Button -->
+		Bestellung anlegen Button 
 		<input type="button" class="btn" id="createOrder" value="Bestellung anlegen" onClick="createOrder()">
 
 		<form id="takeAndSendOrder">
@@ -146,8 +189,48 @@
 
 
 	</section>
+     TEIL MATTHIAS (ENDE) -->
+	<!-- SEVERIN -->
+	<div class="row">
+  <div class="column">
+    <section class="containershop">
+<table>
+<tbody>
+<tr>
+<td><img src="images/placeholder.jpg" width="200" height="200"></td>
+<td><img src="images/placeholder.jpg" width="200" height="200"></td>
+</tr>
+<tr>
+<td><input class="num" type="number" id="orderitem1" placeholder="0"><input class="btncart" id="addToOrder1" type="button" value="In den Warenkorb" onCLick="addArticleToOrder1()"></td>
+<td><input class="num" type="number" id="orderitem2" placeholder="0"><input class="btncart" id="addToOrder2" type="button" value="In den Warenkorb" onCLick="addArticleToOrder2()"></td>
+</tr>
+<tr>
+<td><img src="images/placeholder.jpg" width="200" height="200"></td>
+<td><img src="images/placeholder.jpg" width="200" height="200"></td>
+</tr>
+<tr>
+<td><input class="num" type="number" id="orderitem3" placeholder="0"><input class="btncart" id="addToOrder3" type="button" value="In den Warenkorb" onCLick="addArticleToOrder3()"></td>
+<td><input class="num" type="number" id="orderitem4" placeholder="0"><input class="btncart" id="addToOrder4" type="button" value="In den Warenkorb" onCLick="addArticleToOrder4()"></td>
+</tr>
+</tbody>
+</table>
+    </section></div>
+ <div class="column"> <section class="container2"><form id="my-form"><h1>Warenkorb</h1></form>
+<ul>
+   <li>Produkt P1: <label id="p1txt"> </label></li>
+   <li>Produkt P2: <label id="p2txt"> </label></li>
+   <li>Produkt P3: <label id="p3txt"> </label></li>
+   <li>Produkt P4: <label id="p4txt"> </label></li>
+<input type="button" class="btn" id="calcship" value="Versand berechnen" onClick="calcship()">
+<li><center> Versandkosten: <b><label id="total"></label></b></center></li>
+<input type="button" class="btn" id="createOrder" value="Bestellung anlegen" onClick="createOrder()">
 
-	<!-- TEIL MATTHIAS (ENDE) -->
+</ul>
+</selection></div>
+</div>
+
+	
+</div>
 </body>
 
 </html>
