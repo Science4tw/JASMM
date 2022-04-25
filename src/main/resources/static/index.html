@@ -96,30 +96,46 @@
 				</div>
 				<div>
 					<label for="pwdKto">Passwort:</label>
-					<input type="text" id="pwdKto">
+					<input type="text" name="pwdreg" id="pwdKto" placeholder="Passwort eingeben (mind. 6 Zeichen)"
+						onclick="validatepwd()" required>
+					<div class="msg formpw"></div>
 				</div>
 				<div>
-					<div>
-						<label for="vnameKto">Vorname:</label>
-						<input type="text" id="vnameKto">
+					<label for="vnameKto">Vorname:</label>
+					<input type="text" name="vname" id="vnameKto" onclick="validatename()" required>
+					<div class="msg formname"></div>
+				</div>
+				<div>
+					<label for="nnameKto">Nachname:</label>
+					<input type="text" name="nname" id="nnameKto" onclick="validatelastname()" required>
+					<div class="msg formlastname"></div>
+				</div>
+				<div class="row">
+					<div class="column-left">
+						<label for="strasseKto">Strasse:</label><input type="text" name="strasse" id="strasseKto"
+							onclick="validatestreet()" required>
+						<div class="msg formstreet"></div>
 					</div>
-					<div>
-						<label for="nnameKto">Nachname:</label>
-						<input type="text" id="nnameKto">
+					<div class="column-right">
+						<label for="hnummerKto">Nr.:</label><input type="text" name="hnummer" id="hnummerKto"
+							onclick="validatehnr()" required>
+						<div class="msg formhnumber"></div>
 					</div>
-					<div class="row">
-						<div class="column"><label for="strasseKto">Strasse:</label><input type="text" id="strasseKto">
-						</div>
-						<div class="column-right"><label for="hnummerKto">Nr.:</label><input type="text"
-								id="hnummerKto">
-						</div>
+				</div>
+				<div class="row">
+					<div class="column-left">
+						<label for="plzKto">PLZ:</label><input type="text" name="plz" id="plzKto"
+							onclick="validateplz()" required>
+						<div class="msg formzip"></div>
 					</div>
-					<div class="row">
-						<div class="column-left"><label for="plzKto">PLZ:</label><input type="text" id="plzKto"></div>
-						<div class="column"><label for="ortKto">Ort:</label><input type="text" id="ortKto"></div>
+					<div class="column-right">
+						<label for="ortKto">Ort:</label><input type="text" name="ort" id="ortKto"
+							onclick="validateplace()" required>
+						<div class="msg formplace"></div>
 					</div>
-					<input class="btn" type="submit" value="Änderungen speichern" onClick="updateCustomerData()">
-					<i><span id="infoUpdateCustomerData"></span></i>
+				</div>
+				<input class="btn" type="submit" value="Änderungen speichern" onClick="updateCustomerData()">
+				<i><span id="infoUpdateCustomerData"></span></i>
 			</form>
 		</section>
 	</div>
@@ -136,7 +152,8 @@
 				<div class="msg"></div>
 				<div>
 					<label><span>Benutzername (E-Mail-Adresse):</span><input type="text" name="usernamereg"
-							id="usernamereg" value="" placeholder="thomas.mustermann@hotmail.com" onclick="validateUsername()" required /></label>
+							id="usernamereg" value="" placeholder="thomas.mustermann@hotmail.com"
+							onclick="validateUsername()" required /></label>
 					<div class="msg formemail"></div>
 				</div>
 				<div>
@@ -168,8 +185,8 @@
 				</div>
 				<div class="row">
 					<div class="column-left">
-						<label><span>PLZ:</span><input type="text" name="plz" id="plz" value="" placeholder="8004" onclick="validateplz()"
-								required></label>
+						<label><span>PLZ:</span><input type="text" name="plz" id="plz" value="" placeholder="8004"
+								onclick="validateplz()" required></label>
 						<div class="msg formzip"></div>
 					</div>
 					<div class="column-right">

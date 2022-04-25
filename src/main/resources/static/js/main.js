@@ -409,6 +409,7 @@ function validatepwd() {
 			document.querySelector('.msg.formpw').innerHTML = 'Passwort muss mindestens 6 Zeichen lang sein!';
 			document.querySelector('.msg.formpw').setAttribute('style', 'color:red', 'display:block');
 			document.getElementById('pwdreg').value = "";
+			document.getElementById('pwdKto').value = "";
 			errorpw = true;
 		}
 	}
@@ -433,6 +434,7 @@ function validatename() {
 			document.querySelector('.msg.formname').innerHTML = 'Bitte Vornamen eingeben!';
 			document.querySelector('.msg.formname').setAttribute('style', 'color:red', 'display:block');
 			document.getElementById('vname').value = "";
+			document.getElementById('vnameKto').value = ""; 
 			errorname = true;
 		}
 	}
@@ -457,6 +459,7 @@ function validatelastname() {
 			document.querySelector('.msg.formlastname').innerHTML = 'Bitte Nachnamen eingeben!';
 			document.querySelector('.msg.formlastname').setAttribute('style', 'color:red', 'display:block');
 			document.getElementById('nname').value = "";
+			document.getElementById('nnameKto').value = "";
 			errorlastname = true;
 		}
 	}
@@ -481,6 +484,7 @@ function validatestreet() {
 			document.querySelector('.msg.formstreet').innerHTML = 'Bitte Strassenname eingeben!';
 			document.querySelector('.msg.formstreet').setAttribute('style', 'color:red', 'display:block');
 			document.getElementById('strasse').value = "";
+			document.getElementById('strasseKto').value = "";
 			errorstreet = true;
 		}
 	}
@@ -505,6 +509,7 @@ function validatehnr() {
 			document.querySelector('.msg.formhnumber').innerHTML = 'Bitte Hausnummer eingeben!';
 			document.querySelector('.msg.formhnumber').setAttribute('style', 'color:red', 'display:block');
 			document.getElementById('hnummer').value = "";
+			document.getElementById('hnummerKto').value = "";
 			errorhnumber = true;
 		}
 	}
@@ -529,6 +534,7 @@ function validateplz() {
 			document.querySelector('.msg.formzip').innerHTML = 'Vierstellige PLZ eingeben!';
 			document.querySelector('.msg.formzip').setAttribute('style', 'color:red', 'display:block');
 			document.getElementById('plz').value = "";
+			document.getElementById('plzKto').value = "";
 			errorzip = true;
 		}
 	}
@@ -553,6 +559,7 @@ function validateplace() {
 			document.querySelector('.msg.formplace').innerHTML = 'Bitte Ortschaft eingeben!';
 			document.querySelector('.msg.formplace').setAttribute('style', 'color:red', 'display:block');
 			document.getElementById('ort').value = "";
+			document.getElementById('ortKto').value = "";
 			errorplace = true;
 		}
 	}
