@@ -1,29 +1,53 @@
 package jasmm.application;
 
-import javax.annotation.PostConstruct;
+
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan({ "jasmm.application", "jasmm.persistence", "jasmm.persistence.OrderRepository", "jasmm.service.order", })
 public class JasmmApplication {
 
 	// @Autowired
 	// private CustomerRepository customerRepository;
+
+	private Article article1;
+	private Article article2;
+	private Article article3;
+	private Article article4;
 	
-//	private Article article1;
-//	private Article article2;
-//	private Article article3;
-//	private Article article4;
-//		
-//	@Autowired
-//	private ArticleRepository articleRepository;
+	// Logger
+	static Logger logger = ServiceLocator.getServiceLocator().getLogger();	
+    private static FileHandler fh;     
+    private static SimpleFormatter formatter = new SimpleFormatter();  
+
+	@Autowired
+	private ArticleRepository articleRepository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(JasmmApplication.class, args);
+		
+		// Credit: https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
+	    try {  
 
+	        // This block configure the logger with handler and formatter  
+	        fh = new FileHandler("C:/P_Projekte/Eclipse-Spring-workspace/JASMM/MyLogFile.log");  
+	        logger.addHandler(fh);        
+	        fh.setFormatter(formatter);  
+
+	    } catch (SecurityException e) {  
+	        e.printStackTrace();  
+	    } catch (IOException e) {  
+	        e.printStackTrace();  
+	    }   
+		
+		SpringApplication.run(JasmmApplication.class, args);
 	}
 
 //	@PostConstruct
@@ -63,6 +87,5 @@ public class JasmmApplication {
 //		articleRepository.save(article4);
 //
 //	}
-
 
 }
