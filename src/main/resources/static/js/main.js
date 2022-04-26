@@ -214,6 +214,16 @@ function switchShopKon() {
 
 // Anlegen einer neugen Bestellung
 function createOrder() {
+	
+	let label1 = document.getElementById("p1txt");
+	let label2 = document.getElementById("p2txt");
+	let label3 = document.getElementById("p3txt");
+	let label4 = document.getElementById("p4txt");
+
+	label1.innerHTML = (""); // Severin
+	label2.innerHTML = (""); // Severin
+	label3.innerHTML = (""); // Severin
+	label4.innerHTML = (""); // Severin
 
 
 	$.ajax({

@@ -37,7 +37,7 @@ public class JasmmApplication {
 	    try {  
 
 	        // This block configure the logger with handler and formatter  
-	        fh = new FileHandler("C:/P_Projekte/Eclipse-Spring-workspace/JASMM/MyLogFile.log");  
+	        fh = new FileHandler("MyLogFile.log");  
 	        logger.addHandler(fh);        
 	        fh.setFormatter(formatter);  
 
