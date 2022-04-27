@@ -30,13 +30,11 @@ public class ServiceCustomerManagement {
 	public int createCustomer(@RequestBody MessageNewCustomer m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
 		boolean plzCheck = cityRepository.existsByZipcode(m.getZipCode());
-		logger.info("PLZ-Check in DB = " + plzCheck);
-
+		
 		if (userNameCheck == false) { // Username existiert noch nicht in DB
 			if (plzCheck == true) { // PLZ in DB vorhanden
 				City cityOfCustomer = cityRepository.findByZipcode(m.getZipCode());
 				Float distanceOfCustomer = cityOfCustomer.getDistance();
-				logger.info("Lieferdistanz zum Kunden: " + distanceOfCustomer);
 				Customer c = new Customer();
 				c.setUsername(m.getUsername());
 				c.setPassword(m.getPassword());
@@ -48,13 +46,14 @@ public class ServiceCustomerManagement {
 				c.setCity(m.getCity());
 				c.setDistance(distanceOfCustomer);
 				c = customerRepository.save(c);
+				logger.info("Registrierung erfolgreich. Neuer Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + "); Lieferdistanz: " + c.getDistance() + "km");
 				return c.getCustomerid();
 			} else { // PLZ in DB nicht vorhanden
-				logger.info("PLZ " + m.getZipCode() + " in DB nicht vorhanden");
+				logger.info("Registrierung fehlgeschlagen. Ungültige Postleitzahl " + m.getZipCode());
 				return -2;
 			}
 		} else {
-			logger.info("Username " + m.getUsername() + " existiert schon in der DB");
+			logger.info("Registrierung fehlgeschlagen. Benutzername " + m.getUsername() + " bereits vergeben");
 			return 0;
 		}
 	}
@@ -69,14 +68,14 @@ public class ServiceCustomerManagement {
 			Customer c = customerRepository.findByUsername(m.getUsername());
 			String passwordFromDB = c.getPassword();
 			if (m.getPassword().equals(passwordFromDB)) {
-				logger.info("Korrektes Passwort. Customerid: " + c.getCustomerid());
+				logger.info("Login erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() +")");
 				return c.getCustomerid();
 			} else {
-				logger.info("Falsches Passwort");
+				logger.info("Login fehlgeschlagen. Falsches Passwort. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
 				return 0;
 			}
 		} else {
-			logger.info("Username " + m.getUsername() + " in DB NICHT gefunden");
+			logger.info("Login fehlgeschlagen. Unbekannter Benutzername " + m.getUsername());
 			return 0;
 		}
 
@@ -86,7 +85,6 @@ public class ServiceCustomerManagement {
 	// Kundenkonto: Daten eines Kunden abfragen
 	@GetMapping(path = "/demo/getCustomer/{customerid}", produces = "application/json")
 	public Customer getCustomer(@PathVariable int customerid) {
-		//logger.info("Customer mit der ID: " + customerid + " abgefragt.");
 		return customerRepository.findById(customerid).get();
 
 	}
@@ -99,11 +97,9 @@ public class ServiceCustomerManagement {
 		if (c == null)
 			return false;
 		boolean plzCheck = cityRepository.existsByZipcode(m.getZipCode());
-		logger.info("PLZ-Check in DB = " + plzCheck);
 		if (plzCheck == true) {
 			City cityOfCustomer = cityRepository.findByZipcode(m.getZipCode());
 			Float distanceOfCustomer = cityOfCustomer.getDistance();
-			logger.info("Lieferdistanz zum Kunden: " + distanceOfCustomer);
 			c.setPassword(m.getPassword());
 			c.setFirstName(m.getFirstName());
 			c.setLastName(m.getLastName());
@@ -113,10 +109,25 @@ public class ServiceCustomerManagement {
 			c.setCity(m.getCity());
 			c.setDistance(distanceOfCustomer);
 			c = customerRepository.save(c);
+			logger.info("Kundendaten erfolgreich geändert. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + "). Lieferdistanz: " + c.getDistance() +"km");
 			return true;
 		} else {
-			logger.info("PLZ " + m.getZipCode() + " in DB nicht vorhanden");
+			logger.info("Kundendatenänderung fehlgeschlagen. Ungültige Postleitzahl " + m.getZipCode() + ". Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
 			return false;
+		}
+	}
+
+	// Michèle
+	// Logout
+	@PostMapping(path = "/demo/logout", produces = "application/json")
+	public boolean logoutCustomer(@RequestBody MessageLogout m) {
+		Customer c = customerRepository.getById(m.getCustomerid());
+		if (c == null) {
+			logger.warning("Logout. Kunde mit der ID " + m.getCustomerid() + "  in der Datenbank nicht gefunden.");
+			return false;
+		} else {
+			logger.info("Logout erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")" );
+			return true;
 		}
 	}
 }

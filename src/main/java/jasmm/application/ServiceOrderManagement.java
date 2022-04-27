@@ -58,12 +58,12 @@ public class ServiceOrderManagement {
 			order = orderRepository.save(order);
 
 			// Logging
-			logger.info("Bestellung erfoglreich angelegt - Kunden ID = " + message.getCustomerid());
+			logger.info("Neue Bestellung erfolgreich angelegt. Bestell-ID: " + order.getOrderid() + ". Kunden-ID: " + message.getCustomerid());
 
 			return order.getOrderid();
 
 		} catch (Exception e) {
-			logger.info(e.toString());
+			logger.warning(e.toString());
 			return -1;
 		}
 
@@ -115,7 +115,7 @@ public class ServiceOrderManagement {
 				orderRepository.save(o);
 
 				// Logging
-				logger.info("Artikel der Bestellung hinzugefügt - Artikel ID = " + articleid + " - Mit der Menge: " + message.getAmount());
+				logger.info("Produkt P" + articleid + " mit der Menge " + message.getAmount() + " erfolgreich der Bestellung " + o.getOrderid() + " hinzugefügt. Kunden-ID: <<fehlt noch>>");
 
 				// return true;
 			}
@@ -142,7 +142,7 @@ public class ServiceOrderManagement {
 				return false;
 			}
 		} catch (Exception e) {
-			logger.info(e.toString());
+			logger.warning(e.toString());
 		}
 		return false;
 	}

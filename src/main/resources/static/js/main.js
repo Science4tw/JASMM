@@ -153,11 +153,26 @@ function handleCustomerUpdateResponse(response) {
 }
 
 //Michèle
-//Logout
+//Logout: Klick auf Logout
 function logoutCustomer() {
-	customerid = -1;
-	alert("Logout erfolgreich. Kunden-ID wurde auf -1 gesetzt.")
+		
+		$.ajax({
+		type: "POST",
+		url: "/demo/logout",
+		data: JSON.stringify({ customerid: customerid }),
+		success: logoutResponse,
+		dataType: 'json',
+		contentType: 'application/json',
+
+	});
+	
 	window.setTimeout('window.location = "/index.html"', 1000); //Severin -> Weiterleitung mit Delay
+}
+
+//Michèle
+//Logout: 
+function logoutResponse() {
+	customerid = -1;
 }
 
 //Severin
