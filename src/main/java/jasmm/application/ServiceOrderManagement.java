@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /* Controller für das Order Handling
- * author Matthias
+ * author Matthias & Julia
  */
 @RestController
 public class ServiceOrderManagement {
@@ -58,7 +58,8 @@ public class ServiceOrderManagement {
 			order = orderRepository.save(order);
 
 			// Logging
-			logger.info("Neue Bestellung erfolgreich angelegt. Bestell-ID: " + order.getOrderid() + ". Kunden-ID: " + message.getCustomerid());
+			logger.info("Neue Bestellung erfolgreich angelegt. Bestell-ID: " + order.getOrderid() + ". Kunden-ID: "
+					+ message.getCustomerid());
 
 			return order.getOrderid();
 
@@ -74,13 +75,14 @@ public class ServiceOrderManagement {
 	 */
 	@PutMapping(path = "/api/order/{orderid}/addArticle", produces = "application/json")
 	public boolean addArticleToOrder(@PathVariable int orderid, @RequestBody MessageAddArticleToOrder message) {
-	
+
 		try {
 
 			// Order suchen mittels ID
 			Optional<Order> order = orderRepository.findById(orderid);
 
-			// Varialbe für Article ID um folgend zu prüfen, bei welchem Artikel Mengen hinzugefügt werden
+			// Varialbe für Article ID um folgend zu prüfen, bei welchem Artikel Mengen
+			// hinzugefügt werden
 			int articleid = message.getArticleid();
 
 			// Prüfung ob Order vorhanden ist
@@ -110,12 +112,13 @@ public class ServiceOrderManagement {
 					break;
 
 				}
-				
+
 				// Order speichern
 				orderRepository.save(o);
 
 				// Logging
-				logger.info("Produkt P" + articleid + " mit der Menge " + message.getAmount() + " erfolgreich der Bestellung " + o.getOrderid() + " hinzugefügt. Kunden-ID: <<fehlt noch>>");
+				logger.info("Produkt P" + articleid + " mit der Menge " + message.getAmount()
+						+ " erfolgreich der Bestellung " + o.getOrderid() + " hinzugefügt. Kunden-ID: <<fehlt noch>>");
 
 				// return true;
 			}
@@ -133,12 +136,14 @@ public class ServiceOrderManagement {
 				// das OrderItem wird automatisch mit gespeichert da es in der Liste vorhanden
 				// ist
 				orderRepository.save(o);
-				logger.info("TEST ORDERITEM - ERFOLGREICH -  Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = " + articleid
-						+ " - Order ID = " + orderid);
+				logger.info(
+						"TEST ORDERITEM - ERFOLGREICH -  Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = "
+								+ articleid + " - Order ID = " + orderid);
 				return true;
 			} else {
-				logger.info("TEST ORDERITEM - FEHLGESCHLAGEN - Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = "
-						+ articleid + " - Order ID = " + orderid);
+				logger.info(
+						"TEST ORDERITEM - FEHLGESCHLAGEN - Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = "
+								+ articleid + " - Order ID = " + orderid);
 				return false;
 			}
 		} catch (Exception e) {
@@ -153,7 +158,7 @@ public class ServiceOrderManagement {
 	@GetMapping(path = "/api/order/{orderid}", produces = "application/json")
 	public MessageOrderDetails getOrder(@PathVariable int orderid) {
 		try {
-			
+
 			// Order suchen und speichern
 			Optional<Order> order = orderRepository.findById(orderid);
 
@@ -173,10 +178,10 @@ public class ServiceOrderManagement {
 
 				return message;
 			} else {
-				
+
 				// Logging
 				logger.info("Order zurückgegeben fehlgeschlagen mit der ID: " + orderid);
-				
+
 				return null;
 			}
 
@@ -184,8 +189,255 @@ public class ServiceOrderManagement {
 			logger.info(e.toString());
 		}
 		return null;
-		
 
 	}
+
+	@PutMapping(path = "/api/order/{orderid}/calculateCostOfOrder/", produces = "application/json")
+	public MessageCalculatedOrder calculateCostOfOrder(@PathVariable int orderid, @RequestBody MessageCalculatedOrder message) {
+
+		// Order suchen und speichern
+		Optional<Order> o = orderRepository.findById(orderid);
+		// "richtige" Order
+		Order order = o.get();
+		
+		int p1 = order.getAmountarticle1();
+		int p2 = order.getAmountarticle2();
+		int p3 = order.getAmountarticle3();
+		int p4 = order.getAmountarticle4();
+
+		// Welche Order ist es
+
+		// Holen der Distanz des Kunden
+		int distance = 0;
+
+		int anzahlPaletten = calculatePallets(p1, p2, p3, p4);
+		
+		
+		message.setAnzahlPaletten(anzahlPaletten);
+		message.setOrderid(orderid);
+
+		return message;
+
+	}
+
+
+	
+	// FINALE WERTE der Produkte/Paletten
+		private final int MAX_P1 = 25;
+		private final int MAX_P2 = 10;
+		private final int MAX_P3 = 15;
+		private final int MAX_P4 = 100;
+
+		private final int MAX_HIGHT = 2200;
+
+		private final int HIGHT_P1 = MAX_HIGHT / MAX_P1;
+		private final int HIGHT_P2 = MAX_HIGHT / MAX_P2;
+		private final int HIGHT_P3 = MAX_HIGHT / MAX_P3;
+		private final int HIGHT_P4 = MAX_HIGHT / MAX_P4;
+
+		private final double PALLET_P1 = 1.2;
+		private final double PALLET_P2 = 2;
+		private final double PALLET_P3 = 2.5;
+		private final double PALLET_P4 = 0.8;
+
+		// double für gespeicherte Paletteanzahl
+		private double palletP1 = 0;
+		private double palletP2 = 0;
+		private double palletP3 = 0;
+		private double palletP4 = 0;
+
+		// int für gespeicherte volle Paletteanzahl
+		private int fullPalletP1 = 0;
+		private int fullPalletP2 = 0;
+		private int fullPalletP3 = 0;
+		private int fullPalletP4 = 0;
+
+		private double mixedPalletP1 = 0;
+		private double mixedPalletP2 = 0;
+		private double mixedPalletP3 = 0;
+		private double mixedPalletP4 = 0;
+
+		// int für Restproduktanzahl
+		private int restP1 = 0;
+		private int restP2 = 0;
+		private int restP3 = 0;
+		private int restP4 = 0;
+
+		private double mixedRest = 0;
+		private double mixedRest2 = 0;
+		private double mixedRest3 = 0;
+		private double mixedRest4 = 0;
+
+		private double unmixedPalletsFinal = 0;
+		private double mixedPalletsFinal = 0;
+
+		private int fullPalletsFinal = 0;
+
+		/* Finale volle Paletten ausrechnen mit Runden */
+
+		public int calculatePallets(int p1, int p2, int p3, int p4) {
+			
+//			int p1 = order.getAmountarticle1();
+//			int p2 = order.getAmountarticle2();
+//			int p3 = order.getAmountarticle3();
+//			int p4 = order.getAmountarticle4();
+
+			double unceiledUnmixedPalletsFinal = unmixedPallets(p1, p2, p3, p4);
+			double unceiledMixedPalletsFinal = mixedPallets(p1, p2, p3, p4);
+
+			fullPalletsFinal = ((int) Math.ceil(unceiledUnmixedPalletsFinal + unceiledMixedPalletsFinal));
+
+			return fullPalletsFinal;
+		}
+
+		// unmixedPallets() rechnet volle Paletten einer Produktart aus und gibt die
+		// ungerundete Palettenanzahl zurück
+
+		private double unmixedPallets(int p1, int p2, int p3, int p4) {
+			if (p1 > 0) {
+				int p1m = p1 % MAX_P1;
+				if (p1m > 0) {
+					double p1x = p1 / MAX_P1;
+					restP1 = p1 % MAX_P1;
+					fullPalletP1 = (int) p1x;
+				}
+				if (p1m == 0) {
+					fullPalletP1 = p1 / MAX_P1;
+				}
+			}
+			if (p2 > 0) {
+				int p2m = p2 % MAX_P2;
+				if (p2m > 0) {
+					double p2x = p2 / MAX_P2;
+					restP2 = p2 % MAX_P2;
+					fullPalletP2 = (int) p2x;
+				}
+				if (p2m == 0) {
+					fullPalletP2 = p2 / MAX_P2;
+				}
+			}
+
+			if (p3 > 0) {
+				int p3m = p3 % MAX_P3;
+				if (p3m > 0) {
+					double p3x = p3 / MAX_P3;
+					restP3 = p3 % MAX_P3;
+					fullPalletP3 = (int) p3x;
+				}
+				if (p3m == 0) {
+					fullPalletP3 = p3 / MAX_P3;
+				}
+			}
+
+			if (p4 > 0) {
+				int p4m = p4 % MAX_P4;
+				if (p4m > 0) {
+					double p4x = p4 / MAX_P4;
+					restP4 = p4 % MAX_P4;
+					fullPalletP4 = (int) p4x;
+				}
+				if (p4m == 0) {
+					fullPalletP4 = p4 / MAX_P4;
+				}
+			}
+
+			palletP1 = (fullPalletP1 * PALLET_P1);
+			palletP2 = (fullPalletP2 * PALLET_P2);
+			palletP3 = (fullPalletP3 * PALLET_P3);
+			palletP4 = (fullPalletP4 * PALLET_P4);
+
+			unmixedPalletsFinal = palletP1 + palletP2 + palletP3 + palletP4;
+
+			return unmixedPalletsFinal;
+		}
+
+		// mixedPallets() nimmt Rest-Artikel entgegen und rechnet volle Paletten
+		// mehrerer Produktarten (Restprodukte) aus und gibt die
+		// ungerundete Palettenanzahl zurück
+
+		private double mixedPallets(int restP1, int restP2, int restP3, int restP4) {
+
+			double allRest = restP1 * HIGHT_P1 + restP2 * HIGHT_P2 + restP3 * HIGHT_P3 + restP4 * HIGHT_P4;
+
+			if (allRest < MAX_HIGHT) {
+				if (restP3 > 0) {
+					mixedPalletP3++;
+				} else {
+					if (restP2 > 0) {
+						mixedPalletP2++;
+					} else {
+						if (restP1 > 0) {
+							mixedPalletP1++;
+						} else {
+							if (restP4 > 0) {
+								mixedPalletP4++;
+							}
+						}
+					}
+				}
+			} else {
+				if (allRest > MAX_HIGHT) {
+					mixedRest = (MAX_HIGHT - allRest);
+					if (restP3 > 0) {
+						mixedPalletP3++;
+					} else {
+						if (restP2 > 0) {
+							mixedPalletP2++;
+						} else {
+							if (restP1 > 0) {
+								mixedPalletP1++;
+							} else {
+								if (restP4 > 0) {
+									mixedPalletP4++;
+								}
+							}
+						}
+					}
+
+				}
+				if (mixedRest > 0 && restP2 > 0) {
+					mixedPalletP2++;
+					mixedRest2 = MAX_HIGHT - mixedRest;
+
+				} else {
+					if (mixedRest > 0 && restP1 > 0) {
+						mixedPalletP1++;
+						mixedRest2 = MAX_HIGHT - mixedRest;
+
+					} else {
+						if (mixedRest > 0 && restP4 > 0) {
+							mixedPalletP4++;
+							mixedRest2 = MAX_HIGHT - mixedRest;
+
+						} else {
+
+							if (mixedRest2 > 0 && restP1 > 0) {
+								mixedPalletP1++;
+								mixedRest3 = MAX_HIGHT - mixedRest2;
+
+							} else {
+								if (mixedRest2 > 0 && restP4 > 0) {
+									mixedPalletP4++;
+									mixedRest3 = MAX_HIGHT - mixedRest2;
+
+								} else {
+									if (mixedRest3 > 0 && restP4 > 0) {
+										mixedPalletP4++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			mixedPalletP1 = (mixedPalletP1 * PALLET_P1);
+			mixedPalletP2 = (mixedPalletP2 * PALLET_P2);
+			mixedPalletP3 = (mixedPalletP3 * PALLET_P3);
+			mixedPalletP4 = (mixedPalletP4 * PALLET_P4);
+
+			mixedPalletsFinal = mixedPalletP1 + mixedPalletP2 + mixedPalletP3 + mixedPalletP4;
+
+			return mixedPalletsFinal;
+		}
 
 }

@@ -222,7 +222,36 @@ function switchShopKon() {
 	}
 }
 
+// TEIL Julia (START)
 
+function calculateCostOfOrder(){
+	
+	
+		$.ajax({
+		type: "PUT",
+		url: "/api/order/" + orderid + "/calculateCostOfOrder/",
+		data: JSON.stringify({ orderid: orderid }),
+		success: responseCalculateCostOfOrder,
+		dataType: 'json',
+		contentType: 'application/json'
+	});
+	
+		// customerid = response;
+	alert("Die OrderID lautet: " + orderid);
+}
+
+// Antwort von createOrder(), wo wir die orderid speichern
+function responseCalculateCostOfOrder(response) {
+
+	orderid = response;
+
+	// customerid = response;
+	alert("Die OrderID lautet: " + orderid);
+
+}
+
+
+// TEIL Julia (Ende)
 
 
 // TEIL MATTHIAS (START)
