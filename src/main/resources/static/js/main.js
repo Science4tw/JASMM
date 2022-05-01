@@ -339,7 +339,7 @@ function addArticleToOrder1() {
 	$.ajax({
 		type: "PUT",
 		url: "/api/order/" + orderid + "/addArticle",
-		data: JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid }),
+		data: JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }),
 		success: responseAddArticleToOrder,
 		dataType: 'json',
 		contentType: 'application/json'
@@ -377,7 +377,7 @@ function addArticleToOrder2() {
 	$.ajax({
 		type: "PUT",
 		url: "/api/order/" + orderid + "/addArticle",
-		data: JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid }),
+		data: JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid, customerid: customerid }),
 		success: responseAddArticleToOrder,
 		dataType: 'json',
 		contentType: 'application/json'
@@ -403,7 +403,7 @@ function addArticleToOrder3() {
 	$.ajax({
 		type: "PUT",
 		url: "/api/order/" + orderid + "/addArticle",
-		data: JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid }),
+		data: JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }),
 		success: responseAddArticleToOrder,
 		dataType: 'json',
 		contentType: 'application/json'
@@ -429,7 +429,7 @@ function addArticleToOrder4() {
 	$.ajax({
 		type: "PUT",
 		url: "/api/order/" + orderid + "/addArticle",
-		data: JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid }),
+		data: JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid, customerid: customerid }),
 		success: responseAddArticleToOrder,
 		dataType: 'json',
 		contentType: 'application/json'

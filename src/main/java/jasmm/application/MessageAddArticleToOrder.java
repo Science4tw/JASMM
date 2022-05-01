@@ -9,6 +9,7 @@ public class MessageAddArticleToOrder {
 	private Integer articleid;
 	private Integer amount;
 	private Integer orderid;
+	private Integer customerid;
 	
 	public Integer getArticleid() {
 		return articleid;
@@ -27,6 +28,12 @@ public class MessageAddArticleToOrder {
 	}
 	public void setOrderid(Integer orderid) {
 		this.orderid = orderid;
+	}
+	public Integer getCustomerid() {
+		return customerid;
+	}
+	public void setCustomerid(Integer customerid) {
+		this.customerid = customerid;
 	}
 	
 	

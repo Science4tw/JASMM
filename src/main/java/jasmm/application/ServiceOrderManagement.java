@@ -118,7 +118,7 @@ public class ServiceOrderManagement {
 
 				// Logging
 				logger.info("Produkt P" + articleid + " mit der Menge " + message.getAmount()
-						+ " erfolgreich der Bestellung " + o.getOrderid() + " hinzugefügt. Kunden-ID: <<fehlt noch>>");
+						+ " erfolgreich der Bestellung " + o.getOrderid() + " hinzugefügt. Kunden-ID: " + message.getCustomerid());
 
 				// return true;
 			}
@@ -136,14 +136,14 @@ public class ServiceOrderManagement {
 				// das OrderItem wird automatisch mit gespeichert da es in der Liste vorhanden
 				// ist
 				orderRepository.save(o);
-				logger.info(
-						"TEST ORDERITEM - ERFOLGREICH -  Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = "
-								+ articleid + " - Order ID = " + orderid);
+//				logger.info(
+//						"TEST ORDERITEM - ERFOLGREICH -  Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = "
+//								+ articleid + " - Order ID = " + orderid);
 				return true;
 			} else {
-				logger.info(
-						"TEST ORDERITEM - FEHLGESCHLAGEN - Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = "
-								+ articleid + " - Order ID = " + orderid);
+//				logger.info(
+//						"TEST ORDERITEM - FEHLGESCHLAGEN - Artikel der Bestellung als Orderitem hinzugefügt - Artikel ID = "
+//								+ articleid + " - Order ID = " + orderid);
 				return false;
 			}
 		} catch (Exception e) {
