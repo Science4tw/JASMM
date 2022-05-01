@@ -2,8 +2,6 @@ package jasmm.application;
 
 public class MessageUpdateCustomer {
 
-	private String password;
-
 	private String firstName;
 
 	private String lastName;
@@ -15,14 +13,6 @@ public class MessageUpdateCustomer {
 	private Integer zipCode;
 
 	private String city;
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getFirstName() {
 		return firstName;

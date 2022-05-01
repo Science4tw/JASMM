@@ -1,6 +1,12 @@
 package jasmm.application;
 
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.logging.Logger;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,20 +30,25 @@ public class ServiceCustomerManagement {
 	// Logger
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
+	// Für Passwortverschlüsselung (Hash)
+	private static final int iterations = 127;
+	private final byte[] salt = new byte[64];
+
 	// Michèle
 	// Registrierung: neuen Kunden erstellen & in DB speichern
 	@PostMapping(path = "/demo/createCustomer", produces = "application/json")
 	public int createCustomer(@RequestBody MessageNewCustomer m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
 		boolean plzCheck = cityRepository.existsByZipcode(m.getZipCode());
-		
+
 		if (userNameCheck == false) { // Username existiert noch nicht in DB
 			if (plzCheck == true) { // PLZ in DB vorhanden
 				City cityOfCustomer = cityRepository.findByZipcode(m.getZipCode());
 				Float distanceOfCustomer = cityOfCustomer.getDistance();
 				Customer c = new Customer();
 				c.setUsername(m.getUsername());
-				c.setPassword(m.getPassword());
+				String hashedPassword = hash(m.getPassword()); //Passwortverschlüsselung
+				c.setPassword(hashedPassword); 
 				c.setFirstName(m.getFirstName());
 				c.setLastName(m.getLastName());
 				c.setStreet(m.getStreet());
@@ -46,7 +57,8 @@ public class ServiceCustomerManagement {
 				c.setCity(m.getCity());
 				c.setDistance(distanceOfCustomer);
 				c = customerRepository.save(c);
-				logger.info("Registrierung erfolgreich. Neuer Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + "); Lieferdistanz: " + c.getDistance() + "km");
+				logger.info("Registrierung erfolgreich. Neuer Kunde: " + c.getFirstName() + " " + c.getLastName()
+						+ " (Kunden-ID " + c.getCustomerid() + "); Lieferdistanz: " + c.getDistance() + "km");
 				return c.getCustomerid();
 			} else { // PLZ in DB nicht vorhanden
 				logger.info("Registrierung fehlgeschlagen. Ungültige Postleitzahl " + m.getZipCode());
@@ -58,6 +70,22 @@ public class ServiceCustomerManagement {
 		}
 	}
 
+	// Passwortverschlüsselung (Hash)
+	// Quelle: https://nullbeans.com/hashing-passwords-in-spring-applications/
+	private String hash(String password) {
+		try {
+			char[] chars = password.toCharArray();
+			PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 512);
+			SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512"); // PBKDF2WithHmacSHA1
+			byte[] hash = skf.generateSecret(spec).getEncoded();
+			String hashAsString = Base64.getMimeEncoder().encodeToString(hash);
+			return hashAsString;
+		} catch (Exception e) {
+			logger.warning("Hashing des Passworts nicht möglich");
+			return null;
+		}
+	}
+
 	// Michèle
 	// Login: Validierung Benutzername & Passwort
 	@PostMapping(path = "/demo/login", produces = "application/json")
@@ -66,19 +94,28 @@ public class ServiceCustomerManagement {
 
 		if (userNameCheck == true) {
 			Customer c = customerRepository.findByUsername(m.getUsername());
-			String passwordFromDB = c.getPassword();
-			if (m.getPassword().equals(passwordFromDB)) {
-				logger.info("Login erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() +")");
-				return c.getCustomerid();
-			} else {
-				logger.info("Login fehlgeschlagen. Falsches Passwort. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
-				return 0;
-			}
+			String hashedPasswordFromDB = c.getPassword();
+			//try {
+				String hashedPasswordFromLogin = hash(m.getPassword());
+				
+				if (hashedPasswordFromDB.equals(hashedPasswordFromLogin)) {
+					logger.info("Login erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID "
+							+ c.getCustomerid() + ")");
+					return c.getCustomerid();
+				} else {
+					logger.info("Login fehlgeschlagen. Falsches Passwort. Kunde: " + c.getFirstName() + " "
+							+ c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
+					return 0;
+				}
+			//} catch (Exception e) {
+				//logger.warning("Hashing des Passworts nicht möglich");
+				//return -10;
+			//}
+
 		} else {
 			logger.info("Login fehlgeschlagen. Unbekannter Benutzername " + m.getUsername());
 			return 0;
 		}
-
 	}
 
 	// Michèle
@@ -100,7 +137,6 @@ public class ServiceCustomerManagement {
 		if (plzCheck == true) {
 			City cityOfCustomer = cityRepository.findByZipcode(m.getZipCode());
 			Float distanceOfCustomer = cityOfCustomer.getDistance();
-			c.setPassword(m.getPassword());
 			c.setFirstName(m.getFirstName());
 			c.setLastName(m.getLastName());
 			c.setStreet(m.getStreet());
@@ -109,12 +145,38 @@ public class ServiceCustomerManagement {
 			c.setCity(m.getCity());
 			c.setDistance(distanceOfCustomer);
 			c = customerRepository.save(c);
-			logger.info("Kundendaten erfolgreich geändert. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + "). Lieferdistanz: " + c.getDistance() +"km");
+			logger.info("Kundendaten erfolgreich geändert. Kunde: " + c.getFirstName() + " " + c.getLastName()
+					+ " (Kunden-ID " + c.getCustomerid() + "). Lieferdistanz: " + c.getDistance() + "km");
 			return true;
 		} else {
-			logger.info("Kundendatenänderung fehlgeschlagen. Ungültige Postleitzahl " + m.getZipCode() + ". Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
+			logger.info("Kundendatenänderung fehlgeschlagen. Ungültige Postleitzahl " + m.getZipCode() + ". Kunde: "
+					+ c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
 			return false;
 		}
+	}
+
+	// Michèle
+	// Passwort ändern
+	@PutMapping(path = "/demo/changePassword/{customerid}", produces = "application/json")
+	public boolean changePassword(@PathVariable int customerid, @RequestBody MessageChangePassword m) {
+		Customer c = customerRepository.getById(customerid);
+		if (c == null)
+			return false;
+		String hashedOldPasswordFromDB = c.getPassword();
+		String hashedOldPasswordFromInput = hash(m.getPassword());
+		if (hashedOldPasswordFromDB.equals(hashedOldPasswordFromInput)) {
+			String hashedNewPassword = hash(m.getPasswordToUpdate());
+			c.setPassword(hashedNewPassword);
+			c = customerRepository.save(c);
+			logger.info("Passwortänderung erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName()
+					+ " (Kunden-ID: " + c.getCustomerid() + ")");
+			return true;
+		} else {
+			logger.info("Passwortänderung fehlgeschlagen. Falsche Eingabe beim bestehenden Passwort. Kunde: "
+					+ c.getFirstName() + " " + c.getLastName() + " (Kunden-ID: " + c.getCustomerid() + ")");
+			return false;
+		}
+
 	}
 
 	// Michèle
@@ -126,8 +188,10 @@ public class ServiceCustomerManagement {
 			logger.warning("Logout. Kunde mit der ID " + m.getCustomerid() + "  in der Datenbank nicht gefunden.");
 			return false;
 		} else {
-			logger.info("Logout erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")" );
+			logger.info("Logout erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID "
+					+ c.getCustomerid() + ")");
 			return true;
 		}
 	}
+
 }

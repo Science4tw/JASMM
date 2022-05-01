@@ -9,6 +9,7 @@ $(document).ready(function() {
 	$("#KontoPanel").hide();
 	$("#ShopPanel").hide();
 	$("#RegPanel").hide();
+	$("#PasswortPanel").hide();
 
 });
 
@@ -124,7 +125,7 @@ function handleCustomerDataResponse(customer) {
 //Michèle
 //Kundenkonto: Übermittlung der neuen Kundendaten; alle Daten überschreiben (ausser Kunden-ID und Benutzername)
 function updateCustomerData() {
-	let pwdInputKto = document.querySelector("#pwdKto");
+	//let pwdInputKto = document.querySelector("#pwdKto");
 	let firstNameInputKto = document.querySelector("#vnameKto");
 	let lastNameInputKto = document.querySelector("#nnameKto");
 	let streetInputKto = document.querySelector('#strasseKto');
@@ -135,7 +136,7 @@ function updateCustomerData() {
 	$.ajax({
 		type: "PUT",
 		url: "/demo/updateCustomer/" + customerid + "",
-		data: JSON.stringify({ password: pwdInputKto.value, firstName: firstNameInputKto.value, lastName: lastNameInputKto.value, street: streetInputKto.value, streetNr: streetNrInputKto.value, zipCode: zipCodeInputKto.value, city: cityInputKto.value }),
+		data: JSON.stringify({ firstName: firstNameInputKto.value, lastName: lastNameInputKto.value, street: streetInputKto.value, streetNr: streetNrInputKto.value, zipCode: zipCodeInputKto.value, city: cityInputKto.value }),
 		success: handleCustomerUpdateResponse,
 		dataType: 'json',
 		contentType: 'application/json',
@@ -149,6 +150,32 @@ function handleCustomerUpdateResponse(response) {
 		alert("Kundendaten erfolgreich geaendert in der DB");
 	} else {
 		alert("Aenderung fehlgeschlagen. Bitte geben Sie eine gueltige PLZ ein.")
+	}
+}
+
+//Michèle
+//Passwort ändern
+function changePassword(){
+	let oldPwdInputUser = document.querySelector("#oldPwd");
+	let newPwdInputUser = document.querySelector("#newPwd");
+	
+	$.ajax({
+		type: "PUT",
+		url: "/demo/changePassword/" + customerid + "",
+		data: JSON.stringify({ password: oldPwdInputUser.value, passwordToUpdate: newPwdInputUser.value }),
+		success: handleChangePwdResponse,
+		dataType: 'json',
+		contentType: 'application/json'
+	});
+}
+
+//Michèle
+//Passwort ändern: Erfolgsmeldung bzgl. Änderung
+function handleChangePwdResponse(response) {
+	if (response == true) {
+		alert("Passwort erfolgreich geändert");
+	} else {
+		alert("Passwortänderung fehlgeschlagen. Bitte versuchen Sie es erneut.")
 	}
 }
 

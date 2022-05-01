@@ -110,7 +110,6 @@ public class Customer {
 	public void setDistance(Float distance) {
 		this.distance = distance;
 	}
-
-	
+		
 
 }

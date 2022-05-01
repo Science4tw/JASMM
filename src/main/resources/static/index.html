@@ -35,7 +35,7 @@
 				<div class="msg"></div>
 				<div>
 					<label for="username">Benutzername (E-Mail-Adresse):</label>
-					<input type="text" id="username" placeholder="max.muster@mail.com">
+					<input type="text" id="username" placeholder="max.muster@testmail.com">
 				</div>
 				<div>
 					<label for="pwd">Passwort:</label>
@@ -95,12 +95,12 @@
 					<label for="usernameKto">Benutzername (E-Mail-Adresse):</label>
 					<input type="text" id="usernameKto" disabled>
 				</div>
-				<div>
+				<!-- <div>
 					<label for="pwdKto">Passwort:</label>
 					<input type="text" name="pwdreg" id="pwdKto" placeholder="Passwort eingeben (mind. 6 Zeichen)"
 						onclick="validatepwd()" required>
 					<div class="msg formpw"></div>
-				</div>
+				</div> -->
 				<div>
 					<label for="vnameKto">Vorname:</label>
 					<input type="text" name="vname" id="vnameKto" onclick="validatename()" required>
@@ -141,6 +141,30 @@
 		</section>
 	</div>
 	<!-- TEIL KUNDENKONTO ENDE -->
+	
+	<!-- TEIL PASSWORT ÄNDERN -->
+	<div id="KontoPanel">
+		<section class="container">
+			<form id="my-form" onsubmit="return false">
+				<center>
+					<h1>Passwort ändern</h1>
+				</center>
+				<div class="msg"></div>
+				<br>
+				<hr></br>
+				<div>
+					<label for="oldPwd">Altes Passwort:</label>
+					<input type="password" name="oldPwd" id="oldPwd">
+				</div>
+				<div>
+					<label for="newPwd">Neues Passwort:</label>
+					<input type="password" name="newPwd" id="newPwd">
+				</div>
+				<input class="btn" type="submit" value="Passwort ändern" onClick="changePassword()">
+		</form>
+		</section>
+	</div>
+	<!-- TEIL PASSWORT ÄNDERN ENDE -->
 
 	<!-- TEIL Reg (Start) -->
 	<div id="RegPanel">
@@ -153,7 +177,7 @@
 				<div class="msg"></div>
 				<div>
 					<label><span>Benutzername (E-Mail-Adresse):</span><input type="text" name="usernamereg"
-							id="usernamereg" value="" placeholder="thomas.mustermann@hotmail.com"
+							id="usernamereg" value="" placeholder="max.muster@testmail.com"
 							onclick="validateUsername()" required /></label>
 					<div class="msg formemail"></div>
 				</div>
@@ -163,13 +187,13 @@
 					<div class="msg formpw"></div>
 				</div>
 				<div>
-					<label><span>Vorname:</span><input type="text" name="vname" id="vname" value="" placeholder="Jasmin"
+					<label><span>Vorname:</span><input type="text" name="vname" id="vname" value="" placeholder="Max"
 							onclick="validatename()" required></label>
 					<div class="msg formname"></div>
 				</div>
 				<div>
 					<label><span>Nachname:</span><input type="text" name="nname" id="nname" value=""
-							placeholder="Mustermann" onclick="validatelastname()" required></label>
+							placeholder="Muster" onclick="validatelastname()" required></label>
 					<div class="msg formlastname"></div>
 				</div>
 				<div class="row">
