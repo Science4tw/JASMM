@@ -47,7 +47,7 @@ function responseRegister(response) {
 	} else {
 		customerid = response;
 		alert("Kundenregistrierung erfolgreich. Die Kunden-ID lautet: " + customerid);
-		window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
+		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
 	}
 
 }
@@ -212,6 +212,7 @@ function switchRegKon() {
 		$("#LoginPanel").hide();
 		$("#KontoPanel").hide();
 		$("#ShopPanel").hide();
+		$("#PasswortPanel").hide();
 
 	}
 	else {
@@ -235,18 +236,21 @@ function switchShopKon() {
 		$("#LoginPanel").show();
 		$("#KontoPanel").hide();
 		$("#ShopPanel").hide();
+		$("#PasswortPanel").hide();
 
 	} else if (text == "Shop") {
 		$("#RegPanel").hide();
 		$("#KontoPanel").hide();
 		$("#ShopPanel").show();
 		$("#LoginPanel").hide();
+		$("#PasswortPanel").hide();
 	}
 	else {
 		$("#RegPanel").hide();
 		$("#KontoPanel").hide();
 		$("#ShopPanel").hide();
 		$("#LoginPanel").show();
+		$("#PasswortPanel").hide();
 	}
 }
 

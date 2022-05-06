@@ -170,7 +170,7 @@
 	<div id="RegPanel">
 		<section class="container">
 			<center><img src="images/Logo.png" width="200" height="100"></center>
-			<form id="my-form">
+			<form id="my-form" onsubmit="event.preventDefault(); createCustomer()">
 				<center>
 					<h1>Registrieren</h1>
 				</center>
@@ -211,7 +211,7 @@
 				<div class="row">
 					<div class="column-left">
 						<label><span>PLZ:</span><input type="text" name="plz" id="plz" value="" placeholder="8004"
-								onclick="validateplz()" required></label>
+								onclick="validateplz()" maxlength="4" minlength="4"  required></label>
 						<div class="msg formzip"></div>
 					</div>
 					<div class="column-right">
@@ -220,8 +220,8 @@
 						<div class="msg formplace"></div>
 					</div>
 				</div>
-				<input type="button" value="Konto erstellen" id="register" class="btn" onClick=createCustomer()>
-			</form>
+				<input type="submit" value="Konto erstellen" id="register" class="btn">
+			</>
 
 
 		</section>
