@@ -19,6 +19,7 @@ $(document).ready(function() {
 function createCustomer() {
 	let usernameInput = document.querySelector('#usernamereg'); // Severin geändert von username zu usernamereg
 	let pwdInput = document.querySelector("#pwdreg"); //Severin geändert von pwd zu pwdreg
+	let pwdInput2 = document.querySelector("#pwdreg2");
 	let firstNameInput = document.querySelector("#vname");
 	let lastNameInput = document.querySelector("#nname");
 	let streetInput = document.querySelector('#strasse');
@@ -26,6 +27,7 @@ function createCustomer() {
 	let zipCodeInput = document.querySelector('#plz');
 	let cityInput = document.querySelector('#ort');
 
+	if (pwdInput.value === pwdInput2.value) {
 	$.ajax({
 		type: "POST",
 		url: "/demo/createCustomer",
@@ -34,6 +36,10 @@ function createCustomer() {
 		dataType: 'json',
 		contentType: 'application/json'
 	});
+	
+	} else {
+		alert("Die Passwörter stimmen nicht überein.")
+	}
 
 }
 
@@ -41,12 +47,12 @@ function createCustomer() {
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
 	if (response == 0) {
-		alert("Registrierung fehlgeschlagen. Bitte waehlen Sie einen anderen Benutzernamen.");
+		alert("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.");
 	} else if (response == -2) {
-		alert("Registrierung fehlgeschlagen. Bitt erfassen Sie eine gueltige PLZ.")
+		alert("Registrierung fehlgeschlagen. Bitt erfassen Sie eine gültige PLZ.")
 	} else {
 		customerid = response;
-		alert("Kundenregistrierung erfolgreich. Die Kunden-ID lautet: " + customerid);
+		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen.");		
 		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
 	}
 

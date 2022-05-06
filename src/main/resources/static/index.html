@@ -191,6 +191,11 @@
 					<div class="msg formpw"></div>
 				</div>
 				<div>
+					<label><span>Passwort (wiederholen):</span><input type="password" name="pwdreg2" id="pwdreg2" value=""
+							placeholder="mind. 6 Zeichen" onclick="validatepwd()" required></label>
+					<div class="msg formpw"></div>
+				</div>
+				<div>
 					<label><span>Vorname:</span><input type="text" name="vname" id="vname" value="" placeholder="Max"
 							onclick="validatename()" required></label>
 					<div class="msg formname"></div>
@@ -220,11 +225,12 @@
 					</div>
 					<div class="column-right">
 						<label><span>Ortschaft:</span><input type="text" name="ort" id="ort" value=""
-								placeholder="Zurich" onclick="validateplace()" required></label>
+								placeholder="Zürich" onclick="validateplace()" required></label>
 						<div class="msg formplace"></div>
 					</div>
 				</div>
 				<input type="submit" value="Konto erstellen" id="register" class="btn">
+				<i><span id="SuccessRegistration"></span></i>
 			</>
 
 
