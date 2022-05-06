@@ -219,6 +219,7 @@ function switchRegKon() {
 		$("#LoginPanel").hide();
 		$("#KontoPanel").show();
 		button1.innerHTML = "Shop"; //Severin
+		$("#PasswortPanel").show();
 		$("#ShopPanel").hide();
 
 
