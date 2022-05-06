@@ -39,7 +39,7 @@
 				</div>
 				<div>
 					<label for="pwd">Passwort:</label>
-					<input type="password" id="pwd" placeholder="123">
+					<input type="password" id="pwd" placeholder="Aa1234">
 				</div>
 				<center>
 					<a onClick="switchRegKon()">Noch kein Kundenkonto?</a>
@@ -153,12 +153,16 @@
 				<br>
 				<hr></br>
 				<div>
-					<label for="oldPwd">Altes Passwort:</label>
+					<label for="oldPwd">Bestehendes Passwort:</label>
 					<input type="password" name="oldPwd" id="oldPwd">
 				</div>
 				<div>
-					<label for="newPwd">Neues Passwort:</label>
-					<input type="password" name="newPwd" id="newPwd">
+					<label for="newPwd1">Neues Passwort:</label>
+					<input type="password" name="newPwd1" id="newPwd1" placeholder="mind. 6 Zeichen">
+				</div>
+				<div>
+					<label for="newPwd2">Neues Passwort (wiederholen):</label>
+					<input type="password" name="newPwd2" id="newPwd2" placeholder="mind. 6 Zeichen">
 				</div>
 				<input class="btn" type="submit" value="Passwort ändern" onClick="changePassword()">
 		</form>
@@ -183,7 +187,7 @@
 				</div>
 				<div>
 					<label><span>Passwort:</span><input type="password" name="pwdreg" id="pwdreg" value=""
-							placeholder="Passwort eingeben (mind. 6 Zeichen)" onclick="validatepwd()" required></label>
+							placeholder="mind. 6 Zeichen" onclick="validatepwd()" required></label>
 					<div class="msg formpw"></div>
 				</div>
 				<div>

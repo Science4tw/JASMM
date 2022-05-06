@@ -157,16 +157,22 @@ function handleCustomerUpdateResponse(response) {
 //Passwort ändern
 function changePassword(){
 	let oldPwdInputUser = document.querySelector("#oldPwd");
-	let newPwdInputUser = document.querySelector("#newPwd");
+	let newPwd1InputUser = document.querySelector("#newPwd1");
+	let newPwd2InputUser = document.querySelector("#newPwd2");
+	
+	if (newPwd1InputUser.value === newPwd2InputUser.value) {
 	
 	$.ajax({
 		type: "PUT",
 		url: "/demo/changePassword/" + customerid + "",
-		data: JSON.stringify({ password: oldPwdInputUser.value, passwordToUpdate: newPwdInputUser.value }),
+		data: JSON.stringify({ password: oldPwdInputUser.value, passwordToUpdate: newPwd1InputUser.value }),
 		success: handleChangePwdResponse,
 		dataType: 'json',
 		contentType: 'application/json'
 	});
+	} else {
+		alert("Die Wiederholung des neuen Passworts ist nicht korrekt.")
+	}
 }
 
 //Michèle
@@ -175,7 +181,7 @@ function handleChangePwdResponse(response) {
 	if (response == true) {
 		alert("Passwort erfolgreich geändert");
 	} else {
-		alert("Passwortänderung fehlgeschlagen. Bitte versuchen Sie es erneut.")
+		alert("Passwortänderung fehlgeschlagen. Falscheingabe des bestehenden Passworts. Bitte versuchen Sie es erneut.")
 	}
 }
 
