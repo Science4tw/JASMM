@@ -97,42 +97,35 @@
 				</div>
 				<!-- <div>
 					<label for="pwdKto">Passwort:</label>
-					<input type="text" name="pwdreg" id="pwdKto" placeholder="Passwort eingeben (mind. 6 Zeichen)"
-						onclick="validatepwd()" required>
-					<div class="msg formpw"></div>
+					<input type="text" name="pwdreg" id="pwdKto" placeholder="Passwort eingeben (mind. 6 Zeichen)" required>
 				</div> -->
 				<div>
 					<label for="vnameKto">Vorname:</label>
-					<input type="text" name="vname" id="vnameKto" onclick="validatename()" required>
-					<div class="msg formname"></div>
+					<input type="text" name="vname" id="vnameKto" required>
 				</div>
 				<div>
 					<label for="nnameKto">Nachname:</label>
-					<input type="text" name="nname" id="nnameKto" onclick="validatelastname()" required>
-					<div class="msg formlastname"></div>
+					<input type="text" name="nname" id="nnameKto" required>
 				</div>
 				<div class="row">
 					<div class="column-left">
-						<label for="strasseKto">Strasse:</label><input type="text" name="strasse" id="strasseKto"
-							onclick="validatestreet()" required>
-						<div class="msg formstreet"></div>
+						<label for="strasseKto">Strasse:</label>
+						<input type="text" name="strasse" id="strasseKto"required>
 					</div>
 					<div class="column-right">
 						<label for="hnummerKto">Nr.:</label>
-						<input type="text" name="hnummer" id="hnummerKto" onclick="validatehnr()" required>
-						<div class="msg formhnumber"></div>
+						<input type="text" name="hnummer" id="hnummerKto" required>
+
 					</div>
 				</div>
 				<div class="row">
 					<div class="column-left">
-						<label for="plzKto">PLZ:</label><input type="text" name="plz" id="plzKto"
-							onclick="validateplz()" required>
-						<div class="msg formzip"></div>
+						<label for="plzKto">PLZ:</label>
+						<input type="text" name="plz" id="plzKto" required>
 					</div>
 					<div class="column-right">
-						<label for="ortKto">Ort:</label><input type="text" name="ort" id="ortKto"
-							onclick="validateplace()" required>
-						<div class="msg formplace"></div>
+						<label for="ortKto">Ort:</label>
+						<input type="text" name="ort" id="ortKto" required>
 					</div>
 				</div>
 				<input class="btn" type="submit" value="Änderungen speichern" onClick="updateCustomerData()">
@@ -180,53 +173,43 @@
 				</center>
 				<div class="msg"></div>
 				<div>
-					<label><span>Benutzername (E-Mail-Adresse):</span><input type="text" name="usernamereg"
-							id="usernamereg" value="" placeholder="max.muster@testmail.com"
-							onclick="validateUsername()" required /></label>
-					<div class="msg formemail"></div>
+					<label>Benutzername (E-Mail-Adresse):</label>
+					<input type="text" name="usernamereg" id="usernamereg" placeholder="max.muster@testmail.com" required />
 				</div>
 				<div>
-					<label><span>Passwort:</span><input type="password" name="pwdreg" id="pwdreg" value=""
-							placeholder="mind. 6 Zeichen" onclick="validatepwd()" required></label>
-					<div class="msg formpw"></div>
+					<label>Passwort:</label>
+					<input type="password" name="pwdreg" id="pwdreg" placeholder="mind. 6 Zeichen"  required>
 				</div>
 				<div>
-					<label><span>Passwort (wiederholen):</span><input type="password" name="pwdreg2" id="pwdreg2" value=""
-							placeholder="mind. 6 Zeichen" onclick="validatepwd()" required></label>
-					<div class="msg formpw"></div>
+					<label>Passwort (wiederholen):</label>
+					<input type="password" name="pwdreg2" id="pwdreg2" placeholder="mind. 6 Zeichen" required>
 				</div>
 				<div>
-					<label><span>Vorname:</span><input type="text" name="vname" id="vname" value="" placeholder="Max"
-							onclick="validatename()" required></label>
-					<div class="msg formname"></div>
+					<label>Vorname:</label>
+					<input type="text" name="vname" id="vname" placeholder="Max" required>
 				</div>
 				<div>
-					<label><span>Nachname:</span><input type="text" name="nname" id="nname" value=""
-							placeholder="Muster" onclick="validatelastname()" required></label>
-					<div class="msg formlastname"></div>
+					<label>Nachname:</label>
+					<input type="text" name="nname" id="nname" placeholder="Muster" required>
 				</div>
 				<div class="row">
 					<div class="column-left">
-						<label><span>Strasse:</span><input type="text" name="strasse" id="strasse" value=""
-								placeholder="Geroldstrasse" onclick="validatestreet()" required></label>
-						<div class="msg formstreet"></div>
+						<label>Strasse:</label>
+						<input type="text" name="strasse" id="strasse" 	placeholder="Geroldstrasse" required>
 					</div>
 					<div class="column-right">
-						<label><span>Hausnummer:</span><input type="text" name="hnummer" id="hnummer" value=""
-								placeholder="11B" onclick="validatehnr()" required></label>
-						<div class="msg formhnumber"></div>
+						<label>Hausnummer:</label>
+						<input type="text" name="hnummer" id="hnummer" placeholder="11B" required>
 					</div>
 				</div>
 				<div class="row">
 					<div class="column-left">
-						<label><span>PLZ:</span><input type="text" name="plz" id="plz" value="" placeholder="8004"
-								onclick="validateplz()" maxlength="4" minlength="4"  required></label>
-						<div class="msg formzip"></div>
+						<label>PLZ:</label>
+						<input type="text" name="plz" id="plz" placeholder="8004" maxlength="4" minlength="4"  required>
 					</div>
 					<div class="column-right">
-						<label><span>Ortschaft:</span><input type="text" name="ort" id="ort" value=""
-								placeholder="Zürich" onclick="validateplace()" required></label>
-						<div class="msg formplace"></div>
+						<label>Ortschaft:</label>
+						<input type="text" name="ort" id="ort" placeholder="Zürich" required>
 					</div>
 				</div>
 				<input type="submit" value="Konto erstellen" id="register" class="btn">
