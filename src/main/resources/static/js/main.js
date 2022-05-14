@@ -5,11 +5,13 @@ var customerid = -1;
 $(document).ready(function() {
 
 	// initial das Panel für die Auftragsbearbeitung verstecken
-	$("#NavPanel").hide();
+	//$("#NavPanel").hide();
 	$("#KontoPanel").hide();
 	$("#ShopPanel").hide();
 	$("#RegPanel").hide();
 	$("#PasswortPanel").hide();
+	$("#Shop").hide();
+
 
 });
 
@@ -89,6 +91,7 @@ function loginCustomer() {
 function loginResponse(response) {
 	var button1 = document.getElementById("LoginLogout") //Severin
 	var button2 = document.getElementById("RegKon") //Severin
+	var button3 = document.getElementById("Shop") //Severin
 	if (response == 0) {
 		$("#customerId").empty();
 		$('#pwd').val('');
@@ -102,11 +105,13 @@ function loginResponse(response) {
 		$("#pwd").empty();
 		getCustomer();
 		createOrder();
-		$("#NavPanel").show(); //Severin
-		$("#ShopPanel").show(); //Severin
-		$("#LoginPanel").hide(); //Severin
-		button1.innerHTML = "Shop"; //Severin
+		$("#Shop").show();
+		//$("#NavPanel").show(); //Severin
+		//$("#ShopPanel").show(); //Severin
+		//$("#LoginPanel").hide(); //Severin
+		button1.innerHTML = "Logout"; //Severin
 		button2.innerHTML = "Kundenkonto"; //Severin
+		button3.innerHTML = "Shop"; // Severin
 	}
 
 }
@@ -230,7 +235,6 @@ function logoutResponse() {
 //Panel Switcher
 function switchRegKon() {
 	let text = document.getElementById("RegKon").innerHTML;
-	var button1 = document.getElementById("LoginLogout") //Severin
 	if (text == "Registrieren") {
 		$("#RegPanel").show();
 		$("#LoginPanel").hide();
@@ -243,7 +247,6 @@ function switchRegKon() {
 		$("#RegPanel").hide();
 		$("#LoginPanel").hide();
 		$("#KontoPanel").show();
-		button1.innerHTML = "Shop"; //Severin
 		$("#PasswortPanel").show();
 		$("#ShopPanel").hide();
 
@@ -252,29 +255,33 @@ function switchRegKon() {
 }
 
 //Severin
-//Shop Switcher
-function switchShopKon() {
-	let text = document.getElementById("LoginLogout").innerHTML;
-	if (text == "Logout") {
+//Panel Switcher
+function switchShop() {
+	let text = document.getElementById("Shop").innerHTML;
+	if (text == "Shop") {
 		$("#RegPanel").hide();
-		$("#LoginPanel").show();
-		$("#KontoPanel").hide();
-		$("#ShopPanel").hide();
-		$("#PasswortPanel").hide();
-
-	} else if (text == "Shop") {
-		$("#RegPanel").hide();
+		$("#LoginPanel").hide();
 		$("#KontoPanel").hide();
 		$("#ShopPanel").show();
-		$("#LoginPanel").hide();
 		$("#PasswortPanel").hide();
-	}
-	else {
+		}
+}
+
+
+
+
+//Severin
+//LoginLogout Switcher
+function switchLog() {
+	let text = document.getElementById("LoginLogout").innerHTML;
+	if (text == "Logout") {
+		logoutCustomer();
+	} else {
 		$("#RegPanel").hide();
-		$("#KontoPanel").hide();
-		$("#ShopPanel").hide();
 		$("#LoginPanel").show();
+		$("#KontoPanel").hide();
 		$("#PasswortPanel").hide();
+		$("#ShopPanel").hide();
 	}
 }
 
