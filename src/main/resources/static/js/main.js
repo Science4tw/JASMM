@@ -38,21 +38,30 @@ function createCustomer() {
 	});
 	
 	} else {
-		alert("Die Passwörter stimmen nicht überein.")
+		$('#pwdreg').val('');
+		$('#pwdreg2').val('');
+		$("#SuccessRegistration").text("Passwort stimmt nicht überein.Bitte erneut eingeben.");
+		$("#SuccessRegistration").css('color', 'red');
 	}
 
 }
+
 
 //Michèle
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
 	if (response == 0) {
-		alert("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.");
+		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.")
+		$("#SuccessRegistration").css('color', 'red');
 	} else if (response == -2) {
-		alert("Registrierung fehlgeschlagen. Bitt erfassen Sie eine gültige PLZ.")
+		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitt erfassen Sie eine gültige PLZ.")
+		$("#SuccessRegistration").css('color', 'red');
+
+		
 	} else {
 		customerid = response;
-		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen.");		
+		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen.");	
+		$("#SuccessRegistration").css('color', 'green');	
 		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
 	}
 
@@ -82,9 +91,12 @@ function loginResponse(response) {
 	var button2 = document.getElementById("RegKon") //Severin
 	if (response == 0) {
 		$("#customerId").empty();
-		alert("Login fehlgeschlagen.");
+		$('#pwd').val('');
+		$("#customerId").text("Login fehlgeschlagen."); //André
+		$("#customerId").css('color', 'red'); //André
 	} else {
 		$("#customerId").text("Login erfolgreich. Hallo Kunde mit ID " + response + ". Sie koennen nun Bestellungen erfassen und auf Ihr Kundenkonto zugreifen.");
+		$("#customerId").css('color', 'green'); //André
 		customerid = response;
 		$("#username").empty();
 		$("#pwd").empty();

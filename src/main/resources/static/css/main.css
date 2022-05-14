@@ -64,6 +64,13 @@
     border-radius: 5px;
     border: 1px solid #ccc;
   }
+    #my-form input[type='email'] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
   
   .btn {
     display: block;

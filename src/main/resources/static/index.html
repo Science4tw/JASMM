@@ -110,7 +110,7 @@
 				<div class="row">
 					<div class="column-left">
 						<label for="strasseKto">Strasse:</label>
-						<input type="text" name="strasse" id="strasseKto"required>
+						<input type="text" name="strasse" id="strasseKto" required>
 					</div>
 					<div class="column-right">
 						<label for="hnummerKto">Nr.:</label>
@@ -134,7 +134,7 @@
 		</section>
 	</div>
 	<!-- TEIL KUNDENKONTO ENDE -->
-	
+
 	<!-- TEIL PASSWORT ÄNDERN -->
 	<div id="PasswortPanel">
 		<section class="container">
@@ -158,7 +158,7 @@
 					<input type="password" name="newPwd2" id="newPwd2" placeholder="mind. 6 Zeichen">
 				</div>
 				<input class="btn" type="submit" value="Passwort ändern" onClick="changePassword()">
-		</form>
+			</form>
 		</section>
 	</div>
 	<!-- TEIL PASSWORT ÄNDERN ENDE -->
@@ -173,48 +173,51 @@
 				</center>
 				<div class="msg"></div>
 				<div>
-					<label>Benutzername (E-Mail-Adresse):</label>
-					<input type="text" name="usernamereg" id="usernamereg" placeholder="max.muster@testmail.com" required />
+					<label>Benutzername <span>(E-Mail-Adresse)</span></label>
+					<input type="email" name="usernamereg" id="usernamereg" required />
+					<i><span id="UsernameNotMatch"></span></i>
 				</div>
 				<div>
-					<label>Passwort:</label>
-					<input type="password" name="pwdreg" id="pwdreg" placeholder="mind. 6 Zeichen"  required>
+					<label>Passwort <span>(mind. 6 Zeichen)</span></label>
+					<input type="password" name="pwdreg" id="pwdreg"  minlength="6"	required>
 				</div>
 				<div>
-					<label>Passwort (wiederholen):</label>
-					<input type="password" name="pwdreg2" id="pwdreg2" placeholder="mind. 6 Zeichen" required>
+					<label>Passwort wiederholen <span>(mind. 6 Zeichen):</span></label>
+					<input type="password" name="pwdreg2" id="pwdreg2" minlength="6" required>
+					<i><span id="PasswordNotMatch"></span></i>
 				</div>
 				<div>
-					<label>Vorname:</label>
-					<input type="text" name="vname" id="vname" placeholder="Max" required>
+					<label>Vorname <span>(mind. 2 Zeichen):</span></label>
+					<input type="text" name="vname" id="vname" pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
 				</div>
 				<div>
-					<label>Nachname:</label>
-					<input type="text" name="nname" id="nname" placeholder="Muster" required>
+					<label>Nachname <span>(mind. 2 Zeichen):</span></label>
+					<input type="text" name="nname" id="nname"  pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
 				</div>
 				<div class="row">
 					<div class="column-left">
 						<label>Strasse:</label>
-						<input type="text" name="strasse" id="strasse" 	placeholder="Geroldstrasse" required>
+						<input type="text" name="strasse" id="strasse" pattern="[A-zÄÖÜäöüßéè]{2,50}"required>
 					</div>
 					<div class="column-right">
 						<label>Hausnummer:</label>
-						<input type="text" name="hnummer" id="hnummer" placeholder="11B" required>
+						<input type="text" name="hnummer" id="hnummer" required>
 					</div>
 				</div>
 				<div class="row">
 					<div class="column-left">
-						<label>PLZ:</label>
-						<input type="text" name="plz" id="plz" placeholder="8004" maxlength="4" minlength="4"  required>
+						<label>Postleitzahl <span>(4 Ziffern):</span></label>
+						<input type="text" name="plz" id="plz"  maxlength="4" minlength="4" pattern="^[0-9]{4}$" required>
+						<i><span id="PlzNotMatch"></span></i>
 					</div>
 					<div class="column-right">
 						<label>Ortschaft:</label>
-						<input type="text" name="ort" id="ort" placeholder="Zürich" required>
+						<input type="text" name="ort" id="ort" pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
 					</div>
 				</div>
 				<input type="submit" value="Konto erstellen" id="register" class="btn">
 				<i><span id="SuccessRegistration"></span></i>
-			</>
+				</>
 
 
 		</section>
@@ -294,7 +297,8 @@
 						<li>Produkt P2: <label id="p2txt"> </label></li>
 						<li>Produkt P3: <label id="p3txt"> </label></li>
 						<li>Produkt P4: <label id="p4txt"> </label></li>
-						<input type="button" class="btn" id="calcship" value="Versand berechnen" onClick="calculateCostOfOrder()">
+						<input type="button" class="btn" id="calcship" value="Versand berechnen"
+							onClick="calculateCostOfOrder()">
 						<li>
 							<center> Versandkosten: <b><label id="total"></label></b></center>
 						</li>
