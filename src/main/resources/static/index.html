@@ -198,16 +198,19 @@
 				</div>
 				<div>
 					<label>Vorname <span>(mind. 2 Zeichen):</span></label>
-					<input type="text" name="vname" id="vname" pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
+					<input type="text" name="vname" id="vname" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+						title="Muss aus Buchstaben bestehen z.B. Max" required>
 				</div>
 				<div>
 					<label>Nachname <span>(mind. 2 Zeichen):</span></label>
-					<input type="text" name="nname" id="nname" pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
+					<input type="text" name="nname" id="nname" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+						title="Muss aus Buchstaben bestehen z.B. Mustermann" required>
 				</div>
 				<div class="row">
 					<div class="column-left">
 						<label>Strasse:</label>
-						<input type="text" name="strasse" id="strasse" pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
+						<input type="text" name="strasse" id="strasse" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+							title="Muss aus Buchstaben bestehen z.B. Werdstrasse" required>
 					</div>
 					<div class="column-right">
 						<label>Hausnummer:</label>
@@ -218,12 +221,13 @@
 					<div class="column-left">
 						<label>Postleitzahl <span>(4 Ziffern):</span></label>
 						<input type="text" name="plz" id="plz" maxlength="4" minlength="4" pattern="^[0-9]{4}$"
-							required>
+							title="Muss aus vier Zahlen bestehen z.B. 8004" required>
 						<i><span id="PlzNotMatch"></span></i>
 					</div>
 					<div class="column-right">
 						<label>Ortschaft:</label>
-						<input type="text" name="ort" id="ort" pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
+						<input type="text" name="ort" id="ort" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+							title="Muss aus Buchstaben bestehen z.B. Zürich" required>
 					</div>
 				</div>
 				<input type="submit" value="Konto erstellen" id="register" class="btn">

@@ -56,9 +56,8 @@ function responseRegister(response) {
 		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.")
 		$("#SuccessRegistration").css('color', 'red');
 	} else if (response == -2) {
-		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitt erfassen Sie eine gültige PLZ.")
+		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte erfassen Sie eine gültige PLZ.")
 		$("#SuccessRegistration").css('color', 'red');
-
 
 	} else {
 		customerid = response;
