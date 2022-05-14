@@ -35,11 +35,11 @@
 				<div class="msg"></div>
 				<div>
 					<label for="username">Benutzername (E-Mail-Adresse):</label>
-					<input type="text" id="username" placeholder="max.muster@testmail.com">
+					<input type="text" id="username" required>
 				</div>
 				<div>
 					<label for="pwd">Passwort:</label>
-					<input type="password" id="pwd" placeholder="Aa1234">
+					<input type="password" id="pwd" required>
 				</div>
 				<center>
 					<a onClick="switchRegKon()">Noch kein Kundenkonto?</a>
@@ -175,7 +175,6 @@
 				<div>
 					<label>Benutzername <span>(E-Mail-Adresse)</span></label>
 					<input type="email" name="usernamereg" id="usernamereg" required />
-					<i><span id="UsernameNotMatch"></span></i>
 				</div>
 				<div>
 					<label>Passwort <span>(mind. 6 Zeichen)</span></label>
@@ -184,7 +183,6 @@
 				<div>
 					<label>Passwort wiederholen <span>(mind. 6 Zeichen):</span></label>
 					<input type="password" name="pwdreg2" id="pwdreg2" minlength="6" required>
-					<i><span id="PasswordNotMatch"></span></i>
 				</div>
 				<div>
 					<label>Vorname <span>(mind. 2 Zeichen):</span></label>
@@ -208,7 +206,6 @@
 					<div class="column-left">
 						<label>Postleitzahl <span>(4 Ziffern):</span></label>
 						<input type="text" name="plz" id="plz"  maxlength="4" minlength="4" pattern="^[0-9]{4}$" required>
-						<i><span id="PlzNotMatch"></span></i>
 					</div>
 					<div class="column-right">
 						<label>Ortschaft:</label>

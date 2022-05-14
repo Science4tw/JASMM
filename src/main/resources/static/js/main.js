@@ -91,6 +91,7 @@ function loginResponse(response) {
 	var button2 = document.getElementById("RegKon") //Severin
 	if (response == 0) {
 		$("#customerId").empty();
+		$('#username').val('');
 		$('#pwd').val('');
 		$("#customerId").text("Login fehlgeschlagen."); //André
 		$("#customerId").css('color', 'red'); //André
