@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <head>
 	<title>JASMM Onlineshop</title>
@@ -13,7 +14,7 @@
 	<script src="js/main.js"></script>
 
 	<header>
-		<h1>JASMM.CH</h1>
+		<center><img src="images/Logo.png" width="200" height="100"></center>
 	</header>
 	<nav>
 		<section class="menu">
@@ -28,7 +29,6 @@
 	<!-- TEIL LOGIN -->
 	<div id="LoginPanel">
 		<section class="container">
-			<center><img src="images/Logo.png" width="200" height="100"></center>
 			<form id="my-form">
 				<center>
 					<h1>Login</h1>
@@ -43,7 +43,7 @@
 					<input type="password" id="pwd" placeholder="Aa1234">
 				</div>
 				<center>
-					<a onClick="switchRegKon()">Noch kein Kundenkonto?</a>
+					<a onClick="switchRegKon()"><u>Noch kein Kundenkonto?</u></a>
 				</center>
 
 				<input class="btn" type="button" value="Anmelden" onClick="loginCustomer()">
@@ -167,7 +167,6 @@
 	<!-- TEIL Reg (Start) -->
 	<div id="RegPanel">
 		<section class="container">
-			<center><img src="images/Logo.png" width="200" height="100"></center>
 			<form id="my-form" onsubmit="event.preventDefault(); createCustomer()">
 				<center>
 					<h1>Registrieren</h1>
@@ -255,14 +254,12 @@
 	</section>
      TEIL MATTHIAS (ENDE) -->
 		<!-- SEVERIN -->
-		<div class="row">
-			<div class="column">
-				<section class="containershop">
-					<table>
+				<section class="container">
+					<table style="width:100%">
 						<tbody>
 							<tr>
-								<td><img src="images/p1.png" width="200" height="200"><br>Produkt P1</td>
-								<td><img src="images/p2.png" width="200" height="200"><br>Produkt P2</td>
+								<td><img class="product" src="images/p1.png"><br>Produkt P1</td>
+								<td><img class="product" src="images/p2.png"><br>Produkt P2</td>
 							</tr>
 							<tr>
 								<td><input class="num" type="number" id="orderitem1" placeholder="0"><input
@@ -273,8 +270,8 @@
 										onCLick="addArticleToOrder2()"></td>
 							</tr>
 							<tr>
-								<td><img src="images/p3.png" width="200" height="200"><br>Produkt P3</td>
-								<td><img src="images/p4.png" width="200" height="200"><br>Produkt P4</td>
+								<td><img class="product" src="images/p3.png"><br>Produkt P3</td>
+								<td><img class="product" src="images/p4.png"><br>Produkt P4</td>
 							</tr>
 							<tr>
 								<td><input class="num" type="number" id="orderitem3" placeholder="0"><input
@@ -286,10 +283,10 @@
 							</tr>
 						</tbody>
 					</table>
-				</section>
-			</div>
+					<br>
+					<hr>
+					<br>
 			<div class="column">
-				<section class="container2">
 					<form id="my-form">
 						<h1>Warenkorb</h1>
 					</form>
