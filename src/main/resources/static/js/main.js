@@ -30,15 +30,15 @@ function createCustomer() {
 	let cityInput = document.querySelector('#ort');
 
 	if (pwdInput.value === pwdInput2.value) {
-	$.ajax({
-		type: "POST",
-		url: "/demo/createCustomer",
-		data: JSON.stringify({ username: usernameInput.value, password: pwdInput.value, firstName: firstNameInput.value, lastName: lastNameInput.value, street: streetInput.value, streetNr: streetNrInput.value, zipCode: zipCodeInput.value, city: cityInput.value }),
-		success: responseRegister,
-		dataType: 'json',
-		contentType: 'application/json'
-	});
-	
+		$.ajax({
+			type: "POST",
+			url: "/demo/createCustomer",
+			data: JSON.stringify({ username: usernameInput.value, password: pwdInput.value, firstName: firstNameInput.value, lastName: lastNameInput.value, street: streetInput.value, streetNr: streetNrInput.value, zipCode: zipCodeInput.value, city: cityInput.value }),
+			success: responseRegister,
+			dataType: 'json',
+			contentType: 'application/json'
+		});
+
 	} else {
 		$('#pwdreg').val('');
 		$('#pwdreg2').val('');
@@ -59,11 +59,11 @@ function responseRegister(response) {
 		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitt erfassen Sie eine gültige PLZ.")
 		$("#SuccessRegistration").css('color', 'red');
 
-		
+
 	} else {
 		customerid = response;
-		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen.");	
-		$("#SuccessRegistration").css('color', 'green');	
+		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen.");
+		$("#SuccessRegistration").css('color', 'green');
 		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
 	}
 
@@ -170,31 +170,39 @@ function updateCustomerData() {
 //Kundenkonto: Erfolgsmeldung bzgl. Änderung der Kundendaten 
 function handleCustomerUpdateResponse(response) {
 	if (response == true) {
-		alert("Kundendaten erfolgreich geaendert in der DB");
+		$("#infoUpdateCustomerData").text("Kundendaten erfolgreich geaendert in der DB")
+		$("#infoUpdateCustomerData").css('color', 'green');
 	} else {
-		alert("Aenderung fehlgeschlagen. Bitte geben Sie eine gueltige PLZ ein.")
+		$('#plzKto').val('');
+		$("#infoUpdateCustomerData").text("Aenderung fehlgeschlage! Bitte geben Sie eine gueltige PLZ ein.")
+		$("#infoUpdateCustomerData").css('color', 'red');
+
 	}
 }
 
 //Michèle
 //Passwort ändern
-function changePassword(){
+function changePassword() {
 	let oldPwdInputUser = document.querySelector("#oldPwd");
 	let newPwd1InputUser = document.querySelector("#newPwd1");
 	let newPwd2InputUser = document.querySelector("#newPwd2");
-	
+
 	if (newPwd1InputUser.value === newPwd2InputUser.value) {
-	
-	$.ajax({
-		type: "PUT",
-		url: "/demo/changePassword/" + customerid + "",
-		data: JSON.stringify({ password: oldPwdInputUser.value, passwordToUpdate: newPwd1InputUser.value }),
-		success: handleChangePwdResponse,
-		dataType: 'json',
-		contentType: 'application/json'
-	});
+
+		$.ajax({
+			type: "PUT",
+			url: "/demo/changePassword/" + customerid + "",
+			data: JSON.stringify({ password: oldPwdInputUser.value, passwordToUpdate: newPwd1InputUser.value }),
+			success: handleChangePwdResponse,
+			dataType: 'json',
+			contentType: 'application/json'
+		});
 	} else {
-		alert("Die Wiederholung des neuen Passworts ist nicht korrekt.")
+		$('#oldPwd').val('');
+		$('#newPwd1').val('');
+		$('#newPwd2').val('');
+		$("#SuccessPasswordChange").text("Fehlgeschlagen! Die Wiederholung des neuen Passworts ist nicht korrekt. Bitte versuchen Sie es erneut.")
+		$("#SuccessPasswordChange").css('color', 'red');
 	}
 }
 
@@ -202,17 +210,25 @@ function changePassword(){
 //Passwort ändern: Erfolgsmeldung bzgl. Änderung
 function handleChangePwdResponse(response) {
 	if (response == true) {
-		alert("Passwort erfolgreich geändert");
+		$('#oldPwd').val('');
+		$('#newPwd1').val('');
+		$('#newPwd2').val('');
+		$("#SuccessPasswordChange").text("Passwort erfolgreich geändert.")
+		$("#SuccessPasswordChange").css('color', 'green');
 	} else {
-		alert("Passwortänderung fehlgeschlagen. Falscheingabe des bestehenden Passworts. Bitte versuchen Sie es erneut.")
+		$('#oldPwd').val('');
+		$('#newPwd1').val('');
+		$('#newPwd2').val('');
+		$("#SuccessPasswordChange").text("Fehlgeschlagen! Falscheingabe des bestehenden Passworts. Bitte versuchen Sie es erneut.")
+		$("#SuccessPasswordChange").css('color', 'red');
 	}
 }
 
 //Michèle
 //Logout: Klick auf Logout
 function logoutCustomer() {
-		
-		$.ajax({
+
+	$.ajax({
 		type: "POST",
 		url: "/demo/logout",
 		data: JSON.stringify({ customerid: customerid }),
@@ -221,7 +237,7 @@ function logoutCustomer() {
 		contentType: 'application/json',
 
 	});
-	
+
 	window.setTimeout('window.location = "/index.html"', 1000); //Severin -> Weiterleitung mit Delay
 }
 
@@ -264,7 +280,7 @@ function switchShop() {
 		$("#KontoPanel").hide();
 		$("#ShopPanel").show();
 		$("#PasswortPanel").hide();
-		}
+	}
 }
 
 
@@ -287,10 +303,10 @@ function switchLog() {
 
 // TEIL Julia (START)
 
-function calculateCostOfOrder(){
-	
-	
-		$.ajax({
+function calculateCostOfOrder() {
+
+
+	$.ajax({
 		type: "PUT",
 		url: "/api/order/" + orderid + "/calculateCostOfOrder/",
 		data: JSON.stringify({ orderid: orderid }),
@@ -298,8 +314,8 @@ function calculateCostOfOrder(){
 		dataType: 'json',
 		contentType: 'application/json'
 	});
-	
-		// customerid = response;
+
+	// customerid = response;
 	alert("Die OrderID lautet: " + orderid);
 }
 
@@ -321,7 +337,7 @@ function responseCalculateCostOfOrder(response) {
 
 // Anlegen einer neugen Bestellung
 function createOrder() {
-	
+
 	let label1 = document.getElementById("p1txt");
 	let label2 = document.getElementById("p2txt");
 	let label3 = document.getElementById("p3txt");

@@ -75,7 +75,7 @@
 	<!-- TEIL KUNDENKONTO -->
 	<div id="KontoPanel">
 		<section class="container">
-			<form id="my-form" onsubmit="return false">
+			<form id="my-form" onsubmit="event.preventDefault(); updateCustomerData()">
 				<center>
 					<h1>Kundenkonto</h1>
 				</center>
@@ -100,36 +100,41 @@
 					<label for="pwdKto">Passwort:</label>
 					<input type="text" name="pwdreg" id="pwdKto" placeholder="Passwort eingeben (mind. 6 Zeichen)" required>
 				</div> -->
-				<div>
-					<label for="vnameKto">Vorname:</label>
-					<input type="text" name="vname" id="vnameKto" required>
-				</div>
-				<div>
-					<label for="nnameKto">Nachname:</label>
-					<input type="text" name="nname" id="nnameKto" required>
-				</div>
-				<div class="row">
-					<div class="column-left">
-						<label for="strasseKto">Strasse:</label>
-						<input type="text" name="strasse" id="strasseKto" required>
-					</div>
-					<div class="column-right">
-						<label for="hnummerKto">Nr.:</label>
-						<input type="text" name="hnummer" id="hnummerKto" required>
 
+				<div>
+					<label>Vorname <span>(mind. 2 Zeichen):</span></label>
+					<input type="text" name="vnameKto" id="vnameKto" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+						title="Muss aus Buchstaben bestehen z.B. Max" required>
+				</div>
+				<div>
+					<label>Nachname <span>(mind. 2 Zeichen):</span></label>
+					<input type="text" name="nnameKto" id="nnameKto" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+						title="Muss aus Buchstaben bestehen z.B. Mustermann" required>
+				</div>
+				<div class="row">
+					<div class="column-left">
+						<label>Strasse:</label>
+						<input type="text" name="strasseKto" id="strasseKto" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+							title="Muss aus Buchstaben bestehen z.B. Werdstrasse" required>
+					</div>
+					<div class="column-right">
+						<label>Hausnummer:</label>
+						<input type="text" name="hnummerKto" id="hnummerKto" required>
 					</div>
 				</div>
 				<div class="row">
 					<div class="column-left">
-						<label for="plzKto">PLZ:</label>
-						<input type="text" name="plz" id="plzKto" required>
+						<label>Postleitzahl <span>(4 Ziffern):</span></label>
+						<input type="text" name="plzKto" id="plzKto" maxlength="4" minlength="4" pattern="^[0-9]{4}$"
+							title="Muss aus vier Zahlen bestehen z.B. 8004" required>
 					</div>
 					<div class="column-right">
-						<label for="ortKto">Ort:</label>
-						<input type="text" name="ort" id="ortKto" required>
+						<label>Ortschaft:</label>
+						<input type="text" name="ortKto" id="ortKto" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+							title="Muss aus Buchstaben bestehen z.B. Zürich" required>
 					</div>
 				</div>
-				<input class="btn" type="submit" value="Änderungen speichern" onClick="updateCustomerData()">
+				<input class="btn" type="submit" value="Änderungen speichern">
 				<i><span id="infoUpdateCustomerData"></span></i>
 			</form>
 		</section>
@@ -139,7 +144,7 @@
 	<!-- TEIL PASSWORT ÄNDERN -->
 	<div id="PasswortPanel">
 		<section class="container">
-			<form id="my-form" onsubmit="return false">
+			<form id="my-form" onsubmit="event.preventDefault(); changePassword()">
 				<center>
 					<h1>Passwort ändern</h1>
 				</center>
@@ -148,17 +153,22 @@
 				<hr></br>
 				<div>
 					<label for="oldPwd">Bestehendes Passwort:</label>
-					<input type="password" name="oldPwd" id="oldPwd">
+					<input type="password" name="oldPwd" id="oldPwd" required>
 				</div>
 				<div>
-					<label for="newPwd1">Neues Passwort:</label>
-					<input type="password" name="newPwd1" id="newPwd1" placeholder="mind. 6 Zeichen">
+					<label>Neues Passwort <span>(mind. 6 Zeichen, einen Gross- und Kleinbuchstaben und eine
+							Zahl):</span></label>
+					<input type="password" name="newPwd1" id="newPwd1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+						minlength="6"
+						title="Muss mindestens eine Zahl, einen Groß- und Kleinbuchstaben und mindestens 6 oder mehr Zeichen enthalten"
+						required>
 				</div>
 				<div>
-					<label for="newPwd2">Neues Passwort (wiederholen):</label>
-					<input type="password" name="newPwd2" id="newPwd2" placeholder="mind. 6 Zeichen">
+					<label>Neues Passwort wiederholen; <span></span></label>
+					<input type="password" name="newPwd2" id="newPwd2" minlength="6" required>
 				</div>
-				<input class="btn" type="submit" value="Passwort ändern" onClick="changePassword()">
+				<input class="btn" type="submit" value="Passwort ändern">
+				<i><span id="SuccessPasswordChange"></span></i>
 			</form>
 		</section>
 	</div>
@@ -179,7 +189,7 @@
 				</div>
 				<div>
 					<label>Passwort <span>(mind. 6 Zeichen)</span></label>
-					<input type="password" name="pwdreg" id="pwdreg"  minlength="6"	required>
+					<input type="password" name="pwdreg" id="pwdreg" minlength="6" required>
 				</div>
 				<div>
 					<label>Passwort wiederholen <span>(mind. 6 Zeichen):</span></label>
@@ -192,12 +202,12 @@
 				</div>
 				<div>
 					<label>Nachname <span>(mind. 2 Zeichen):</span></label>
-					<input type="text" name="nname" id="nname"  pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
+					<input type="text" name="nname" id="nname" pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
 				</div>
 				<div class="row">
 					<div class="column-left">
 						<label>Strasse:</label>
-						<input type="text" name="strasse" id="strasse" pattern="[A-zÄÖÜäöüßéè]{2,50}"required>
+						<input type="text" name="strasse" id="strasse" pattern="[A-zÄÖÜäöüßéè]{2,50}" required>
 					</div>
 					<div class="column-right">
 						<label>Hausnummer:</label>
@@ -207,7 +217,8 @@
 				<div class="row">
 					<div class="column-left">
 						<label>Postleitzahl <span>(4 Ziffern):</span></label>
-						<input type="text" name="plz" id="plz"  maxlength="4" minlength="4" pattern="^[0-9]{4}$" required>
+						<input type="text" name="plz" id="plz" maxlength="4" minlength="4" pattern="^[0-9]{4}$"
+							required>
 						<i><span id="PlzNotMatch"></span></i>
 					</div>
 					<div class="column-right">
@@ -254,59 +265,59 @@
 	</section>
      TEIL MATTHIAS (ENDE) -->
 		<!-- SEVERIN -->
-				<section class="container">
-					<table style="width:100%">
-						<tbody>
-							<tr>
-								<td><img class="product" src="images/p1.png"><br>Produkt P1</td>
-								<td><img class="product" src="images/p2.png"><br>Produkt P2</td>
-							</tr>
-							<tr>
-								<td><input class="num" type="number" id="orderitem1" placeholder="0"><input
-										class="btncart" id="addToOrder1" type="button" value="In den Warenkorb"
-										onCLick="addArticleToOrder1()"></td>
-								<td><input class="num" type="number" id="orderitem2" placeholder="0"><input
-										class="btncart" id="addToOrder2" type="button" value="In den Warenkorb"
-										onCLick="addArticleToOrder2()"></td>
-							</tr>
-							<tr>
-								<td><img class="product" src="images/p3.png"><br>Produkt P3</td>
-								<td><img class="product" src="images/p4.png"><br>Produkt P4</td>
-							</tr>
-							<tr>
-								<td><input class="num" type="number" id="orderitem3" placeholder="0"><input
-										class="btncart" id="addToOrder3" type="button" value="In den Warenkorb"
-										onCLick="addArticleToOrder3()"></td>
-								<td><input class="num" type="number" id="orderitem4" placeholder="0"><input
-										class="btncart" id="addToOrder4" type="button" value="In den Warenkorb"
-										onCLick="addArticleToOrder4()"></td>
-							</tr>
-						</tbody>
-					</table>
-					<br>
-					<hr>
-					<br>
+		<section class="container">
+			<table style="width:100%">
+				<tbody>
+					<tr>
+						<td><img class="product" src="images/p1.png"><br>Produkt P1</td>
+						<td><img class="product" src="images/p2.png"><br>Produkt P2</td>
+					</tr>
+					<tr>
+						<td><input class="num" type="number" id="orderitem1" placeholder="0"><input class="btncart"
+								id="addToOrder1" type="button" value="In den Warenkorb" onCLick="addArticleToOrder1()">
+						</td>
+						<td><input class="num" type="number" id="orderitem2" placeholder="0"><input class="btncart"
+								id="addToOrder2" type="button" value="In den Warenkorb" onCLick="addArticleToOrder2()">
+						</td>
+					</tr>
+					<tr>
+						<td><img class="product" src="images/p3.png"><br>Produkt P3</td>
+						<td><img class="product" src="images/p4.png"><br>Produkt P4</td>
+					</tr>
+					<tr>
+						<td><input class="num" type="number" id="orderitem3" placeholder="0"><input class="btncart"
+								id="addToOrder3" type="button" value="In den Warenkorb" onCLick="addArticleToOrder3()">
+						</td>
+						<td><input class="num" type="number" id="orderitem4" placeholder="0"><input class="btncart"
+								id="addToOrder4" type="button" value="In den Warenkorb" onCLick="addArticleToOrder4()">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<hr>
+			<br>
 			<div class="column">
-					<form id="my-form">
-						<h1>Warenkorb</h1>
-					</form>
-					<ul>
-						<li>Produkt P1: <label id="p1txt"> </label></li>
-						<li>Produkt P2: <label id="p2txt"> </label></li>
-						<li>Produkt P3: <label id="p3txt"> </label></li>
-						<li>Produkt P4: <label id="p4txt"> </label></li>
-						<input type="button" class="btn" id="calcship" value="Versand berechnen"
-							onClick="calculateCostOfOrder()">
-						<li>
-							<center> Versandkosten: <b><label id="total"></label></b></center>
-						</li>
-						<input type="button" class="btn" id="createOrder" value="Bestellung anlegen"
-							onClick="createOrder()">
+				<form id="my-form">
+					<h1>Warenkorb</h1>
+				</form>
+				<ul>
+					<li>Produkt P1: <label id="p1txt"> </label></li>
+					<li>Produkt P2: <label id="p2txt"> </label></li>
+					<li>Produkt P3: <label id="p3txt"> </label></li>
+					<li>Produkt P4: <label id="p4txt"> </label></li>
+					<input type="button" class="btn" id="calcship" value="Versand berechnen"
+						onClick="calculateCostOfOrder()">
+					<li>
+						<center> Versandkosten: <b><label id="total"></label></b></center>
+					</li>
+					<input type="button" class="btn" id="createOrder" value="Bestellung anlegen"
+						onClick="createOrder()">
 
-					</ul>
-					</selection>
+				</ul>
+				</selection>
 			</div>
-		</div>
+	</div>
 
 
 	</div>
