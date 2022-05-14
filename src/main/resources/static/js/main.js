@@ -94,6 +94,7 @@ function loginResponse(response) {
 	if (response == 0) {
 		$("#customerId").empty();
 		$('#pwd').val('');
+		$('#username').val('');
 		$("#customerId").text("Login fehlgeschlagen."); //André
 		$("#customerId").css('color', 'red'); //André
 	} else {
