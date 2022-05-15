@@ -167,6 +167,7 @@ function updateCustomerData() {
 	let streetNrInputKto = document.querySelector('#hnummerKto');
 	let zipCodeInputKto = document.querySelector('#plzKto');
 	let cityInputKto = document.querySelector('#ortKto');
+	$("#infoUpdateCustomerData").fadeIn(); // André
 
 	$.ajax({
 		type: "PUT",
@@ -182,14 +183,14 @@ function updateCustomerData() {
 //Kundenkonto: Erfolgsmeldung bzgl. Änderung der Kundendaten 
 function handleCustomerUpdateResponse(response) {
 	if (response == true) {
-		$("#infoUpdateCustomerData").text("Kundendaten erfolgreich geaendert in der DB") //André
+		$("#infoUpdateCustomerData").text("Kundendaten erfolgreich geaendert in der Datenbank") //André
 		$("#infoUpdateCustomerData").css('color', 'green'); //André
 	} else {
 		$('#plzKto').val(''); //André - Wenn PLZ nicht existiert, wird Feld geleert.
 		$("#infoUpdateCustomerData").text("Aenderung fehlgeschlage! Bitte geben Sie eine gueltige PLZ ein.") //André
 		$("#infoUpdateCustomerData").css('color', 'red'); //André
-
 	}
+	$("#infoUpdateCustomerData").fadeOut(5000); // André
 }
 
 //Michèle
@@ -198,6 +199,7 @@ function changePassword() {
 	let oldPwdInputUser = document.querySelector("#oldPwd");
 	let newPwd1InputUser = document.querySelector("#newPwd1");
 	let newPwd2InputUser = document.querySelector("#newPwd2");
+	$("#SuccessPasswordChange").fadeIn(); // André
 
 	if (newPwd1InputUser.value === newPwd2InputUser.value) {
 
@@ -216,6 +218,7 @@ function changePassword() {
 		$("#SuccessPasswordChange").text("Fehlgeschlagen! Die Wiederholung des neuen Passworts ist nicht korrekt. Bitte versuchen Sie es erneut.") //André
 		$("#SuccessPasswordChange").css('color', 'red'); //André
 	}
+	$("#SuccessPasswordChange").fadeOut(7000); // André
 }
 
 //Michèle
@@ -235,6 +238,7 @@ function handleChangePwdResponse(response) {
 		$("#SuccessPasswordChange").text("Fehlgeschlagen! Falscheingabe des bestehenden Passworts. Bitte versuchen Sie es erneut.")//André
 		$("#SuccessPasswordChange").css('color', 'red');//André
 	}
+	$("#SuccessPasswordChange").fadeOut(7000); // André
 }
 
 //Michèle
