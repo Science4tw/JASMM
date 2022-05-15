@@ -101,8 +101,8 @@ function loginResponse(response) {
 		$("#customerId").text("Login erfolgreich. Ihre Kunden-ID lautet " + response + ". Sie koennen nun Bestellungen erfassen und auf Ihr Kundenkonto zugreifen.");
 		$("#customerId").css('color', 'green'); //André
 		customerid = response;
-		$("#username").empty();
-		$("#pwd").empty();
+		$('#pwd').prop("disabled", true); //André - Nach dem Login werden die Textfelder disabled.
+		$('#username').prop("disabled", true); // André
 		getCustomer();
 		createOrder();
 		$("#Shop").show();
@@ -265,7 +265,7 @@ function switchRegKon() {
 		$("#KontoPanel").show();
 		$("#PasswortPanel").show();
 		$("#ShopPanel").hide();
-		
+
 
 
 	}
@@ -366,8 +366,9 @@ function responseCreateOrder(response) {
 
 	orderid = response;
 
+	// André - habe den Alert rausgenommen, die Funktion funktioniert
 	// customerid = response;
-	alert("Die Order für den Kunden mit der ID " + customerid + " wurde gespeichert. Die OrderID lautet: " + orderid);
+	//alert("Die Order für den Kunden mit der ID " + customerid + " wurde gespeichert. Die OrderID lautet: " + orderid);
 
 }
 
@@ -385,6 +386,7 @@ function addArticleToOrder1() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid = articleid.value zu 1 geändert, kann man löschen
 	amount = article1amount.value;
+	amountResult = amount == 1 ? " der Uhr" : "der Uhren" //André
 	label.innerHTML = (amount + " Stk."); // Severin
 
 	alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
@@ -404,9 +406,11 @@ function addArticleToOrder1() {
 function responseAddArticleToOrder(response) {
 
 	if (response == true) {
-		alert("Hinzufügen erfolgreich. Die OrderID lautet: " + orderid)
+		$("#SuccessBasket").text("Hinzufügen " + amountResult + " erfolgreich. Die OrderID lautet: " + orderid)//André
+		$("#SuccessBasket").css('color', 'green');//André
 	} else {
-		alert("Fehlgeschlagen. Die OrderID lautet: " + orderid)
+		$("#SuccessBasket").text("Hinzufügen " + amountResult + " fehlgeschlagen!. Bitte erneut veruschen.")//André
+		$("#SuccessBasket").css('color', 'red');//André
 	}
 
 

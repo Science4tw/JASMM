@@ -114,7 +114,8 @@
 					</div>
 					<div class="column-right">
 						<label>Hausnummer:</label>
-						<input type="text" name="hnummerKto" id="hnummerKto" title="Kann aus Zahlen und Buchstaben bestehen z.B. 12B" required>
+						<input type="text" name="hnummerKto" id="hnummerKto"
+							title="Kann aus Zahlen und Buchstaben bestehen z.B. 12B" required>
 					</div>
 				</div>
 				<div class="row">
@@ -185,7 +186,8 @@
 				<div>
 					<label>Passwort <span>(mind. 6 Zeichen, einen Gross- und Kleinbuchstaben und eine
 							Zahl):</span></label>
-					<input type="password" name="pwdreg" id="pwdreg" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" minlength="6"
+					<input type="password" name="pwdreg" id="pwdreg" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+						minlength="6"
 						title="Muss mindestens eine Zahl, einen Groß- und Kleinbuchstaben und mindestens 6 oder mehr Zeichen enthalten"
 						required>
 				</div>
@@ -212,7 +214,8 @@
 					</div>
 					<div class="column-right">
 						<label>Hausnummer:</label>
-						<input type="text" name="hnummer" id="hnummer" title="Kann aus Zahlen und Buchstaben bestehen z.B. 12B" required>
+						<input type="text" name="hnummer" id="hnummer"
+							title="Kann aus Zahlen und Buchstaben bestehen z.B. 12B" required>
 					</div>
 				</div>
 				<div class="row">
@@ -271,29 +274,38 @@
 			<table style="width:100%">
 				<tbody>
 					<tr>
-						<td><img class="product" src="images/p1.png"><br>Produkt P1</td>
-						<td><img class="product" src="images/p2.png"><br>Produkt P2</td>
+						<td><img class="product" src="images/p1.png"><br>Flick Flack Uhr (P1)</td>
+						<td><img class="product" src="images/p2.png"><br>Elepho Rucksack (P2)</td>
+					</tr>
+
+					<tr>
+						<td><input class="num" type="number" id="orderitem1" placeholder="0" min="0" max="999" step="1">
+							<input class="btncart" id="addToOrder1" type="button" value="In den Warenkorb"
+								onCLick="addArticleToOrder1()">
+						</td>
+						<td><input class="num" type="number" id="orderitem2" placeholder="0" min="0" max="999" step="1">
+							<input class="btncart" id="addToOrder2" type="button" value="In den Warenkorb"
+								onCLick="addArticleToOrder2()">
+						</td>
+					</tr>
+
+					<tr>
+						<td><img class="product" src="images/p3.png"><br>ON Schuh (P3)</td>
+						<td><img class="product" src="images/p4.png"><br>Ray Ban Brille (P4)</td>
 					</tr>
 					<tr>
-						<td><input class="num" type="number" id="orderitem1" placeholder="0"><input class="btncart"
-								id="addToOrder1" type="button" value="In den Warenkorb" onCLick="addArticleToOrder1()">
+						<td><input class="num" type="number" id="orderitem3" placeholder="0" min="0" max="999" step="1">
+							<input class="btncart" id="addToOrder3" type="button" value="In den Warenkorb"
+								onCLick="addArticleToOrder3()">
 						</td>
-						<td><input class="num" type="number" id="orderitem2" placeholder="0"><input class="btncart"
-								id="addToOrder2" type="button" value="In den Warenkorb" onCLick="addArticleToOrder2()">
-						</td>
-					</tr>
-					<tr>
-						<td><img class="product" src="images/p3.png"><br>Produkt P3</td>
-						<td><img class="product" src="images/p4.png"><br>Produkt P4</td>
-					</tr>
-					<tr>
-						<td><input class="num" type="number" id="orderitem3" placeholder="0"><input class="btncart"
-								id="addToOrder3" type="button" value="In den Warenkorb" onCLick="addArticleToOrder3()">
-						</td>
-						<td><input class="num" type="number" id="orderitem4" placeholder="0"><input class="btncart"
-								id="addToOrder4" type="button" value="In den Warenkorb" onCLick="addArticleToOrder4()">
+						<td><input class="num" type="number" id="orderitem4" placeholder="0" min="0" max="999" step="1">
+							<input class="btncart" id="addToOrder4" type="button" value="In den Warenkorb"
+								onCLick="addArticleToOrder4()">
 						</td>
 					</tr>
+					<div>
+					<i><span id="SuccessBasket"></span></i>
+					</div>
 				</tbody>
 			</table>
 			<br>
@@ -304,10 +316,10 @@
 					<h1>Warenkorb</h1>
 				</form>
 				<ul>
-					<li>Produkt P1: <label id="p1txt"> </label></li>
-					<li>Produkt P2: <label id="p2txt"> </label></li>
-					<li>Produkt P3: <label id="p3txt"> </label></li>
-					<li>Produkt P4: <label id="p4txt"> </label></li>
+					<li>Flick Flack Uhr (P1): <label id="p1txt"> </label></li>
+					<li>Elepho Rucksack (P2): <label id="p2txt"> </label></li>
+					<li>ON Schuh (P3): <label id="p3txt"> </label></li>
+					<li>Ray Ban Brille (P4): <label id="p4txt"> </label></li>
 					<input type="button" class="btn" id="calcship" value="Versand berechnen"
 						onClick="calculateCostOfOrder()">
 					<li>
