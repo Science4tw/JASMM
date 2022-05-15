@@ -28,6 +28,7 @@ function createCustomer() {
 	let streetNrInput = document.querySelector('#hnummer');
 	let zipCodeInput = document.querySelector('#plz');
 	let cityInput = document.querySelector('#ort');
+	$("#SuccessRegistration").fadeIn(); // André
 
 	if (pwdInput.value === pwdInput2.value) {
 		$.ajax({
@@ -45,6 +46,7 @@ function createCustomer() {
 		$("#SuccessRegistration").text("Passwort stimmt nicht überein. Bitte erneut versuchen.");  //André
 		$("#SuccessRegistration").css('color', 'red'); //André
 	}
+	$("#SuccessRegistration").fadeOut(5000); // André
 
 }
 
@@ -53,9 +55,11 @@ function createCustomer() {
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
 	if (response == 0) {
+		$('#usernamereg').val(''); // André
 		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.") //André
 		$("#SuccessRegistration").css('color', 'red'); //André
 	} else if (response == -2) {
+		$('#plz').val(''); // André
 		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte erfassen Sie eine gültige PLZ.") //André
 		$("#SuccessRegistration").css('color', 'red'); //André
 
@@ -64,6 +68,10 @@ function responseRegister(response) {
 		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen."); //André
 		$("#SuccessRegistration").css('color', 'green'); //André
 		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
+	}
+	
+	if(respone == 0 || -2) { // André - Fehlermeldung nach 5 sek. ausblenden
+		$("#SuccessRegistration").fadeOut(5000); // André
 	}
 
 }
@@ -91,12 +99,16 @@ function loginResponse(response) {
 	var button1 = document.getElementById("LoginLogout") //Severin
 	var button2 = document.getElementById("RegKon") //Severin
 	var button3 = document.getElementById("Shop") //Severin
+	$("#customerId").fadeIn();
+	
 	if (response == 0) {
 		$("#customerId").empty();
 		$('#pwd').val(''); //André - Bei der Fehlerhaften eingabe wird das Passwort und Benutzer geleert.
 		$('#username').val(''); // André
 		$("#customerId").text("Login fehlgeschlagen."); //André
 		$("#customerId").css('color', 'red'); //André
+		$("#customerId").fadeOut(2500);
+		
 	} else {
 		$("#customerId").text("Login erfolgreich. Ihre Kunden-ID lautet " + response + ". Sie koennen nun Bestellungen erfassen und auf Ihr Kundenkonto zugreifen.");
 		$("#customerId").css('color', 'green'); //André
@@ -215,6 +227,7 @@ function handleChangePwdResponse(response) {
 		$('#newPwd2').val('');//André
 		$("#SuccessPasswordChange").text("Passwort erfolgreich geändert.")//André
 		$("#SuccessPasswordChange").css('color', 'green');//André
+		
 	} else {
 		$('#oldPwd').val('');//André
 		$('#newPwd1').val('');//André
@@ -386,10 +399,11 @@ function addArticleToOrder1() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid = articleid.value zu 1 geändert, kann man löschen
 	amount = article1amount.value;
-	amountResult = amount == 1 ? " der Uhr" : "der Uhren" //André
+	amountResult = amount == 1 ? "der Uhr" : "der Uhren" //André
 	label.innerHTML = (amount + " Stk."); // Severin
 
-	alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
+	// Von André ausgeklammert:
+	//alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
 
 	$.ajax({
 		type: "PUT",
@@ -405,6 +419,8 @@ function addArticleToOrder1() {
 
 function responseAddArticleToOrder(response) {
 
+	$("#SuccessBasket").fadeIn(); // André
+
 	if (response == true) {
 		$("#SuccessBasket").text("Hinzufügen " + amountResult + " erfolgreich. Die OrderID lautet: " + orderid)//André
 		$("#SuccessBasket").css('color', 'green');//André
@@ -413,7 +429,7 @@ function responseAddArticleToOrder(response) {
 		$("#SuccessBasket").css('color', 'red');//André
 	}
 
-
+	$("#SuccessBasket").fadeOut(2500); // André - Meldung wird nach 2.5 sek. ausgeblendet. 
 }
 
 
@@ -427,9 +443,11 @@ function addArticleToOrder2() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid2 = everin articleid2.value  SEVERIN kann man löschen
 	articleamount2 = articleamount2.value;
+	amountResult = articleamount2 == 1 ? "des Rucksacks" : "der Rucksäcke" //André
 	label.innerHTML = (articleamount2 + " Stk."); // Severin
-
-	alert("Article ID : " + articleid2 + "---Order ID : " + orderid + "----Amount : " + articleamount2);
+	
+	//André - ausgeklammert
+	//alert("Article ID : " + articleid2 + "---Order ID : " + orderid + "----Amount : " + articleamount2);
 
 	$.ajax({
 		type: "PUT",
@@ -453,9 +471,11 @@ function addArticleToOrder3() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid3 = articleid3.value SEVERIN kann man löschen
 	articleamount3 = articleamount3.value;
+	amountResult = articleamount3 == 1 ? "der Schuhe" : "der Schuhe" //André
 	label.innerHTML = (articleamount3 + " Stk."); // Severin
 
-	alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
+	// André - ausgeklammert
+	//alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
 
 	$.ajax({
 		type: "PUT",
@@ -479,9 +499,11 @@ function addArticleToOrder4() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid4 = articleid4.value SEVERIN kann man löschen
 	articleamount4 = articleamount4.value;
+	amountResult = articleamount4 == 1 ? "der Brille" : "der Brillen" //André
 	label.innerHTML = (articleamount4 + " Stk."); // Severin
-
-	alert("Article ID : " + articleid4 + "---Order ID : " + orderid + "----Amount : " + articleamount4);
+	
+	// André - ausgeklammert:
+	//alert("Article ID : " + articleid4 + "---Order ID : " + orderid + "----Amount : " + articleamount4);
 
 	$.ajax({
 		type: "PUT",
