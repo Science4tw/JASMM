@@ -89,18 +89,13 @@
 				<br>
 				<hr></br>
 				<div>
-					<label for="customeridKto">Kunden-ID:</label>
+					<label>Kunden-ID:</label>
 					<input type="text" id="customeridKto" disabled>
 				</div>
 				<div>
-					<label for="usernameKto">Benutzername (E-Mail-Adresse):</label>
+					<label>Benutzername (E-Mail-Adresse):</label>
 					<input type="text" id="usernameKto" disabled>
 				</div>
-				<!-- <div>
-					<label for="pwdKto">Passwort:</label>
-					<input type="text" name="pwdreg" id="pwdKto" placeholder="Passwort eingeben (mind. 6 Zeichen)" required>
-				</div> -->
-
 				<div>
 					<label>Vorname <span>(mind. 2 Zeichen):</span></label>
 					<input type="text" name="vnameKto" id="vnameKto" pattern="[A-zÄÖÜäöüßéè]{2,50}"
@@ -119,7 +114,7 @@
 					</div>
 					<div class="column-right">
 						<label>Hausnummer:</label>
-						<input type="text" name="hnummerKto" id="hnummerKto" required>
+						<input type="text" name="hnummerKto" id="hnummerKto" title="Kann aus Zahlen und Buchstaben bestehen z.B. 12B" required>
 					</div>
 				</div>
 				<div class="row">
@@ -164,7 +159,7 @@
 						required>
 				</div>
 				<div>
-					<label>Neues Passwort wiederholen; <span></span></label>
+					<label>Neues Passwort wiederholen: <span></span></label>
 					<input type="password" name="newPwd2" id="newPwd2" minlength="6" required>
 				</div>
 				<input class="btn" type="submit" value="Passwort ändern">
@@ -183,16 +178,19 @@
 				</center>
 				<div class="msg"></div>
 				<div>
-					<label>Benutzername <span>(E-Mail-Adresse)</span></label>
+					<label>Benutzername <span>(E-Mail-Adresse):</span></label>
 					<input type="email" name="usernamereg" id="usernamereg" required />
 					<i><span id="UsernameNotMatch"></span></i>
 				</div>
 				<div>
-					<label>Passwort <span>(mind. 6 Zeichen)</span></label>
-					<input type="password" name="pwdreg" id="pwdreg" minlength="6" required>
+					<label>Passwort <span>(mind. 6 Zeichen, einen Gross- und Kleinbuchstaben und eine
+							Zahl):</span></label>
+					<input type="password" name="pwdreg" id="pwdreg" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" minlength="6"
+						title="Muss mindestens eine Zahl, einen Groß- und Kleinbuchstaben und mindestens 6 oder mehr Zeichen enthalten"
+						required>
 				</div>
 				<div>
-					<label>Passwort wiederholen <span>(mind. 6 Zeichen):</span></label>
+					<label>Passwort wiederholen:<span></span></label>
 					<input type="password" name="pwdreg2" id="pwdreg2" minlength="6" required>
 					<i><span id="PasswordNotMatch"></span></i>
 				</div>
@@ -214,7 +212,7 @@
 					</div>
 					<div class="column-right">
 						<label>Hausnummer:</label>
-						<input type="text" name="hnummer" id="hnummer" required>
+						<input type="text" name="hnummer" id="hnummer" title="Kann aus Zahlen und Buchstaben bestehen z.B. 12B" required>
 					</div>
 				</div>
 				<div class="row">

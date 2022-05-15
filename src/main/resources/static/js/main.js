@@ -40,10 +40,10 @@ function createCustomer() {
 		});
 
 	} else {
-		$('#pwdreg').val('');
-		$('#pwdreg2').val('');
-		$("#SuccessRegistration").text("Passwort stimmt nicht überein.Bitte erneut eingeben.");
-		$("#SuccessRegistration").css('color', 'red');
+		$('#pwdreg').val(''); //André - Wenn Passwörter nicht übereinstimmen, Textfelder leeren.
+		$('#pwdreg2').val(''); // André
+		$("#SuccessRegistration").text("Passwort stimmt nicht überein. Bitte erneut versuchen.");  //André
+		$("#SuccessRegistration").css('color', 'red'); //André
 	}
 
 }
@@ -53,16 +53,16 @@ function createCustomer() {
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
 	if (response == 0) {
-		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.")
-		$("#SuccessRegistration").css('color', 'red');
+		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.") //André
+		$("#SuccessRegistration").css('color', 'red'); //André
 	} else if (response == -2) {
-		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte erfassen Sie eine gültige PLZ.")
-		$("#SuccessRegistration").css('color', 'red');
+		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte erfassen Sie eine gültige PLZ.") //André
+		$("#SuccessRegistration").css('color', 'red'); //André
 
 	} else {
 		customerid = response;
-		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen.");
-		$("#SuccessRegistration").css('color', 'green');
+		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen."); //André
+		$("#SuccessRegistration").css('color', 'green'); //André
 		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
 	}
 
@@ -93,12 +93,12 @@ function loginResponse(response) {
 	var button3 = document.getElementById("Shop") //Severin
 	if (response == 0) {
 		$("#customerId").empty();
-		$('#pwd').val('');
-		$('#username').val('');
+		$('#pwd').val(''); //André - Bei der Fehlerhaften eingabe wird das Passwort und Benutzer geleert.
+		$('#username').val(''); // André
 		$("#customerId").text("Login fehlgeschlagen."); //André
 		$("#customerId").css('color', 'red'); //André
 	} else {
-		$("#customerId").text("Login erfolgreich. Hallo Kunde mit ID " + response + ". Sie koennen nun Bestellungen erfassen und auf Ihr Kundenkonto zugreifen.");
+		$("#customerId").text("Login erfolgreich. Ihre Kunden-ID lautet " + response + ". Sie koennen nun Bestellungen erfassen und auf Ihr Kundenkonto zugreifen.");
 		$("#customerId").css('color', 'green'); //André
 		customerid = response;
 		$("#username").empty();
@@ -170,12 +170,12 @@ function updateCustomerData() {
 //Kundenkonto: Erfolgsmeldung bzgl. Änderung der Kundendaten 
 function handleCustomerUpdateResponse(response) {
 	if (response == true) {
-		$("#infoUpdateCustomerData").text("Kundendaten erfolgreich geaendert in der DB")
-		$("#infoUpdateCustomerData").css('color', 'green');
+		$("#infoUpdateCustomerData").text("Kundendaten erfolgreich geaendert in der DB") //André
+		$("#infoUpdateCustomerData").css('color', 'green'); //André
 	} else {
-		$('#plzKto').val('');
-		$("#infoUpdateCustomerData").text("Aenderung fehlgeschlage! Bitte geben Sie eine gueltige PLZ ein.")
-		$("#infoUpdateCustomerData").css('color', 'red');
+		$('#plzKto').val(''); //André - Wenn PLZ nicht existiert, wird Feld geleert.
+		$("#infoUpdateCustomerData").text("Aenderung fehlgeschlage! Bitte geben Sie eine gueltige PLZ ein.") //André
+		$("#infoUpdateCustomerData").css('color', 'red'); //André
 
 	}
 }
@@ -198,11 +198,11 @@ function changePassword() {
 			contentType: 'application/json'
 		});
 	} else {
-		$('#oldPwd').val('');
-		$('#newPwd1').val('');
-		$('#newPwd2').val('');
-		$("#SuccessPasswordChange").text("Fehlgeschlagen! Die Wiederholung des neuen Passworts ist nicht korrekt. Bitte versuchen Sie es erneut.")
-		$("#SuccessPasswordChange").css('color', 'red');
+		$('#oldPwd').val(''); //André - Wenn Änderung fehlschlägt, alle drei Felder leeren
+		$('#newPwd1').val(''); //André
+		$('#newPwd2').val(''); //André
+		$("#SuccessPasswordChange").text("Fehlgeschlagen! Die Wiederholung des neuen Passworts ist nicht korrekt. Bitte versuchen Sie es erneut.") //André
+		$("#SuccessPasswordChange").css('color', 'red'); //André
 	}
 }
 
@@ -210,17 +210,17 @@ function changePassword() {
 //Passwort ändern: Erfolgsmeldung bzgl. Änderung
 function handleChangePwdResponse(response) {
 	if (response == true) {
-		$('#oldPwd').val('');
-		$('#newPwd1').val('');
-		$('#newPwd2').val('');
-		$("#SuccessPasswordChange").text("Passwort erfolgreich geändert.")
-		$("#SuccessPasswordChange").css('color', 'green');
+		$('#oldPwd').val(''); //André - Wenn Änderung fehlschlägt, alle drei Felder leeren
+		$('#newPwd1').val(''); //André
+		$('#newPwd2').val('');//André
+		$("#SuccessPasswordChange").text("Passwort erfolgreich geändert.")//André
+		$("#SuccessPasswordChange").css('color', 'green');//André
 	} else {
-		$('#oldPwd').val('');
-		$('#newPwd1').val('');
-		$('#newPwd2').val('');
-		$("#SuccessPasswordChange").text("Fehlgeschlagen! Falscheingabe des bestehenden Passworts. Bitte versuchen Sie es erneut.")
-		$("#SuccessPasswordChange").css('color', 'red');
+		$('#oldPwd').val('');//André
+		$('#newPwd1').val('');//André
+		$('#newPwd2').val('');//André
+		$("#SuccessPasswordChange").text("Fehlgeschlagen! Falscheingabe des bestehenden Passworts. Bitte versuchen Sie es erneut.")//André
+		$("#SuccessPasswordChange").css('color', 'red');//André
 	}
 }
 
@@ -265,6 +265,7 @@ function switchRegKon() {
 		$("#KontoPanel").show();
 		$("#PasswortPanel").show();
 		$("#ShopPanel").hide();
+		
 
 
 	}
