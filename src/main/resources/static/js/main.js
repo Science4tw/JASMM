@@ -45,8 +45,8 @@ function createCustomer() {
 		$('#pwdreg2').val(''); // André
 		$("#SuccessRegistration").text("Passwort stimmt nicht überein. Bitte erneut versuchen.");  //André
 		$("#SuccessRegistration").css('color', 'red'); //André
+		$("#SuccessRegistration").fadeOut(5000); // André
 	}
-	$("#SuccessRegistration").fadeOut(5000); // André
 
 }
 
@@ -58,20 +58,28 @@ function responseRegister(response) {
 		$('#usernamereg').val(''); // André
 		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.") //André
 		$("#SuccessRegistration").css('color', 'red'); //André
+		$("#SuccessRegistration").fadeOut(5000); // André
 	} else if (response == -2) {
 		$('#plz').val(''); // André
 		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte erfassen Sie eine gültige PLZ.") //André
 		$("#SuccessRegistration").css('color', 'red'); //André
+		$("#SuccessRegistration").fadeOut(5000); // André
 
 	} else {
 		customerid = response;
 		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen."); //André
 		$("#SuccessRegistration").css('color', 'green'); //André
+		$('#usernamereg').val(''); //André - Bei erfolgreichem Registrieren werden Eingaben gelöscht.
+		$('#pwdreg').val(''); // André
+		$('#pwdreg2').val(''); // André
+		$('#vname').val(''); // André
+		$('#nname').val(''); // André
+		$('#strasse').val(''); // André
+		$('#hnummer').val(''); // André
+		$('#plz').val(''); // André
+		$('#ort').val(''); // André
+		
 		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
-	}
-	
-	if(respone == 0 || -2) { // André - Fehlermeldung nach 5 sek. ausblenden
-		$("#SuccessRegistration").fadeOut(5000); // André
 	}
 
 }
