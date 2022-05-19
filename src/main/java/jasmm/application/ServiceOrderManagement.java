@@ -1,5 +1,6 @@
 package jasmm.application;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /* Controller für das Order Handling
@@ -34,6 +36,10 @@ public class ServiceOrderManagement {
 	// Verknüpfung zur Shipping Repo
 	@Autowired
 	private ShippingRepository shippingRepository;
+	
+	// Verknüpfung zur City Repo
+	@Autowired
+	private CityRepository cityRepository;
 
 	// Logger
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
@@ -202,41 +208,116 @@ public class ServiceOrderManagement {
 
 	}
 
+//	@ResponseBody
 	@PutMapping(path = "/api/order/{orderid}/calculateCostOfOrder/", produces = "application/json")
-	public MessageCalculatedOrder calculateCostOfOrder(@PathVariable int orderid,
-			@RequestBody MessageCalculatedOrder message) {
+	public MessageCalculatedOrder calculateCostOfOrder(@PathVariable int orderid) {
 
-		System.out.println("Test start der Methode");
 
 		// Order suchen und speichern
 		Optional<Order> o = orderRepository.findById(orderid);
 		// "richtige" Order
 		Order order = o.get();
 
+		// Mengen der jeweiligen Produkte
 		int p1 = order.getAmountarticle1();
 		int p2 = order.getAmountarticle2();
 		int p3 = order.getAmountarticle3();
 		int p4 = order.getAmountarticle4();
 
-		// Welche Order ist es
 
+		// Berechnung der Anzahl Paletten
 		int anzahlPaletten = calculatePallets(p1, p2, p3, p4);
 
-		// Kunden speichern
-		Customer customer = (Customer) orderRepository.findByOrderid(orderid);
-		System.out.println(customer.toString());
-		// Distanz des Kunden speichern
-		Float distance = customer.getDistance();
-		System.out.println(distance);
+		// customerid aus Order ziehjen		
+		int customerid = order.getCustomerid();
+		// Kunde aus Repo holen
+		Customer customer = customerRepository.getById(customerid);
+		
+		// In City Tabelle die Zone zur Distanz speichern
+		City city = cityRepository.findByZipcode(customer.getZipCode());
+		Integer zone = city.getZone();
+		logger.info("Zone: " + zone);
 
-		// In der Tabelle prüfen, welche Kosten mit der Anzahl Paletten und der Distanz
-		List<Shipping> shipping = shippingRepository.findAll();
-		System.out.println(shipping);
-		// "Wert" der Spalte
-		// "Wert" der Zeile
+		
+		// Aus der Shipping Tabelle das Objekt mit der korrekten Zone speichern
+		Shipping shippingObject = shippingRepository.findByKm(zone);
+		
+		// Bassierend auf Anzahl Paletten die Kosten speichern
+		Float shippingCost = null;
+		switch (anzahlPaletten) {
+		case 1:
+			anzahlPaletten = 1;
+			shippingCost = shippingObject.getPal1();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 2:
+			anzahlPaletten = 2;
+			shippingCost = shippingObject.getPal2();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 3:
+			anzahlPaletten = 3;
+			shippingCost = shippingObject.getPal3();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 4:
+			anzahlPaletten = 4;
+			shippingCost = shippingObject.getPal4();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 5:
+			anzahlPaletten = 5;
+			shippingCost = shippingObject.getPal5();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 6:
+			anzahlPaletten = 6;
+			shippingCost = shippingObject.getPal6();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 7:
+			anzahlPaletten = 7;
+			shippingCost = shippingObject.getPal7();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 8:
+			anzahlPaletten = 8;
+			shippingCost = shippingObject.getPal8();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 9:
+			anzahlPaletten = 9;
+			shippingCost = shippingObject.getPal9();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 10:
+			anzahlPaletten = 10;
+			shippingCost = shippingObject.getPal10();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 11:
+			anzahlPaletten = 11;
+			shippingCost = shippingObject.getPal11();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		case 12:
+			anzahlPaletten = 12;
+			shippingCost = shippingObject.getPal12();
+			logger.info("Anzahl Paletten: " + anzahlPaletten +" | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			break;
+		default:
+			break;
+
+		}
+
+		
+		
+		MessageCalculatedOrder message = new MessageCalculatedOrder();
 
 		message.setAnzahlPaletten(anzahlPaletten);
 		message.setOrderid(orderid);
+		message.setTransportKosten(shippingCost);
+		message.setCustomerid(customerid);
 
 		return message;
 

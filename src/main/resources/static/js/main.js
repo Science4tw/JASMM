@@ -342,7 +342,7 @@ function calculateCostOfOrder() {
 	});
 
 	// customerid = response;
-	alert("Die OrderID lautet: " + orderid);
+	console.log("Die OrderID lautet: " + orderid);
 }
 
 // Antwort von createOrder(), wo wir die orderid speichern
@@ -351,7 +351,7 @@ function responseCalculateCostOfOrder(response) {
 	orderid = response;
 
 	// customerid = response;
-	alert("Die OrderID lautet: " + orderid);
+	console.log("Die OrderID lautet: " + orderid);
 
 }
 

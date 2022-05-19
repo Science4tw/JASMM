@@ -6,7 +6,7 @@ public class MessageCalculatedOrder {
 	private int customerid;
 	
 	private int anzahlPaletten;
-	private int transportKosten;
+	private Float transportKosten;
 
 	public int getOrderid() {
 		return orderid;
@@ -32,11 +32,11 @@ public class MessageCalculatedOrder {
 		this.anzahlPaletten = anzahlPaletten;
 	}
 
-	public int getTransportKosten() {
+	public Float getTransportKosten() {
 		return transportKosten;
 	}
 
-	public void setTransportKosten(int transportKosten) {
+	public void setTransportKosten(Float transportKosten) {
 		this.transportKosten = transportKosten;
 	}
 

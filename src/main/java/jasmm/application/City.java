@@ -17,6 +17,8 @@ public class City {
 	private String cityname;
 	
 	private float distance;
+	
+	private Integer zone;
 
 	public Integer getZipcode() {
 		return zipcode;
@@ -40,6 +42,14 @@ public class City {
 
 	public void setDistance(float distance) {
 		this.distance = distance;
+	}
+
+	public Integer getZone() {
+		return zone;
+	}
+
+	public void setZone(Integer zone) {
+		this.zone = zone;
 	}
 	
 		

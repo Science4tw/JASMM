@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ShippingRepository extends JpaRepository<Shipping, Integer> {
 	
+	public Shipping findByKm(Integer km);
+	
+
 	
 //	public Shipping findByDistance(Float distance);
 	
