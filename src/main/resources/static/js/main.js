@@ -33,7 +33,7 @@ function createCustomer() {
 	if (pwdInput.value === pwdInput2.value) {
 		$.ajax({
 			type: "POST",
-			url: "/demo/createCustomer",
+			url: "/createCustomer", 
 			data: JSON.stringify({ username: usernameInput.value, password: pwdInput.value, firstName: firstNameInput.value, lastName: lastNameInput.value, street: streetInput.value, streetNr: streetNrInput.value, zipCode: zipCodeInput.value, city: cityInput.value }),
 			success: responseRegister,
 			dataType: 'json',
@@ -92,7 +92,7 @@ function loginCustomer() {
 
 	$.ajax({
 		type: "POST",
-		url: "/demo/login",
+		url: "/login", 
 		data: JSON.stringify({ username: username.value, password: password.value }),
 		success: loginResponse,
 		dataType: 'json',
@@ -141,7 +141,7 @@ function loginResponse(response) {
 function getCustomer() {
 	$.ajax({
 		type: "GET",
-		url: "/demo/getCustomer/" + customerid + "",
+		url: "/getCustomer/" + customerid + "", 
 		success: handleCustomerDataResponse,
 		dataType: 'json',
 		contentType: 'application/json',
@@ -179,7 +179,7 @@ function updateCustomerData() {
 
 	$.ajax({
 		type: "PUT",
-		url: "/demo/updateCustomer/" + customerid + "",
+		url: "/updateCustomer/" + customerid + "", 
 		data: JSON.stringify({ firstName: firstNameInputKto.value, lastName: lastNameInputKto.value, street: streetInputKto.value, streetNr: streetNrInputKto.value, zipCode: zipCodeInputKto.value, city: cityInputKto.value }),
 		success: handleCustomerUpdateResponse,
 		dataType: 'json',
@@ -213,7 +213,7 @@ function changePassword() {
 
 		$.ajax({
 			type: "PUT",
-			url: "/demo/changePassword/" + customerid + "",
+			url: "/changePassword/" + customerid + "", 
 			data: JSON.stringify({ password: oldPwdInputUser.value, passwordToUpdate: newPwd1InputUser.value }),
 			success: handleChangePwdResponse,
 			dataType: 'json',
@@ -255,7 +255,7 @@ function logoutCustomer() {
 
 	$.ajax({
 		type: "POST",
-		url: "/demo/logout",
+		url: "/logout", 
 		data: JSON.stringify({ customerid: customerid }),
 		success: logoutResponse,
 		dataType: 'json',
@@ -334,7 +334,7 @@ function calculateCostOfOrder() {
 
 	$.ajax({
 		type: "PUT",
-		url: "/api/order/" + orderid + "/calculateCostOfOrder/",
+		url: "/order/" + orderid + "/calculateCostOfOrder/", 
 		data: JSON.stringify({ orderid: orderid }),
 		success: responseCalculateCostOfOrder,
 		dataType: 'json',
@@ -377,7 +377,7 @@ function createOrder() {
 
 	$.ajax({
 		type: "POST",
-		url: "/api/createOrder/",
+		url: "/createOrder/", 
 		data: JSON.stringify({ customerid: customerid }),
 		success: responseCreateOrder,
 		dataType: 'json',
@@ -419,7 +419,7 @@ function addArticleToOrder1() {
 
 	$.ajax({
 		type: "PUT",
-		url: "/api/order/" + orderid + "/addArticle",
+		url: "/order/" + orderid + "/addArticle", 
 		data: JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }),
 		success: responseAddArticleToOrder,
 		dataType: 'json',
@@ -463,7 +463,7 @@ function addArticleToOrder2() {
 
 	$.ajax({
 		type: "PUT",
-		url: "/api/order/" + orderid + "/addArticle",
+		url: "/order/" + orderid + "/addArticle", 
 		data: JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid, customerid: customerid }),
 		success: responseAddArticleToOrder,
 		dataType: 'json',
@@ -491,7 +491,7 @@ function addArticleToOrder3() {
 
 	$.ajax({
 		type: "PUT",
-		url: "/api/order/" + orderid + "/addArticle",
+		url: "/order/" + orderid + "/addArticle", 
 		data: JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }),
 		success: responseAddArticleToOrder,
 		dataType: 'json',
@@ -519,7 +519,7 @@ function addArticleToOrder4() {
 
 	$.ajax({
 		type: "PUT",
-		url: "/api/order/" + orderid + "/addArticle",
+		url: "/order/" + orderid + "/addArticle", 
 		data: JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid, customerid: customerid }),
 		success: responseAddArticleToOrder,
 		dataType: 'json',

@@ -45,7 +45,7 @@ public class ServiceOrderManagement {
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
 	// Bestellung anlegen
-	@PostMapping(path = "/api/createOrder/", produces = "application/json")
+	@PostMapping(path = "/createOrder/", produces = "application/json")
 	public int createOrder(@RequestBody MessageNewOrder message) {
 
 		try {
@@ -88,7 +88,7 @@ public class ServiceOrderManagement {
 	/*
 	 * Menge eines Artikels der Bestellung author Matthias
 	 */
-	@PutMapping(path = "/api/order/{orderid}/addArticle", produces = "application/json")
+	@PutMapping(path = "/order/{orderid}/addArticle", produces = "application/json")
 	public boolean addArticleToOrder(@PathVariable int orderid, @RequestBody MessageAddArticleToOrder message) {
 
 		try {
@@ -209,7 +209,7 @@ public class ServiceOrderManagement {
 	}
 
 //	@ResponseBody
-	@PutMapping(path = "/api/order/{orderid}/calculateCostOfOrder/", produces = "application/json")
+	@PutMapping(path = "/order/{orderid}/calculateCostOfOrder/", produces = "application/json")
 	public MessageCalculatedOrder calculateCostOfOrder(@PathVariable int orderid) {
 
 

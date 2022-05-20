@@ -36,7 +36,7 @@ public class ServiceCustomerManagement {
 
 	// Michèle
 	// Registrierung: neuen Kunden erstellen & in DB speichern
-	@PostMapping(path = "/demo/createCustomer", produces = "application/json")
+	@PostMapping(path = "/createCustomer", produces = "application/json")
 	public int createCustomer(@RequestBody MessageNewCustomer m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
 		boolean plzCheck = cityRepository.existsByZipcode(m.getZipCode());
@@ -88,7 +88,7 @@ public class ServiceCustomerManagement {
 
 	// Michèle
 	// Login: Validierung Benutzername & Passwort
-	@PostMapping(path = "/demo/login", produces = "application/json")
+	@PostMapping(path = "/login", produces = "application/json")
 	public int validateLogin(@RequestBody MessageLogin m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
 
@@ -120,7 +120,7 @@ public class ServiceCustomerManagement {
 
 	// Michèle
 	// Kundenkonto: Daten eines Kunden abfragen
-	@GetMapping(path = "/demo/getCustomer/{customerid}", produces = "application/json")
+	@GetMapping(path = "/getCustomer/{customerid}", produces = "application/json")
 	public Customer getCustomer(@PathVariable int customerid) {
 		return customerRepository.findById(customerid).get();
 
@@ -128,7 +128,7 @@ public class ServiceCustomerManagement {
 
 	// Michèle
 	// Kundenkonto: Kundendaten ändern bzw. überschreiben
-	@PutMapping(path = "/demo/updateCustomer/{customerid}", produces = "application/json")
+	@PutMapping(path = "/updateCustomer/{customerid}", produces = "application/json")
 	public boolean updateCustomer(@PathVariable int customerid, @RequestBody MessageUpdateCustomer m) {
 		Customer c = customerRepository.getById(customerid);
 		if (c == null)
@@ -157,7 +157,7 @@ public class ServiceCustomerManagement {
 
 	// Michèle
 	// Passwort ändern
-	@PutMapping(path = "/demo/changePassword/{customerid}", produces = "application/json")
+	@PutMapping(path = "/changePassword/{customerid}", produces = "application/json")
 	public boolean changePassword(@PathVariable int customerid, @RequestBody MessageChangePassword m) {
 		Customer c = customerRepository.getById(customerid);
 		if (c == null)
@@ -181,7 +181,7 @@ public class ServiceCustomerManagement {
 
 	// Michèle
 	// Logout
-	@PostMapping(path = "/demo/logout", produces = "application/json")
+	@PostMapping(path = "/logout", produces = "application/json")
 	public boolean logoutCustomer(@RequestBody MessageLogout m) {
 		Customer c = customerRepository.getById(m.getCustomerid());
 		if (c == null) {
