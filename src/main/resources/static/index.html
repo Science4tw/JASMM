@@ -46,7 +46,7 @@
 					<a onClick="switchRegKon()"><u>Noch kein Kundenkonto?</u></a>
 				</center>
 
-				<input class="btn" type="button" value="Anmelden" onClick="loginCustomer()">
+				<input class="btn" id="loginButton" type="button" value="Anmelden" onClick="loginCustomer()">
 				<i><span id="customerId"></span></i>
 			</form>
 		</section>
@@ -109,7 +109,7 @@
 				<div class="row">
 					<div class="column-left">
 						<label>Strasse:</label>
-						<input type="text" name="strasseKto" id="strasseKto" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+						<input type="text" name="strasseKto" id="strasseKto" pattern="[A-zÄÖÜäöüßéè.]{2,50}"
 							title="Muss aus Buchstaben bestehen z.B. Werdstrasse" required>
 					</div>
 					<div class="column-right">
@@ -148,7 +148,7 @@
 				<br>
 				<hr></br>
 				<div>
-					<label for="oldPwd">Bestehendes Passwort:</label>
+					<label for="oldPwd">Aktuelles Passwort:</label>
 					<input type="password" name="oldPwd" id="oldPwd" required>
 				</div>
 				<div>
@@ -209,7 +209,7 @@
 				<div class="row">
 					<div class="column-left">
 						<label>Strasse:</label>
-						<input type="text" name="strasse" id="strasse" pattern="[A-zÄÖÜäöüßéè]{2,50}"
+						<input type="text" name="strasse" id="strasse" pattern="[A-zÄÖÜäöüßéè.]{2,50}"
 							title="Muss aus Buchstaben bestehen z.B. Werdstrasse" required>
 					</div>
 					<div class="column-right">

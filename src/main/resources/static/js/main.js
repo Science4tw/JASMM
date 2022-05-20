@@ -33,7 +33,7 @@ function createCustomer() {
 	if (pwdInput.value === pwdInput2.value) {
 		$.ajax({
 			type: "POST",
-			url: "/createCustomer", 
+			url: "/createCustomer",
 			data: JSON.stringify({ username: usernameInput.value, password: pwdInput.value, firstName: firstNameInput.value, lastName: lastNameInput.value, street: streetInput.value, streetNr: streetNrInput.value, zipCode: zipCodeInput.value, city: cityInput.value }),
 			success: responseRegister,
 			dataType: 'json',
@@ -43,7 +43,7 @@ function createCustomer() {
 	} else {
 		$('#pwdreg').val(''); //André - Wenn Passwörter nicht übereinstimmen, Textfelder leeren.
 		$('#pwdreg2').val(''); // André
-		$("#SuccessRegistration").text("Passwort stimmt nicht überein. Bitte erneut versuchen.");  //André
+		$("#SuccessRegistration").text("Die Eingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.");  //André
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 	}
@@ -56,18 +56,18 @@ function createCustomer() {
 function responseRegister(response) {
 	if (response == 0) {
 		$('#usernamereg').val(''); // André
-		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte wählen Sie einen anderen Benutzernamen.") //André
+		$("#SuccessRegistration").text("Die E-Mail Adresse ist ungültig oder bereits vergeben. Bitte versuchen Sie es nochmals.") //André
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 	} else if (response == -2) {
 		$('#plz').val(''); // André
-		$("#SuccessRegistration").text("Registrierung fehlgeschlagen. Bitte erfassen Sie eine gültige PLZ.") //André
+		$("#SuccessRegistration").text("Ungültige Postleitzahl. Bitte versuchen Sie es nochmals.") //André
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 
 	} else {
 		customerid = response;
-		$("#SuccessRegistration").text("Registration erfolgreich. Ihre Kunden-ID lautet: " + response + ". Sie können sich nun einloggen."); //André
+		$("#SuccessRegistration").text("Ihr Benutzerkonto wurde erstellt. Sie können sich nun einloggen."); //André
 		$("#SuccessRegistration").css('color', 'green'); //André
 		$('#usernamereg').val(''); //André - Bei erfolgreichem Registrieren werden Eingaben gelöscht.
 		$('#pwdreg').val(''); // André
@@ -78,7 +78,7 @@ function responseRegister(response) {
 		$('#hnummer').val(''); // André
 		$('#plz').val(''); // André
 		$('#ort').val(''); // André
-		
+
 		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
 	}
 
@@ -92,7 +92,7 @@ function loginCustomer() {
 
 	$.ajax({
 		type: "POST",
-		url: "/login", 
+		url: "/login",
 		data: JSON.stringify({ username: username.value, password: password.value }),
 		success: loginResponse,
 		dataType: 'json',
@@ -108,21 +108,22 @@ function loginResponse(response) {
 	var button2 = document.getElementById("RegKon") //Severin
 	var button3 = document.getElementById("Shop") //Severin
 	$("#customerId").fadeIn();
-	
+
 	if (response == 0) {
 		$("#customerId").empty();
 		$('#pwd').val(''); //André - Bei der Fehlerhaften eingabe wird das Passwort und Benutzer geleert.
 		$('#username').val(''); // André
-		$("#customerId").text("Login fehlgeschlagen."); //André
+		$("#customerId").text("Ihre Anmeldedaten sind nicht korrekt. Bitte versuchen Sie es nochmals."); //André
 		$("#customerId").css('color', 'red'); //André
 		$("#customerId").fadeOut(2500);
-		
+
 	} else {
-		$("#customerId").text("Login erfolgreich. Ihre Kunden-ID lautet " + response + ". Sie koennen nun Bestellungen erfassen und auf Ihr Kundenkonto zugreifen.");
+		$("#customerId").text("Login erfolgreich. Sie können nun den Shop oder das Kundenkonto aufrufen.");
 		$("#customerId").css('color', 'green'); //André
 		customerid = response;
 		$('#pwd').prop("disabled", true); //André - Nach dem Login werden die Textfelder disabled.
 		$('#username').prop("disabled", true); // André
+		$('#loginButton').prop('disabled', true);
 		getCustomer();
 		createOrder();
 		$("#Shop").show();
@@ -141,7 +142,7 @@ function loginResponse(response) {
 function getCustomer() {
 	$.ajax({
 		type: "GET",
-		url: "/getCustomer/" + customerid + "", 
+		url: "/getCustomer/" + customerid + "",
 		success: handleCustomerDataResponse,
 		dataType: 'json',
 		contentType: 'application/json',
@@ -179,7 +180,7 @@ function updateCustomerData() {
 
 	$.ajax({
 		type: "PUT",
-		url: "/updateCustomer/" + customerid + "", 
+		url: "/updateCustomer/" + customerid + "",
 		data: JSON.stringify({ firstName: firstNameInputKto.value, lastName: lastNameInputKto.value, street: streetInputKto.value, streetNr: streetNrInputKto.value, zipCode: zipCodeInputKto.value, city: cityInputKto.value }),
 		success: handleCustomerUpdateResponse,
 		dataType: 'json',
@@ -191,11 +192,11 @@ function updateCustomerData() {
 //Kundenkonto: Erfolgsmeldung bzgl. Änderung der Kundendaten 
 function handleCustomerUpdateResponse(response) {
 	if (response == true) {
-		$("#infoUpdateCustomerData").text("Kundendaten erfolgreich geaendert in der Datenbank") //André
+		$("#infoUpdateCustomerData").text("Ihre Kundendaten wurden erfolgreich geändert.") //André
 		$("#infoUpdateCustomerData").css('color', 'green'); //André
 	} else {
 		$('#plzKto').val(''); //André - Wenn PLZ nicht existiert, wird Feld geleert.
-		$("#infoUpdateCustomerData").text("Aenderung fehlgeschlage! Bitte geben Sie eine gueltige PLZ ein.") //André
+		$("#infoUpdateCustomerData").text("Änderung fehlgeschlagen. Bitte geben Sie eine gültige PLZ ein.") //André
 		$("#infoUpdateCustomerData").css('color', 'red'); //André
 	}
 	$("#infoUpdateCustomerData").fadeOut(5000); // André
@@ -213,7 +214,7 @@ function changePassword() {
 
 		$.ajax({
 			type: "PUT",
-			url: "/changePassword/" + customerid + "", 
+			url: "/changePassword/" + customerid + "",
 			data: JSON.stringify({ password: oldPwdInputUser.value, passwordToUpdate: newPwd1InputUser.value }),
 			success: handleChangePwdResponse,
 			dataType: 'json',
@@ -223,7 +224,7 @@ function changePassword() {
 		$('#oldPwd').val(''); //André - Wenn Änderung fehlschlägt, alle drei Felder leeren
 		$('#newPwd1').val(''); //André
 		$('#newPwd2').val(''); //André
-		$("#SuccessPasswordChange").text("Fehlgeschlagen! Die Wiederholung des neuen Passworts ist nicht korrekt. Bitte versuchen Sie es erneut.") //André
+		$("#SuccessPasswordChange").text("Das Passwort stimmt nicht überein. Bitte versuchen Sie es nochmals.") //André
 		$("#SuccessPasswordChange").css('color', 'red'); //André
 	}
 	$("#SuccessPasswordChange").fadeOut(7000); // André
@@ -236,14 +237,14 @@ function handleChangePwdResponse(response) {
 		$('#oldPwd').val(''); //André - Wenn Änderung fehlschlägt, alle drei Felder leeren
 		$('#newPwd1').val(''); //André
 		$('#newPwd2').val('');//André
-		$("#SuccessPasswordChange").text("Passwort erfolgreich geändert.")//André
+		$("#SuccessPasswordChange").text("Passwort wurde erfolgreich geändert.")//André
 		$("#SuccessPasswordChange").css('color', 'green');//André
-		
+
 	} else {
 		$('#oldPwd').val('');//André
 		$('#newPwd1').val('');//André
 		$('#newPwd2').val('');//André
-		$("#SuccessPasswordChange").text("Fehlgeschlagen! Falscheingabe des bestehenden Passworts. Bitte versuchen Sie es erneut.")//André
+		$("#SuccessPasswordChange").text("Aktuelles Passwort ist falsch. Bitte versuchen Sie es nochmals.")//André
 		$("#SuccessPasswordChange").css('color', 'red');//André
 	}
 	$("#SuccessPasswordChange").fadeOut(7000); // André
@@ -255,14 +256,14 @@ function logoutCustomer() {
 
 	$.ajax({
 		type: "POST",
-		url: "/logout", 
+		url: "/logout",
 		data: JSON.stringify({ customerid: customerid }),
 		success: logoutResponse,
 		dataType: 'json',
 		contentType: 'application/json',
 
 	});
-
+	$('#loginButton').prop('disabled', false); // André, LoginButton wieder klickbar
 	window.setTimeout('window.location = "/index.html"', 1000); //Severin -> Weiterleitung mit Delay
 }
 
@@ -334,7 +335,7 @@ function calculateCostOfOrder() {
 
 	$.ajax({
 		type: "PUT",
-		url: "/order/" + orderid + "/calculateCostOfOrder/", 
+		url: "/order/" + orderid + "/calculateCostOfOrder/",
 		data: JSON.stringify({ orderid: orderid }),
 		success: responseCalculateCostOfOrder,
 		dataType: 'json',
@@ -377,7 +378,7 @@ function createOrder() {
 
 	$.ajax({
 		type: "POST",
-		url: "/createOrder/", 
+		url: "/createOrder/",
 		data: JSON.stringify({ customerid: customerid }),
 		success: responseCreateOrder,
 		dataType: 'json',
@@ -411,22 +412,39 @@ function addArticleToOrder1() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid = articleid.value zu 1 geändert, kann man löschen
 	amount = article1amount.value;
-	amountResult = amount == 1 ? "der Uhr" : "der Uhren" //André
-	label.innerHTML = (amount + " Stk."); // Severin
+	amountResult = amount == 1 ? "Uhr" : "Uhren" //André
+
+	$("#SuccessBasket").fadeIn(); // André
 
 	// Von André ausgeklammert:
 	//alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
 
-	$.ajax({
-		type: "PUT",
-		url: "/order/" + orderid + "/addArticle", 
-		data: JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }),
-		success: responseAddArticleToOrder,
-		dataType: 'json',
-		contentType: 'application/json'
-	});
+	if (amount >= 0) { // André 
 
-	console.log(JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }));
+		label.innerHTML = ("Stückzahl: "+ amount); // Severin // von André verschoben
+
+		$.ajax({
+			type: "PUT",
+			url: "/order/" + orderid + "/addArticle",
+			data: JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }),
+			success: responseAddArticleToOrder,
+			dataType: 'json',
+			contentType: 'application/json'
+		});
+
+		console.log(JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }));
+
+	} else { // André
+		failedAmount(); // André
+	}
+}
+
+function failedAmount() {
+
+	$("#SuccessBasket").text("Ungültige Eingabe. Bitte versuchen Sie es nochmals.") //André
+	$("#SuccessBasket").css('color', 'red'); //André
+	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
+
 }
 
 function responseAddArticleToOrder(response) {
@@ -434,14 +452,14 @@ function responseAddArticleToOrder(response) {
 	$("#SuccessBasket").fadeIn(); // André
 
 	if (response == true) {
-		$("#SuccessBasket").text("Hinzufügen " + amountResult + " erfolgreich. Die OrderID lautet: " + orderid)//André
+		$("#SuccessBasket").text(amountResult + " zum Warenkorb hinzugefügt.")//André
 		$("#SuccessBasket").css('color', 'green');//André
 	} else {
-		$("#SuccessBasket").text("Hinzufügen " + amountResult + " fehlgeschlagen!. Bitte erneut veruschen.")//André
+		$("#SuccessBasket").text("Hinzufügen " + amountResult + " fehlgeschlagen. Bitte versuchen Sie es nochmals.")//André
 		$("#SuccessBasket").css('color', 'red');//André
 	}
 
-	$("#SuccessBasket").fadeOut(2500); // André - Meldung wird nach 2.5 sek. ausgeblendet. 
+	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
 }
 
 
@@ -455,22 +473,29 @@ function addArticleToOrder2() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid2 = everin articleid2.value  SEVERIN kann man löschen
 	articleamount2 = articleamount2.value;
-	amountResult = articleamount2 == 1 ? "des Rucksacks" : "der Rucksäcke" //André
-	label.innerHTML = (articleamount2 + " Stk."); // Severin
-	
+	amountResult = articleamount2 == 1 ? "Rucksack" : "Rucksäcke" //André
+	$("#SuccessBasket").fadeIn(); // André
+
 	//André - ausgeklammert
 	//alert("Article ID : " + articleid2 + "---Order ID : " + orderid + "----Amount : " + articleamount2);
+	if (articleamount2 >= 0) { // André 
 
-	$.ajax({
-		type: "PUT",
-		url: "/order/" + orderid + "/addArticle", 
-		data: JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid, customerid: customerid }),
-		success: responseAddArticleToOrder,
-		dataType: 'json',
-		contentType: 'application/json'
-	});
+		label.innerHTML = ("Stückzahl: "+ articleamount2); // Severin // von André verschoben
 
-	console.log(JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid, customerid: customerid }));
+		$.ajax({
+			type: "PUT",
+			url: "/order/" + orderid + "/addArticle",
+			data: JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid, customerid: customerid }),
+			success: responseAddArticleToOrder,
+			dataType: 'json',
+			contentType: 'application/json'
+		});
+
+		console.log(JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid, customerid: customerid }));
+
+	} else { // André
+		failedAmount(); // André
+	}
 }
 
 // Artikel 3 mit Menge zu einer Bestellung hinzufügen
@@ -483,22 +508,28 @@ function addArticleToOrder3() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid3 = articleid3.value SEVERIN kann man löschen
 	articleamount3 = articleamount3.value;
-	amountResult = articleamount3 == 1 ? "der Schuhe" : "der Schuhe" //André
-	label.innerHTML = (articleamount3 + " Stk."); // Severin
+	amountResult = articleamount3 == 1 ? "Ein paar Schuhe" : "Schuhe" //André
+	$("#SuccessBasket").fadeIn(); // André
 
 	// André - ausgeklammert
 	//alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
+	if (articleamount3 >= 0) { // André 
 
-	$.ajax({
-		type: "PUT",
-		url: "/order/" + orderid + "/addArticle", 
-		data: JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }),
-		success: responseAddArticleToOrder,
-		dataType: 'json',
-		contentType: 'application/json'
-	});
+		label.innerHTML = ("Stückzahl: "+ articleamount3); // Severin// von André verschoben
 
-	console.log(JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }));
+		$.ajax({
+			type: "PUT",
+			url: "/order/" + orderid + "/addArticle",
+			data: JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }),
+			success: responseAddArticleToOrder,
+			dataType: 'json',
+			contentType: 'application/json'
+		});
+
+		console.log(JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }));
+	} else { // André
+		failedAmount(); // André
+	}
 }
 
 // Artikel 4 mit Menge zu einer Bestellung hinzufügen
@@ -511,22 +542,28 @@ function addArticleToOrder4() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid4 = articleid4.value SEVERIN kann man löschen
 	articleamount4 = articleamount4.value;
-	amountResult = articleamount4 == 1 ? "der Brille" : "der Brillen" //André
-	label.innerHTML = (articleamount4 + " Stk."); // Severin
-	
+	amountResult = articleamount4 == 1 ? "Brille" : "Brillen" //André
+	$("#SuccessBasket").fadeIn(); // André
+
 	// André - ausgeklammert:
 	//alert("Article ID : " + articleid4 + "---Order ID : " + orderid + "----Amount : " + articleamount4);
+	if (articleamount4 >= 0) { // André 
 
-	$.ajax({
-		type: "PUT",
-		url: "/order/" + orderid + "/addArticle", 
-		data: JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid, customerid: customerid }),
-		success: responseAddArticleToOrder,
-		dataType: 'json',
-		contentType: 'application/json'
-	});
+		label.innerHTML = ("Stückzahl: "+ articleamount4); // Severin // von André verschoben
 
-	console.log(JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid, customerid: customerid }));
+		$.ajax({
+			type: "PUT",
+			url: "/order/" + orderid + "/addArticle",
+			data: JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid, customerid: customerid }),
+			success: responseAddArticleToOrder,
+			dataType: 'json',
+			contentType: 'application/json'
+		});
+
+		console.log(JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid, customerid: customerid }));
+	} else { // André
+		failedAmount(); // André
+	}
 }
 // TEIL MATTHIAS (ENDE)
 
