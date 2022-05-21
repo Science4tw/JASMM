@@ -136,7 +136,7 @@ public class ServiceOrderManagement {
 						+ " erfolgreich der Bestellung " + o.getOrderid() + " hinzugefügt. Kunden-ID: "
 						+ message.getCustomerid());
 
-				// return true;
+				 return true;
 			}
 			// Logging
 			// logger.info("Artikel konnte der Bestellung nicht hinzugefügt werden");

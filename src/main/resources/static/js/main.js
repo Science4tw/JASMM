@@ -263,7 +263,7 @@ function logoutCustomer() {
 		contentType: 'application/json',
 
 	});
-	$('#loginButton').prop('disabled', false); // André, LoginButton wieder klickbar
+	$('#loginButton').prop('disabled', false); // André
 	window.setTimeout('window.location = "/index.html"', 1000); //Severin -> Weiterleitung mit Delay
 }
 
@@ -391,15 +391,37 @@ function createOrder() {
 function responseCreateOrder(response) {
 
 	orderid = response;
+	customerid = response;
 
 	// André - habe den Alert rausgenommen, die Funktion funktioniert
-	// customerid = response;
 	//alert("Die Order für den Kunden mit der ID " + customerid + " wurde gespeichert. Die OrderID lautet: " + orderid);
 
 }
 
 // let articleid = -1;
 // let amount = -1;
+
+function failedAmount() {
+
+	$("#SuccessBasket").text("Ungültige Eingabe. Bitte versuchen Sie es nochmals.") //André
+	$("#SuccessBasket").css('color', 'red'); //André
+	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
+
+}
+
+function responseAddArticleToOrder(response) {
+
+	$("#SuccessBasket").fadeIn(); // André
+	if (response == true) {
+		$("#SuccessBasket").text(amountResult + " zum Warenkorb hinzugefügt.")//André
+		$("#SuccessBasket").css('color', 'green');//André
+	} else {
+		$("#SuccessBasket").text("Hinzufügen " + amountResult + " fehlgeschlagen. Bitte versuchen Sie es nochmals.")//André
+		$("#SuccessBasket").css('color', 'red');//André
+	}
+
+	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
+}
 
 
 // Artikel 1 mit Menge zu einer Bestellung hinzufügen
@@ -419,9 +441,9 @@ function addArticleToOrder1() {
 	// Von André ausgeklammert:
 	//alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
 
-	if (amount >= 0) { // André 
+	if (amount > 0) { // André 
 
-		label.innerHTML = ("Stückzahl: "+ amount); // Severin // von André verschoben
+		label.innerHTML = (amount + " Stk."); // Severin // von André verschoben
 
 		$.ajax({
 			type: "PUT",
@@ -432,6 +454,7 @@ function addArticleToOrder1() {
 			contentType: 'application/json'
 		});
 
+
 		console.log(JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }));
 
 	} else { // André
@@ -439,28 +462,6 @@ function addArticleToOrder1() {
 	}
 }
 
-function failedAmount() {
-
-	$("#SuccessBasket").text("Ungültige Eingabe. Bitte versuchen Sie es nochmals.") //André
-	$("#SuccessBasket").css('color', 'red'); //André
-	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
-
-}
-
-function responseAddArticleToOrder(response) {
-
-	$("#SuccessBasket").fadeIn(); // André
-
-	if (response == true) {
-		$("#SuccessBasket").text(amountResult + " zum Warenkorb hinzugefügt.")//André
-		$("#SuccessBasket").css('color', 'green');//André
-	} else {
-		$("#SuccessBasket").text("Hinzufügen " + amountResult + " fehlgeschlagen. Bitte versuchen Sie es nochmals.")//André
-		$("#SuccessBasket").css('color', 'red');//André
-	}
-
-	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
-}
 
 
 // Artikel 2 mit Menge zu einer Bestellung hinzufügen
@@ -478,9 +479,9 @@ function addArticleToOrder2() {
 
 	//André - ausgeklammert
 	//alert("Article ID : " + articleid2 + "---Order ID : " + orderid + "----Amount : " + articleamount2);
-	if (articleamount2 >= 0) { // André 
+	if (articleamount2 > 0) { // André 
 
-		label.innerHTML = ("Stückzahl: "+ articleamount2); // Severin // von André verschoben
+		label.innerHTML = (articleamount2 + " Stk."); // Severin // von André verschoben
 
 		$.ajax({
 			type: "PUT",
@@ -508,15 +509,14 @@ function addArticleToOrder3() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid3 = articleid3.value SEVERIN kann man löschen
 	articleamount3 = articleamount3.value;
-	amountResult = articleamount3 == 1 ? "Ein paar Schuhe" : "Schuhe" //André
+	amountResult = articleamount3 == 1 ? "Schuhe" : "Schuhe" //André
 	$("#SuccessBasket").fadeIn(); // André
 
 	// André - ausgeklammert
 	//alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
-	if (articleamount3 >= 0) { // André 
+	if (articleamount3 > 0) { // André 
 
-		label.innerHTML = ("Stückzahl: "+ articleamount3); // Severin// von André verschoben
-
+		label.innerHTML = (articleamount3 + " Stk."); // Severin// von André verschoben
 		$.ajax({
 			type: "PUT",
 			url: "/order/" + orderid + "/addArticle",
@@ -527,6 +527,7 @@ function addArticleToOrder3() {
 		});
 
 		console.log(JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }));
+
 	} else { // André
 		failedAmount(); // André
 	}
@@ -547,9 +548,9 @@ function addArticleToOrder4() {
 
 	// André - ausgeklammert:
 	//alert("Article ID : " + articleid4 + "---Order ID : " + orderid + "----Amount : " + articleamount4);
-	if (articleamount4 >= 0) { // André 
+	if (articleamount4 > 0) { // André 
 
-		label.innerHTML = ("Stückzahl: "+ articleamount4); // Severin // von André verschoben
+		label.innerHTML = (articleamount4 + " Stk."); // Severin // von André verschoben
 
 		$.ajax({
 			type: "PUT",
