@@ -365,28 +365,29 @@ public class ServiceOrderManagement {
 
 	}
 
-	// FINALE WERTE der Produkte/Paletten
-	private final int MAX_P1 = 25;
-	private final int MAX_P2 = 10;
-	private final int MAX_P3 = 15;
-	private final int MAX_P4 = 100;
-
-	private final int MAX_HIGHT = 2200;
-
-	private final int HIGHT_P1 = MAX_HIGHT / MAX_P1;
-	private final int HIGHT_P2 = MAX_HIGHT / MAX_P2;
-	private final int HIGHT_P3 = MAX_HIGHT / MAX_P3;
-	private final int HIGHT_P4 = MAX_HIGHT / MAX_P4;
-
-	private final double PALLET_P1 = 1.2;
-	private final double PALLET_P2 = 2;
-	private final double PALLET_P3 = 2.5;
-	private final double PALLET_P4 = 0.8;
-
+	
 	/* Finale volle Paletten ausrechnen mit Runden */
 
 	public int calculatePallets(int p1, int p2, int p3, int p4) {
+			
+	// FINALE WERTE der Produkte/Paletten
+		final int MAX_P1 = 25;
+		final int MAX_P2 = 10;
+		final int MAX_P3 = 15;
+		final int MAX_P4 = 100;
 
+		final int MAX_HIGHT = 2200;
+
+		final double HIGHT_P1 = MAX_HIGHT / MAX_P1;
+		final double HIGHT_P2 = MAX_HIGHT / MAX_P2;
+		final double HIGHT_P3 = MAX_HIGHT / MAX_P3;
+		final double HIGHT_P4 = MAX_HIGHT / MAX_P4;
+
+		final double PALLET_P1 = 1.2;
+		final double PALLET_P2 = 2;
+		final double PALLET_P3 = 2.5;
+		final double PALLET_P4 = 0.8;
+		
 		// double für gespeicherte Paletteanzahl
 		double palletP1 = 0;
 		double palletP2 = 0;
@@ -394,10 +395,10 @@ public class ServiceOrderManagement {
 		double palletP4 = 0;
 
 		// int für gespeicherte volle Paletteanzahl
-		int fullPalletP1 = 0;
-		int fullPalletP2 = 0;
-		int fullPalletP3 = 0;
-		int fullPalletP4 = 0;
+		double fullPalletP1 = 0;
+		double fullPalletP2 = 0;
+		double fullPalletP3 = 0;
+		double fullPalletP4 = 0;
 
 		double mixedPalletP1 = 0;
 		double mixedPalletP2 = 0;
@@ -405,20 +406,19 @@ public class ServiceOrderManagement {
 		double mixedPalletP4 = 0;
 
 		// int für Restproduktanzahl
-		int restP1 = 0;
-		int restP2 = 0;
-		int restP3 = 0;
-		int restP4 = 0;
+		double restP1 = 0;
+		double restP2 = 0;
+		double restP3 = 0;
+		double restP4 = 0;
 
 		double mixedRest = 0;
 		double mixedRest2 = 0;
 		double mixedRest3 = 0;
-		double mixedRest4 = 0;
 
 		double unmixedPalletsFinal = 0;
 		double mixedPalletsFinal = 0;
 
-		int fullPalletsFinal = 0;
+		int allFinalPallets = 0;
 
 		/* Volle Paletten ausrechnen */
 
@@ -569,172 +569,22 @@ public class ServiceOrderManagement {
 			}
 		}
 
-		/* Finale Paletten ausrechnen */
+		/** Finale Paletten ausrechnen **/
 		mixedPalletP1 = (mixedPalletP1 * PALLET_P1);
 		mixedPalletP2 = (mixedPalletP2 * PALLET_P2);
 		mixedPalletP3 = (mixedPalletP3 * PALLET_P3);
 		mixedPalletP4 = (mixedPalletP4 * PALLET_P4);
 
-		fullPalletsFinal = ((int) Math.ceil(palletP1) + (int) Math.ceil(palletP2) + (int) Math.ceil(palletP3)
-				+ (int) Math.ceil(palletP4));
-		mixedPalletsFinal = ((int) Math.ceil(mixedPalletP1) + (int) Math.ceil(mixedPalletP2)
-				+ (int) Math.ceil(mixedPalletP3) + (int) Math.ceil(mixedPalletP4));
+		unmixedPalletsFinal = palletP1 + palletP2 + palletP3 + palletP4;
+		mixedPalletsFinal = mixedPalletP1 + mixedPalletP2 + mixedPalletP3 + mixedPalletP4;
 
-		int finalPallets = (int) (fullPalletsFinal + mixedPalletsFinal);
+		
 
+		allFinalPallets = (int) Math.ceil(mixedPalletsFinal + unmixedPalletsFinal);
+		
 
-		return finalPallets;
+		return allFinalPallets;
 
 	}
-
-//	// unmixedPallets() rechnet volle Paletten einer Produktart aus und gibt die
-//	// ungerundete Palettenanzahl zurück
-//
-//	private double unmixedPallets(int p1, int p2, int p3, int p4) {
-//		if (p1 > 0) {
-//			int p1m = p1 % MAX_P1;
-//			if (p1m > 0) {
-//				double p1x = p1 / MAX_P1;
-//				restP1 = p1 % MAX_P1;
-//				fullPalletP1 = (int) p1x;
-//			}
-//			if (p1m == 0) {
-//				fullPalletP1 = p1 / MAX_P1;
-//			}
-//		}
-//		if (p2 > 0) {
-//			int p2m = p2 % MAX_P2;
-//			if (p2m > 0) {
-//				double p2x = p2 / MAX_P2;
-//				restP2 = p2 % MAX_P2;
-//				fullPalletP2 = (int) p2x;
-//			}
-//			if (p2m == 0) {
-//				fullPalletP2 = p2 / MAX_P2;
-//			}
-//		}
-//
-//		if (p3 > 0) {
-//			int p3m = p3 % MAX_P3;
-//			if (p3m > 0) {
-//				double p3x = p3 / MAX_P3;
-//				restP3 = p3 % MAX_P3;
-//				fullPalletP3 = (int) p3x;
-//			}
-//			if (p3m == 0) {
-//				fullPalletP3 = p3 / MAX_P3;
-//			}
-//		}
-//
-//		if (p4 > 0) {
-//			int p4m = p4 % MAX_P4;
-//			if (p4m > 0) {
-//				double p4x = p4 / MAX_P4;
-//				restP4 = p4 % MAX_P4;
-//				fullPalletP4 = (int) p4x;
-//			}
-//			if (p4m == 0) {
-//				fullPalletP4 = p4 / MAX_P4;
-//			}
-//		}
-//
-//		palletP1 = (fullPalletP1 * PALLET_P1);
-//		palletP2 = (fullPalletP2 * PALLET_P2);
-//		palletP3 = (fullPalletP3 * PALLET_P3);
-//		palletP4 = (fullPalletP4 * PALLET_P4);
-//
-//		unmixedPalletsFinal = palletP1 + palletP2 + palletP3 + palletP4;
-//
-//		return unmixedPalletsFinal;
-//	}
-//
-//	// mixedPallets() nimmt Rest-Artikel entgegen und rechnet volle Paletten
-//	// mehrerer Produktarten (Restprodukte) aus und gibt die
-//	// ungerundete Palettenanzahl zurück
-//
-//	private double mixedPallets(int restP1, int restP2, int restP3, int restP4) {
-//
-//		double allRest = restP1 * HIGHT_P1 + restP2 * HIGHT_P2 + restP3 * HIGHT_P3 + restP4 * HIGHT_P4;
-//
-//		if (allRest < MAX_HIGHT) {
-//			if (restP3 > 0) {
-//				mixedPalletP3++;
-//			} else {
-//				if (restP2 > 0) {
-//					mixedPalletP2++;
-//				} else {
-//					if (restP1 > 0) {
-//						mixedPalletP1++;
-//					} else {
-//						if (restP4 > 0) {
-//							mixedPalletP4++;
-//						}
-//					}
-//				}
-//			}
-//		} else {
-//			if (allRest > MAX_HIGHT) {
-//				mixedRest = (MAX_HIGHT - allRest);
-//				if (restP3 > 0) {
-//					mixedPalletP3++;
-//				} else {
-//					if (restP2 > 0) {
-//						mixedPalletP2++;
-//					} else {
-//						if (restP1 > 0) {
-//							mixedPalletP1++;
-//						} else {
-//							if (restP4 > 0) {
-//								mixedPalletP4++;
-//							}
-//						}
-//					}
-//				}
-//
-//			}
-//			if (mixedRest > 0 && restP2 > 0) {
-//				mixedPalletP2++;
-//				mixedRest2 = MAX_HIGHT - mixedRest;
-//
-//			} else {
-//				if (mixedRest > 0 && restP1 > 0) {
-//					mixedPalletP1++;
-//					mixedRest2 = MAX_HIGHT - mixedRest;
-//
-//				} else {
-//					if (mixedRest > 0 && restP4 > 0) {
-//						mixedPalletP4++;
-//						mixedRest2 = MAX_HIGHT - mixedRest;
-//
-//					} else {
-//
-//						if (mixedRest2 > 0 && restP1 > 0) {
-//							mixedPalletP1++;
-//							mixedRest3 = MAX_HIGHT - mixedRest2;
-//
-//						} else {
-//							if (mixedRest2 > 0 && restP4 > 0) {
-//								mixedPalletP4++;
-//								mixedRest3 = MAX_HIGHT - mixedRest2;
-//
-//							} else {
-//								if (mixedRest3 > 0 && restP4 > 0) {
-//									mixedPalletP4++;
-//								}
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//		mixedPalletP1 = (mixedPalletP1 * PALLET_P1);
-//		mixedPalletP2 = (mixedPalletP2 * PALLET_P2);
-//		mixedPalletP3 = (mixedPalletP3 * PALLET_P3);
-//		mixedPalletP4 = (mixedPalletP4 * PALLET_P4);
-//
-//		mixedPalletsFinal = mixedPalletP1 + mixedPalletP2 + mixedPalletP3 + mixedPalletP4;
-//
-//		return mixedPalletsFinal;
-//	}
 
 }
