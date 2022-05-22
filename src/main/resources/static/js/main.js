@@ -43,7 +43,7 @@ function createCustomer() {
 	} else {
 		$('#pwdreg').val(''); //André - Wenn Passwörter nicht übereinstimmen, Textfelder leeren.
 		$('#pwdreg2').val(''); // André
-		$("#SuccessRegistration").text("Die Eingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.");  //André
+		$("#SuccessRegistration").text("Die Passworteingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.");  //André
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 	}
@@ -224,7 +224,7 @@ function changePassword() {
 		$('#oldPwd').val(''); //André - Wenn Änderung fehlschlägt, alle drei Felder leeren
 		$('#newPwd1').val(''); //André
 		$('#newPwd2').val(''); //André
-		$("#SuccessPasswordChange").text("Das Passwort stimmt nicht überein. Bitte versuchen Sie es nochmals.") //André
+		$("#SuccessPasswordChange").text("Die Passworteingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.") //André
 		$("#SuccessPasswordChange").css('color', 'red'); //André
 	}
 	$("#SuccessPasswordChange").fadeOut(7000); // André
