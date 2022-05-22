@@ -343,6 +343,8 @@ function createOrder() {
 	label2.innerHTML = (""); // Severin
 	label3.innerHTML = (""); // Severin
 	label4.innerHTML = (""); // Severin
+	
+	$('#createOrder').prop('disabled', true); // André
 
 
 	$.ajax({
@@ -353,7 +355,7 @@ function createOrder() {
 		dataType: 'json',
 		contentType: 'application/json'
 	});
-	
+
 	if ($("#createOrder").click(function() { // André
 		$(this).data('clicked', true);
 		submitOrderSuccessful(); // André - Setzt Labels zurück, da Bestellung abgesendet und neue Order angelegt.
@@ -408,6 +410,7 @@ function submitOrderSuccessful() { // André
 
 	$("#SuccessSubmit").text("Bestellung erfolgreich versendet. Sie können nun eine neue Bestellung erfassen.")//André
 	$("#SuccessSubmit").css('color', 'green');//André
+	$("#SuccessSubmit").fadeOut(10000); // André
 }
 
 
@@ -566,15 +569,28 @@ function addArticleToOrder4() {
 // TEIL Julia (START)
 
 function calculateCostOfOrder() {
+	
+	$("#SuccessSubmit").text(""); // André
+	$("#SuccessSubmit").fadeIn(); // André
 
-	$.ajax({
-		type: "GET",
-		url: "/order/" + orderid + "/calculateCostOfOrder/",
-		success: handleShippingCostResponse,
-		dataType: 'json',
-		contentType: 'application/json',
+	if ($('#p1txt').is(':empty') && $('#p2txt').is(':empty') && $('#p3txt').is(':empty') && $('#p4txt').is(':empty')) {
+		$("#FailedCalculateOrder").text("Keine Produkte im Warenkorb. Bitte versuchen Sie es nochmals.")//André
+		$("#FailedCalculateOrder").css('color', 'red');//André
+		$('#createOrder').prop('disabled', true);
 
-	});
+	} else {
+		$.ajax({
+			type: "GET",
+			url: "/order/" + orderid + "/calculateCostOfOrder/",
+			success: handleShippingCostResponse,
+			dataType: 'json',
+			contentType: 'application/json',
+
+		});
+		$("#FailedCalculateOrder").text("")//André
+		$('#createOrder').prop('disabled', false);
+
+	}
 
 	//$.ajax({
 	//type: "PUT",
