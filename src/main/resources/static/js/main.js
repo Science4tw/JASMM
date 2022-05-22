@@ -576,7 +576,7 @@ function handleShippingCostResponse(response) { //responseCalculateCostOfOrder
 		lbtot.innerHTML = "Bestellmenge zu gross. Bitte Warenkorb reduzieren";
 	} else {
 		let lbtot = document.getElementById("total");
-		lbtot.innerHTML = "CHF " + response;	
+		lbtot.innerHTML = "CHF " + parseFloat(response).toFixed(2); // Severin 2.Dezimal	
 	}
 }
 
