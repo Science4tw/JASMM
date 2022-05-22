@@ -45,6 +45,8 @@ public class Order {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderItem> orderitems = new ArrayList<>();
+	
+	private Float shippingcost;
 
 	public List<OrderItem> getOrderitems() {
 		return orderitems;
@@ -140,6 +142,14 @@ public class Order {
 
 	public void setAmountarticle4(Integer amountarticle4) {
 		this.amountarticle4 = amountarticle4;
+	}
+
+	public Float getShippingcost() {
+		return shippingcost;
+	}
+
+	public void setShippingcost(Float shippingcost) {
+		this.shippingcost = shippingcost;
 	}
 
 }

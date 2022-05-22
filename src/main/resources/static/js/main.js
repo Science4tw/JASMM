@@ -328,37 +328,6 @@ function switchLog() {
 	}
 }
 
-// TEIL Julia (START)
-
-function calculateCostOfOrder() {
-
-
-	$.ajax({
-		type: "PUT",
-		url: "/order/" + orderid + "/calculateCostOfOrder/",
-		data: JSON.stringify({ orderid: orderid }),
-		success: responseCalculateCostOfOrder,
-		dataType: 'json',
-		contentType: 'application/json'
-	});
-
-	// customerid = response;
-	console.log("Die OrderID lautet: " + orderid);
-}
-
-// Antwort von createOrder(), wo wir die orderid speichern
-function responseCalculateCostOfOrder(response) {
-
-	orderid = response;
-
-	// customerid = response;
-	console.log("Die OrderID lautet: " + orderid);
-
-}
-
-
-// TEIL Julia (Ende)
-
 
 // TEIL MATTHIAS (START)
 
@@ -391,8 +360,7 @@ function createOrder() {
 function responseCreateOrder(response) {
 
 	orderid = response;
-	customerid = response;
-
+	
 	// André - habe den Alert rausgenommen, die Funktion funktioniert
 	//alert("Die Order für den Kunden mit der ID " + customerid + " wurde gespeichert. Die OrderID lautet: " + orderid);
 
@@ -570,10 +538,47 @@ function addArticleToOrder4() {
 
 
 //Severin Versand berechnen Button
-function calcship() {
-	let lbtot = document.getElementById("total"); // Severin
-	lbtot.innerHTML = "CHF" + 100.00; // Severin
+//function calcship() {
+	//let lbtot = document.getElementById("total"); // Severin
+	//lbtot.innerHTML = "CHF" + 100.00; // Severin
 
+//}
+
+// TEIL Julia (START)
+
+function calculateCostOfOrder() {
+	
+	$.ajax({
+		type: "GET",
+		url: "/order/" + orderid + "/calculateCostOfOrder/",
+		success: handleShippingCostResponse,
+		dataType: 'json',
+		contentType: 'application/json',
+
+	});
+	
+	//$.ajax({
+		//type: "PUT",
+		//url: "/order/" + orderid + "/calculateCostOfOrder/",
+		//data: JSON.stringify({ orderid: orderid }),
+		//success: responseCalculateCostOfOrder,
+		//dataType: 'json',
+		//contentType: 'application/json'
+	//});
+	
 }
 
+
+function handleShippingCostResponse(response) { //responseCalculateCostOfOrder
+
+	if (response == -1) {
+		let lbtot = document.getElementById("total");
+		lbtot.innerHTML = "Bestellmenge zu gross. Bitte Warenkorb reduzieren";
+	} else {
+		let lbtot = document.getElementById("total");
+		lbtot.innerHTML = "CHF " + response;	
+	}
+}
+
+// TEIL Julia (Ende)
 

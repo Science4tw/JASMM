@@ -159,6 +159,7 @@ public class ServiceCustomerManagement {
 	// Passwort ändern
 	@PutMapping(path = "/changePassword/{customerid}", produces = "application/json")
 	public boolean changePassword(@PathVariable int customerid, @RequestBody MessageChangePassword m) {
+		System.out.println("Kunden-ID bei PW-Änderung: " + customerid);
 		Customer c = customerRepository.getById(customerid);
 		if (c == null)
 			return false;

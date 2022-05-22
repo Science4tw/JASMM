@@ -209,8 +209,9 @@ public class ServiceOrderManagement {
 	}
 
 //	@ResponseBody
-	@PutMapping(path = "/order/{orderid}/calculateCostOfOrder/", produces = "application/json")
-	public MessageCalculatedOrder calculateCostOfOrder(@PathVariable int orderid) {
+	@GetMapping(path = "/order/{orderid}/calculateCostOfOrder/", produces = "application/json")
+	//public MessageCalculatedOrder calculateCostOfOrder(@PathVariable int orderid) { //alte Variante
+	public float calculateCostOfOrder(@PathVariable int orderid) {
 
 		// Order suchen und speichern
 		Optional<Order> o = orderRepository.findById(orderid);
@@ -227,7 +228,7 @@ public class ServiceOrderManagement {
 		int anzahlPaletten = 0;
 		anzahlPaletten = calculatePallets(p1, p2, p3, p4);
 
-		// customerid aus Order ziehjen
+		// customerid aus Order ziehen
 		int customerid = order.getCustomerid();
 		// Kunde aus Repo holen
 		Customer customer = customerRepository.getById(customerid);
@@ -235,7 +236,7 @@ public class ServiceOrderManagement {
 		// In City Tabelle die Zone zur Distanz speichern
 		City city = cityRepository.findByZipcode(customer.getZipCode());
 		Integer zone = city.getZone();
-		logger.info("Zone: " + zone);
+		//logger.info("Zone: " + zone);
 
 		// Aus der Shipping Tabelle das Objekt mit der korrekten Zone speichern
 		Shipping shippingObject = shippingRepository.findByKm(zone);
@@ -247,92 +248,120 @@ public class ServiceOrderManagement {
 			anzahlPaletten = 1;
 			shippingCost = shippingObject.getPal1();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			//"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 2:
 			anzahlPaletten = 2;
 			shippingCost = shippingObject.getPal2();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 3:
 			anzahlPaletten = 3;
 			shippingCost = shippingObject.getPal3();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 4:
 			anzahlPaletten = 4;
 			shippingCost = shippingObject.getPal4();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 5:
 			anzahlPaletten = 5;
 			shippingCost = shippingObject.getPal5();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 6:
 			anzahlPaletten = 6;
 			shippingCost = shippingObject.getPal6();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 7:
 			anzahlPaletten = 7;
 			shippingCost = shippingObject.getPal7();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 8:
 			anzahlPaletten = 8;
 			shippingCost = shippingObject.getPal8();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 9:
 			anzahlPaletten = 9;
 			shippingCost = shippingObject.getPal9();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 10:
 			anzahlPaletten = 10;
 			shippingCost = shippingObject.getPal10();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 11:
 			anzahlPaletten = 11;
 			shippingCost = shippingObject.getPal11();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		case 12:
 			anzahlPaletten = 12;
 			shippingCost = shippingObject.getPal12();
 			logger.info(
-					"Anzahl Paletten: " + anzahlPaletten + " | Transportkosten: " + shippingCost + " | Zone: " + zone);
-			break;
+					"Transportkosten für Bestellung " + orderid + ": CHF " + shippingCost + " (Anzahl Paletten: " + anzahlPaletten + " | km-Zone: " + zone +")"); 
+			order.setShippingcost(shippingCost);
+			order = orderRepository.save(order);
+			return shippingCost;
+			//break;
 		default:
-			break;
+			//Bestellmenge übersteigt die max. Anzahl von 12 Paletten
+			logger.info(
+					"Bestellnummer: " + orderid + ". Anzahl Paletten > 12. Kunde wird aufgefordert die Bestellmenge zu reduzieren.");
+			return -1;
+			//break;
 
 		}
 
-		MessageCalculatedOrder message = new MessageCalculatedOrder();
-
-		message.setAnzahlPaletten(anzahlPaletten);
-		message.setOrderid(orderid);
-		message.setTransportKosten(shippingCost);
-		message.setCustomerid(customerid);
-
-		anzahlPaletten = 0;
-		shippingCost = null;
-		orderid = 0;
-		customerid = 0;
-
-		return message;
 
 	}
 
