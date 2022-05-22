@@ -353,6 +353,12 @@ function createOrder() {
 		dataType: 'json',
 		contentType: 'application/json'
 	});
+	
+	if ($("#createOrder").click(function() { // André
+		$(this).data('clicked', true);
+		submitOrderSuccessful(); // André - Setzt Labels zurück, da Bestellung abgesendet und neue Order angelegt.
+	}));
+
 
 }
 
@@ -360,7 +366,7 @@ function createOrder() {
 function responseCreateOrder(response) {
 
 	orderid = response;
-	
+
 	// André - habe den Alert rausgenommen, die Funktion funktioniert
 	//alert("Die Order für den Kunden mit der ID " + customerid + " wurde gespeichert. Die OrderID lautet: " + orderid);
 
@@ -391,6 +397,19 @@ function responseAddArticleToOrder(response) {
 	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
 }
 
+function submitOrderSuccessful() { // André
+	$("#SuccessBasket").text(""); //Textfeld wird zurückgesetzt
+
+	$('#orderitem1').val('1'); //André - Labels und total zurücksetzen
+	$('#orderitem2').val('1'); // André
+	$('#orderitem3').val('1');
+	$('#orderitem4').val('1');
+	$('#total').text('');
+
+	$("#SuccessSubmit").text("Bestellung erfolgreich versendet. Sie können nun eine neue Bestellung erfassen.")//André
+	$("#SuccessSubmit").css('color', 'green');//André
+}
+
 
 // Artikel 1 mit Menge zu einer Bestellung hinzufügen
 function addArticleToOrder1() {
@@ -409,7 +428,7 @@ function addArticleToOrder1() {
 	// Von André ausgeklammert:
 	//alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
 
-	if (amount > 0) { // André 
+	if (amount >= 0) { // André 
 
 		label.innerHTML = (amount + " Stk."); // Severin // von André verschoben
 
@@ -447,7 +466,7 @@ function addArticleToOrder2() {
 
 	//André - ausgeklammert
 	//alert("Article ID : " + articleid2 + "---Order ID : " + orderid + "----Amount : " + articleamount2);
-	if (articleamount2 > 0) { // André 
+	if (articleamount2 >= 0) { // André 
 
 		label.innerHTML = (articleamount2 + " Stk."); // Severin // von André verschoben
 
@@ -482,7 +501,7 @@ function addArticleToOrder3() {
 
 	// André - ausgeklammert
 	//alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
-	if (articleamount3 > 0) { // André 
+	if (articleamount3 >= 0) { // André 
 
 		label.innerHTML = (articleamount3 + " Stk."); // Severin// von André verschoben
 		$.ajax({
@@ -516,7 +535,7 @@ function addArticleToOrder4() {
 
 	// André - ausgeklammert:
 	//alert("Article ID : " + articleid4 + "---Order ID : " + orderid + "----Amount : " + articleamount4);
-	if (articleamount4 > 0) { // André 
+	if (articleamount4 >= 0) { // André 
 
 		label.innerHTML = (articleamount4 + " Stk."); // Severin // von André verschoben
 
@@ -539,15 +558,15 @@ function addArticleToOrder4() {
 
 //Severin Versand berechnen Button
 //function calcship() {
-	//let lbtot = document.getElementById("total"); // Severin
-	//lbtot.innerHTML = "CHF" + 100.00; // Severin
+//let lbtot = document.getElementById("total"); // Severin
+//lbtot.innerHTML = "CHF" + 100.00; // Severin
 
 //}
 
 // TEIL Julia (START)
 
 function calculateCostOfOrder() {
-	
+
 	$.ajax({
 		type: "GET",
 		url: "/order/" + orderid + "/calculateCostOfOrder/",
@@ -556,16 +575,16 @@ function calculateCostOfOrder() {
 		contentType: 'application/json',
 
 	});
-	
+
 	//$.ajax({
-		//type: "PUT",
-		//url: "/order/" + orderid + "/calculateCostOfOrder/",
-		//data: JSON.stringify({ orderid: orderid }),
-		//success: responseCalculateCostOfOrder,
-		//dataType: 'json',
-		//contentType: 'application/json'
+	//type: "PUT",
+	//url: "/order/" + orderid + "/calculateCostOfOrder/",
+	//data: JSON.stringify({ orderid: orderid }),
+	//success: responseCalculateCostOfOrder,
+	//dataType: 'json',
+	//contentType: 'application/json'
 	//});
-	
+
 }
 
 
