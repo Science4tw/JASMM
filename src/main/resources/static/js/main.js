@@ -43,7 +43,7 @@ function createCustomer() {
 	} else {
 		$('#pwdreg').val(''); //André - Wenn Passwörter nicht übereinstimmen, Textfelder leeren.
 		$('#pwdreg2').val(''); // André
-		$("#SuccessRegistration").text("Die Passworteingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.");  //André
+		$("#SuccessRegistration").text("Die Passworteingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.");  //André - Meldung ausgeben
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 	}
@@ -307,6 +307,8 @@ function switchShop() {
 		$("#KontoPanel").hide();
 		$("#ShopPanel").show();
 		$("#PasswortPanel").hide();
+
+
 	}
 }
 
@@ -339,11 +341,11 @@ function createOrder() {
 	let label3 = document.getElementById("p3txt");
 	let label4 = document.getElementById("p4txt");
 
-	label1.innerHTML = (""); // Severin
-	label2.innerHTML = (""); // Severin
-	label3.innerHTML = (""); // Severin
-	label4.innerHTML = (""); // Severin
-	
+	label1.innerHTML = ("0 Stk."); // Severin
+	label2.innerHTML = ("0 Stk."); // Severin
+	label3.innerHTML = ("0 Stk."); // Severin
+	label4.innerHTML = ("0 Stk."); // Severin
+
 	$('#createOrder').prop('disabled', true); // André
 
 
@@ -569,14 +571,29 @@ function addArticleToOrder4() {
 // TEIL Julia (START)
 
 function calculateCostOfOrder() {
-	
+
+
 	$("#SuccessSubmit").text(""); // André
 	$("#SuccessSubmit").fadeIn(); // André
+	$("#FailedCalculateOrder").text("")//André
+	$("#FailedCalculateOrder").fadeIn(); // André
 
-	if ($('#p1txt').is(':empty') && $('#p2txt').is(':empty') && $('#p3txt').is(':empty') && $('#p4txt').is(':empty')) {
-		$("#FailedCalculateOrder").text("Keine Produkte im Warenkorb. Bitte versuchen Sie es nochmals.")//André
-		$("#FailedCalculateOrder").css('color', 'red');//André
-		$('#createOrder').prop('disabled', true);
+
+	if (
+		$('#p1txt').text() == '0 Stk.'&&
+		$('#p2txt').text() == '0 Stk.'&&
+		$('#p3txt').text() == '0 Stk.'&&
+		$('#p4txt').text() == '0 Stk.') {
+		failedCalculateOrderMessage()
+
+		//} else if (amount == 0 && articleamount2 == 0 && articleamount4 == 0 && articleamount3 == 0) {
+		//	failedCalculateOrderMessage()
+
+		//} else if (amount == 0 && $('#p2txt').is(':empty') && $('#p3txt').is(':empty') && $('#p4txt').is(':empty')) {
+		//failedCalculateOrderMessage()
+
+		//} else if ($('#p1txt').is(':empty') && articleamount2 == 0 && $('#p3txt').is(':empty') && $('#p4txt').is(':empty')) {
+		//	failedCalculateOrderMessage()
 
 	} else {
 		$.ajax({
@@ -601,6 +618,15 @@ function calculateCostOfOrder() {
 	//contentType: 'application/json'
 	//});
 
+}
+
+function failedCalculateOrderMessage() { //André
+	$("#FailedCalculateOrder").text("Keine Produkte im Warenkorb. Bitte versuchen Sie es nochmals.")//André
+	$("#FailedCalculateOrder").css('color', 'red');//André
+	$('#createOrder').prop('disabled', true); //André
+	let lbtot = document.getElementById("total"); //André
+		lbtot.innerHTML = ""; //André
+	$("#FailedCalculateOrder").fadeOut(4000); // André
 }
 
 
