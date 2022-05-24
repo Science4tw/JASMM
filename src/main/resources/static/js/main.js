@@ -506,6 +506,7 @@ function addArticleToOrder3() {
 	amountResult2 = articleamount3 == 0 ? "entfernt." : "hinzugefügt.";
 	$("#SuccessBasket").fadeIn(); // André
 
+
 	// André - ausgeklammert
 	//alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
 	if (articleamount3 >= 0) { // André 
@@ -631,6 +632,7 @@ function failedCalculateOrderMessage() { //André
 	lbtot.innerHTML = ""; //André
 	$("#FailedCalculateOrder").fadeOut(4000); // André
 }
+
 
 
 function handleShippingCostResponse(response) { //responseCalculateCostOfOrder
