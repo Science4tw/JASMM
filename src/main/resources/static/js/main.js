@@ -391,7 +391,7 @@ function responseAddArticleToOrder(response) {
 
 	$("#SuccessBasket").fadeIn(); // André
 	if (response == true) {
-		$("#SuccessBasket").text(amountResult + " zum Warenkorb hinzugefügt.")//André
+		$("#SuccessBasket").text(amountResult + " dem Warenkorb " + amountResult2)//André
 		$("#SuccessBasket").css('color', 'green');//André
 	} else {
 		$("#SuccessBasket").text("Hinzufügen " + amountResult + " fehlgeschlagen. Bitte versuchen Sie es nochmals.")//André
@@ -427,7 +427,7 @@ function addArticleToOrder1() {
 	//articleid = articleid.value zu 1 geändert, kann man löschen
 	amount = article1amount.value;
 	amountResult = amount == 1 ? "Uhr" : "Uhren" //André
-
+	amountResult2 = amount == 0 ? "entfernt." : "hinzugefügt.";
 	$("#SuccessBasket").fadeIn(); // André
 
 	// Von André ausgeklammert:
@@ -467,6 +467,7 @@ function addArticleToOrder2() {
 	//articleid2 = everin articleid2.value  SEVERIN kann man löschen
 	articleamount2 = articleamount2.value;
 	amountResult = articleamount2 == 1 ? "Rucksack" : "Rucksäcke" //André
+	amountResult2 = articleamount2 == 0 ? "entfernt." : "hinzugefügt.";
 	$("#SuccessBasket").fadeIn(); // André
 
 	//André - ausgeklammert
@@ -502,6 +503,7 @@ function addArticleToOrder3() {
 	//articleid3 = articleid3.value SEVERIN kann man löschen
 	articleamount3 = articleamount3.value;
 	amountResult = articleamount3 == 1 ? "Schuhe" : "Schuhe" //André
+	amountResult2 = articleamount3 == 0 ? "entfernt." : "hinzugefügt.";
 	$("#SuccessBasket").fadeIn(); // André
 
 	// André - ausgeklammert
@@ -535,7 +537,8 @@ function addArticleToOrder4() {
 	// Liest den Wert aus für die Artikel id und die Menge
 	//articleid4 = articleid4.value SEVERIN kann man löschen
 	articleamount4 = articleamount4.value;
-	amountResult = articleamount4 == 1 ? "Brille" : "Brillen" //André
+	amountResult = articleamount4 == 1 ? "Brille" : "Brillen"; //André
+	amountResult2 = articleamount4 == 0 ? "entfernt." : "hinzugefügt.";
 	$("#SuccessBasket").fadeIn(); // André
 
 	// André - ausgeklammert:
@@ -580,9 +583,9 @@ function calculateCostOfOrder() {
 
 
 	if (
-		$('#p1txt').text() == '0 Stk.'&&
-		$('#p2txt').text() == '0 Stk.'&&
-		$('#p3txt').text() == '0 Stk.'&&
+		$('#p1txt').text() == '0 Stk.' &&
+		$('#p2txt').text() == '0 Stk.' &&
+		$('#p3txt').text() == '0 Stk.' &&
 		$('#p4txt').text() == '0 Stk.') {
 		failedCalculateOrderMessage()
 
@@ -625,7 +628,7 @@ function failedCalculateOrderMessage() { //André
 	$("#FailedCalculateOrder").css('color', 'red');//André
 	$('#createOrder').prop('disabled', true); //André
 	let lbtot = document.getElementById("total"); //André
-		lbtot.innerHTML = ""; //André
+	lbtot.innerHTML = ""; //André
 	$("#FailedCalculateOrder").fadeOut(4000); // André
 }
 
