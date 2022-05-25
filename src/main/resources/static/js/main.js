@@ -433,7 +433,7 @@ function addArticleToOrder1() {
 	// Von André ausgeklammert:
 	//alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
 
-	if (amount >= 0) { // André 
+	if (amount >= 0 && amount !== "") { // André 
 
 		label.innerHTML = (amount + " Stk."); // Severin // von André verschoben
 
@@ -472,7 +472,7 @@ function addArticleToOrder2() {
 
 	//André - ausgeklammert
 	//alert("Article ID : " + articleid2 + "---Order ID : " + orderid + "----Amount : " + articleamount2);
-	if (articleamount2 >= 0) { // André 
+	if (articleamount2 >= 0 && articleamount2 !== "") { // André 
 
 		label.innerHTML = (articleamount2 + " Stk."); // Severin // von André verschoben
 
@@ -509,7 +509,7 @@ function addArticleToOrder3() {
 
 	// André - ausgeklammert
 	//alert("Article ID : " + articleid3 + "---Order ID : " + orderid + "----Amount : " + articleamount3);
-	if (articleamount3 >= 0) { // André 
+	if (articleamount3 >= 0 && articleamount3 !== "") { // André 
 
 		label.innerHTML = (articleamount3 + " Stk."); // Severin// von André verschoben
 		$.ajax({
@@ -544,7 +544,7 @@ function addArticleToOrder4() {
 
 	// André - ausgeklammert:
 	//alert("Article ID : " + articleid4 + "---Order ID : " + orderid + "----Amount : " + articleamount4);
-	if (articleamount4 >= 0) { // André 
+	if (articleamount4 >= 0 && articleamount4 !== "") { // André 
 
 		label.innerHTML = (articleamount4 + " Stk."); // Severin // von André verschoben
 
