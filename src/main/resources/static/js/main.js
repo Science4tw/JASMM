@@ -55,19 +55,19 @@ function createCustomer() {
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
 	if (response == 0) {
-		$('#usernamereg').val(''); // André
-		$("#SuccessRegistration").text("Die E-Mail Adresse ist ungültig oder bereits vergeben. Bitte versuchen Sie es nochmals.") //André
+		$('#usernamereg').val(''); // André - Username leeren
+		$("#SuccessRegistration").text("Die E-Mail Adresse ist ungültig oder bereits vergeben. Bitte versuchen Sie es nochmals.") //André - Fehelermeldung
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 	} else if (response == -2) {
-		$('#plz').val(''); // André
-		$("#SuccessRegistration").text("Ungültige Postleitzahl. Bitte versuchen Sie es nochmals.") //André
+		$('#plz').val(''); // André - PLZ leeren
+		$("#SuccessRegistration").text("Ungültige Postleitzahl. Bitte versuchen Sie es nochmals.") //André - Fehlermeldung
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 
 	} else {
 		customerid = response;
-		$("#SuccessRegistration").text("Ihr Benutzerkonto wurde erstellt. Sie können sich nun einloggen."); //André
+		$("#SuccessRegistration").text("Ihr Benutzerkonto wurde erstellt. Sie können sich nun einloggen."); //André - Erfolgsmeldung
 		$("#SuccessRegistration").css('color', 'green'); //André
 		$('#usernamereg').val(''); //André - Bei erfolgreichem Registrieren werden Eingaben gelöscht.
 		$('#pwdreg').val(''); // André
@@ -78,8 +78,6 @@ function responseRegister(response) {
 		$('#hnummer').val(''); // André
 		$('#plz').val(''); // André
 		$('#ort').val(''); // André
-
-		//window.setTimeout('window.location = "/index.html"', 1000);	//Severin -> Weiterleitung mit Delay
 	}
 
 }
@@ -107,23 +105,23 @@ function loginResponse(response) {
 	var button1 = document.getElementById("LoginLogout") //Severin
 	var button2 = document.getElementById("RegKon") //Severin
 	var button3 = document.getElementById("Shop") //Severin
-	$("#customerId").fadeIn();
+	$("#customerId").fadeIn(); // André
 
 	if (response == 0) {
 		$("#customerId").empty();
 		$('#pwd').val(''); //André - Bei der Fehlerhaften eingabe wird das Passwort und Benutzer geleert.
 		$('#username').val(''); // André
-		$("#customerId").text("Ihre Anmeldedaten sind nicht korrekt. Bitte versuchen Sie es nochmals."); //André
+		$("#customerId").text("Ihre Anmeldedaten sind nicht korrekt. Bitte versuchen Sie es nochmals."); //André - Fehlermeldung
 		$("#customerId").css('color', 'red'); //André
 		$("#customerId").fadeOut(2500);
 
 	} else {
-		$("#customerId").text("Login erfolgreich. Sie können nun den Shop oder das Kundenkonto aufrufen.");
+		$("#customerId").text("Login erfolgreich. Sie können nun den Shop oder das Kundenkonto aufrufen."); // André - Erfolgsmeldung
 		$("#customerId").css('color', 'green'); //André
 		customerid = response;
 		$('#pwd').prop("disabled", true); //André - Nach dem Login werden die Textfelder disabled.
 		$('#username').prop("disabled", true); // André
-		$('#loginButton').prop('disabled', true);
+		$('#loginButton').prop('disabled', true); // André - Button nicht mehr klickbar
 		getCustomer();
 		createOrder();
 		$("#Shop").show();
@@ -210,7 +208,7 @@ function changePassword() {
 	let newPwd2InputUser = document.querySelector("#newPwd2");
 	$("#SuccessPasswordChange").fadeIn(); // André
 
-	if (newPwd1InputUser.value === newPwd2InputUser.value) {
+	if (newPwd1InputUser.value === newPwd2InputUser.value) { // André - Fehleingabe abfangen von PW
 
 		$.ajax({
 			type: "PUT",
@@ -263,7 +261,7 @@ function logoutCustomer() {
 		contentType: 'application/json',
 
 	});
-	$('#loginButton').prop('disabled', false); // André
+	$('#loginButton').prop('disabled', false); // André - LoginButton wieder klickbar
 	window.setTimeout('window.location = "/index.html"', 1000); //Severin -> Weiterleitung mit Delay
 }
 
@@ -291,9 +289,6 @@ function switchRegKon() {
 		$("#KontoPanel").show();
 		$("#PasswortPanel").show();
 		$("#ShopPanel").hide();
-
-
-
 	}
 }
 
@@ -307,13 +302,8 @@ function switchShop() {
 		$("#KontoPanel").hide();
 		$("#ShopPanel").show();
 		$("#PasswortPanel").hide();
-
-
 	}
 }
-
-
-
 
 //Severin
 //LoginLogout Switcher
@@ -330,7 +320,6 @@ function switchLog() {
 	}
 }
 
-
 // TEIL MATTHIAS (START)
 
 // Anlegen einer neugen Bestellung
@@ -346,8 +335,7 @@ function createOrder() {
 	label3.innerHTML = ("0 Stk."); // Severin
 	label4.innerHTML = ("0 Stk."); // Severin
 
-	$('#createOrder').prop('disabled', true); // André
-
+	$('#createOrder').prop('disabled', true); // André 
 
 	$.ajax({
 		type: "POST",
@@ -362,18 +350,14 @@ function createOrder() {
 		$(this).data('clicked', true);
 		submitOrderSuccessful(); // André - Setzt Labels zurück, da Bestellung abgesendet und neue Order angelegt.
 	}));
-
-
 }
 
 // Antwort von createOrder(), wo wir die orderid speichern
 function responseCreateOrder(response) {
 
 	orderid = response;
-
 	// André - habe den Alert rausgenommen, die Funktion funktioniert
 	//alert("Die Order für den Kunden mit der ID " + customerid + " wurde gespeichert. Die OrderID lautet: " + orderid);
-
 }
 
 // let articleid = -1;
@@ -384,7 +368,6 @@ function failedAmount() {
 	$("#SuccessBasket").text("Ungültige Eingabe. Bitte versuchen Sie es nochmals.") //André
 	$("#SuccessBasket").css('color', 'red'); //André
 	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
-
 }
 
 function responseAddArticleToOrder(response) {
@@ -397,7 +380,6 @@ function responseAddArticleToOrder(response) {
 		$("#SuccessBasket").text("Hinzufügen " + amountResult + " fehlgeschlagen. Bitte versuchen Sie es nochmals.")//André
 		$("#SuccessBasket").css('color', 'red');//André
 	}
-
 	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
 }
 
@@ -445,7 +427,6 @@ function addArticleToOrder1() {
 			dataType: 'json',
 			contentType: 'application/json'
 		});
-
 
 		console.log(JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }));
 
@@ -564,24 +545,15 @@ function addArticleToOrder4() {
 }
 // TEIL MATTHIAS (ENDE)
 
-
-//Severin Versand berechnen Button
-//function calcship() {
-//let lbtot = document.getElementById("total"); // Severin
-//lbtot.innerHTML = "CHF" + 100.00; // Severin
-
-//}
-
 // TEIL Julia (START)
 
 function calculateCostOfOrder() {
 
-
+	$("#total").text("");
 	$("#SuccessSubmit").text(""); // André
 	$("#SuccessSubmit").fadeIn(); // André
 	$("#FailedCalculateOrder").text("")//André
 	$("#FailedCalculateOrder").fadeIn(); // André
-
 
 	if (
 		$('#p1txt').text() == '0 Stk.' &&
@@ -589,15 +561,6 @@ function calculateCostOfOrder() {
 		$('#p3txt').text() == '0 Stk.' &&
 		$('#p4txt').text() == '0 Stk.') {
 		failedCalculateOrderMessage()
-
-		//} else if (amount == 0 && articleamount2 == 0 && articleamount4 == 0 && articleamount3 == 0) {
-		//	failedCalculateOrderMessage()
-
-		//} else if (amount == 0 && $('#p2txt').is(':empty') && $('#p3txt').is(':empty') && $('#p4txt').is(':empty')) {
-		//failedCalculateOrderMessage()
-
-		//} else if ($('#p1txt').is(':empty') && articleamount2 == 0 && $('#p3txt').is(':empty') && $('#p4txt').is(':empty')) {
-		//	failedCalculateOrderMessage()
 
 	} else {
 		$.ajax({
@@ -613,15 +576,6 @@ function calculateCostOfOrder() {
 
 	}
 
-	//$.ajax({
-	//type: "PUT",
-	//url: "/order/" + orderid + "/calculateCostOfOrder/",
-	//data: JSON.stringify({ orderid: orderid }),
-	//success: responseCalculateCostOfOrder,
-	//dataType: 'json',
-	//contentType: 'application/json'
-	//});
-
 }
 
 function failedCalculateOrderMessage() { //André
@@ -633,9 +587,8 @@ function failedCalculateOrderMessage() { //André
 	$("#FailedCalculateOrder").fadeOut(4000); // André
 }
 
+function handleShippingCostResponse(response) {
 
-
-function handleShippingCostResponse(response) { //responseCalculateCostOfOrder
 
 	if (response == -1) {
 		let lbtot = document.getElementById("total");
@@ -644,6 +597,7 @@ function handleShippingCostResponse(response) { //responseCalculateCostOfOrder
 		let lbtot = document.getElementById("total");
 		lbtot.innerHTML = "CHF " + parseFloat(response).toFixed(2); // Severin 2.Dezimal	
 	}
+	$("#total").delay(2000); // André - Verzögerung, damit User sieht es hat wieder berechnet. 
 }
 
 // TEIL Julia (Ende)
