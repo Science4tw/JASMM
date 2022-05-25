@@ -1,4 +1,4 @@
-package jasmm.application;
+package jasmm.application.service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jasmm.application.ServiceLocator;
+import jasmm.application.persistence.City;
+import jasmm.application.persistence.CityRepository;
+import jasmm.application.persistence.Customer;
+import jasmm.application.persistence.CustomerRepository;
 
 @RestController
 public class ServiceCustomerManagement {

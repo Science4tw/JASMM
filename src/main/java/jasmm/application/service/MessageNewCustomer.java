@@ -1,4 +1,4 @@
-package jasmm.application;
+package jasmm.application.service;
 
 public class MessageNewCustomer {
 	

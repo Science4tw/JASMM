@@ -1,4 +1,4 @@
-package jasmm.application;
+package jasmm.application.service;
 
 /*
  * Repräsentiert die Message mit den Order Details

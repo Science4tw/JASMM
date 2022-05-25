@@ -11,6 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import jasmm.application.persistence.Article;
+import jasmm.application.persistence.ArticleRepository;
+
 @SpringBootApplication
 @ComponentScan({ "jasmm.application", "jasmm.persistence", "jasmm.persistence.OrderRepository", "jasmm.service.order", })
 public class JasmmApplication {

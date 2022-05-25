@@ -1,4 +1,4 @@
-package jasmm.application;
+package jasmm.application.persistence;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

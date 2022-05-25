@@ -1,7 +1,12 @@
-package jasmm.application;
+package jasmm.application.service;
 
-public class MessageLogout {
-	
+
+/*
+ * Repräsentiert die MEssage für eine neue Order
+ * @author Matthias
+ */
+public class MessageNewOrder {
+
 	private Integer customerid;
 
 	public Integer getCustomerid() {
@@ -11,6 +16,5 @@ public class MessageLogout {
 	public void setCustomerid(Integer customerid) {
 		this.customerid = customerid;
 	}
-	
 
 }

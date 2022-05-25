@@ -1,4 +1,4 @@
-package jasmm.application;
+package jasmm.application.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

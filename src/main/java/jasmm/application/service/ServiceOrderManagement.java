@@ -1,4 +1,4 @@
-package jasmm.application;
+package jasmm.application.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +14,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import jasmm.application.ServiceLocator;
+import jasmm.application.persistence.ArticleRepository;
+import jasmm.application.persistence.City;
+import jasmm.application.persistence.CityRepository;
+import jasmm.application.persistence.Customer;
+import jasmm.application.persistence.CustomerRepository;
+import jasmm.application.persistence.Order;
+import jasmm.application.persistence.OrderRepository;
+import jasmm.application.persistence.Shipping;
+import jasmm.application.persistence.ShippingRepository;
+import jasmm.application.business.OrderCalculation;
 
 /* Controller für das Order Handling
  * author Matthias & Julia
@@ -364,6 +376,7 @@ public class ServiceOrderManagement {
 
 
 	}
+
 
 	
 	/* Finale volle Paletten ausrechnen mit Runden */

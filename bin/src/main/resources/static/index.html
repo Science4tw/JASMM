@@ -1,65 +1,357 @@
 <!DOCTYPE html>
-<html lang="en">
-<!-- Test -->
+<html lang="de">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<link rel="stylesheet" href="css/login.css">
-	<title>JASMM</title>
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<title>JASMM Onlineshop</title>
+	<link rel="stylesheet" href="css/main.css">
 
 </head>
 
 <body>
-	<form id="loginForm">
-		<input type="text" name="name" value="Severin Hoch">
-		<input type="text" name="email" value="severin@minotrade.com">
-		<input type="submit">
-	</form>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/main.js"></script>
 
-	<script>
+	<header>
+		<center><img src="images/Logo.png" width="200" height="100"></center>
+	</header>
+	<nav>
+		<section class="menu">
+			<center>
+				<button id="LoginLogout" onclick="switchLog()">Login</button>
+				<button id="RegKon" onClick="switchRegKon()">Registrieren</button>
+				<button id="Shop" onClick="switchShop()"></button>
+			</center>
+		</section>
+	</nav>
+
+	<!-- TEIL LOGIN -->
+	<div id="LoginPanel">
+		<section class="container">
+			<form id="my-form">
+				<center>
+					<h1>Login</h1>
+				</center>
+				<div class="msg"></div>
+				<div>
+					<label for="username">Benutzername (E-Mail-Adresse):</label>
+					<input type="text" id="username" placeholder="Benutzername eingeben">
+				</div>
+				<div>
+					<label for="pwd">Passwort:</label>
+					<input type="password" id="pwd" placeholder="Passwort eingeben">
+				</div>
+				<center>
+					<a onClick="switchRegKon()"><u>Noch kein Kundenkonto?</u></a>
+				</center>
+
+				<input class="btn" id="loginButton" type="button" value="Anmelden" onClick="loginCustomer()">
+				<i><span id="customerId"></span></i>
+			</form>
+		</section>
+	</div>
+	<!-- TEIL LOGIN ENDE -->
 
 
+	<!-- TEIL LOGOUT 
+	<div id="NavPanel">
+		<section class="container">
+			<form id="my-form">
+				<center>
+					<h1>Navigation</h1>
+				</center>
+				<div class="msg"></div>
+				<div>
+					<input type="button" id="logout" value="Logout" onClick="logoutCustomer()">
+				</div>
+				<i><span id="logoutInfo"></span></i>
+
+			</form>
+		</section>
+	</div>-->
+	<!-- TEIL LOGOUT ENDE-->
+
+	<!-- TEIL KUNDENKONTO -->
+	<div id="KontoPanel">
+		<section class="container">
+			<form id="my-form" onsubmit="event.preventDefault(); updateCustomerData()">
+				<center>
+					<h1>Kundenkonto</h1>
+				</center>
+				<div class="msg"></div>
+				<!--<div>
+        <br><strong>Benutzername (E-Mail-Adresse):</strong></div>
+       
+         <div>
+          <strong>Passwort:</strong> ********
+        </div> -->
+				<br>
+				<hr></br>
+				<div>
+					<label>Kunden-ID:</label>
+					<input type="text" id="customeridKto" disabled>
+				</div>
+				<div>
+					<label>Benutzername (E-Mail-Adresse):</label>
+					<input type="text" id="usernameKto" disabled>
+				</div>
+				<div>
+					<label>Vorname <span>(mind. 2 Zeichen):</span></label>
+					<input type="text" name="vnameKto" id="vnameKto" pattern="[A-zÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŒœŸ-]{2,50}"
+						title="Muss aus Buchstaben bestehen z.B. Max" required>
+				</div>
+				<div>
+					<label>Nachname <span>(mind. 2 Zeichen):</span></label>
+					<input type="text" name="nnameKto" id="nnameKto" pattern="[A-zÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŒœŸ-]{2,50}"
+						title="Muss aus Buchstaben bestehen z.B. Mustermann" required>
+				</div>
+				<div class="row">
+					<div class="column-left">
+						<label>Strasse:</label>
+						<input type="text" name="strasseKto" id="strasseKto" pattern="[A-zÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŒœŸ.-]{2,50}"
+							title="Muss aus Buchstaben bestehen z.B. Werdstrasse" required>
+					</div>
+					<div class="column-right">
+						<label>Hausnummer:</label>
+						<input type="text" name="hnummerKto" id="hnummerKto"
+							title="Kann aus Zahlen und Buchstaben bestehen z.B. 12B" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column-left">
+						<label>PLZ <span>(4 Ziffern):</span></label>
+						<input type="text" name="plzKto" id="plzKto" maxlength="4" minlength="4" pattern="^[0-9]{4}$"
+							title="Muss aus vier Zahlen bestehen z.B. 8004" required>
+					</div>
+					<div class="column-right">
+						<label>Ortschaft:</label>
+						<input type="text" name="ortKto" id="ortKto" pattern="[A-zÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŒœŸ-]{2,50}"
+							title="Muss aus Buchstaben bestehen z.B. Zürich" required>
+					</div>
+				</div>
+				<input class="btn" type="submit" value="Änderungen speichern">
+				<i><span id="infoUpdateCustomerData"></span></i>
+			</form>
+		</section>
+	</div>
+	<!-- TEIL KUNDENKONTO ENDE -->
+
+	<!-- TEIL PASSWORT ÄNDERN -->
+	<div id="PasswortPanel">
+		<section class="container">
+			<form id="my-form" onsubmit="event.preventDefault(); changePassword()">
+				<center>
+					<h1>Passwort ändern</h1>
+				</center>
+				<div class="msg"></div>
+				<br>
+				<hr></br>
+				<div>
+					<label for="oldPwd">Aktuelles Passwort:</label>
+					<input type="password" name="oldPwd" id="oldPwd" required>
+				</div>
+				<div>
+					<label>Neues Passwort <span>(mind. 6 Zeichen, einen Gross- und Kleinbuchstaben und eine
+							Zahl):</span></label>
+					<input type="password" name="newPwd1" id="newPwd1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+						minlength="6"
+						title="Muss mindestens eine Zahl, einen Groß- und Kleinbuchstaben und mindestens 6 oder mehr Zeichen enthalten"
+						required>
+				</div>
+				<div>
+					<label>Neues Passwort wiederholen: <span></span></label>
+					<input type="password" name="newPwd2" id="newPwd2" minlength="6" required>
+				</div>
+				<input class="btn" type="submit" value="Passwort ändern">
+				<i><span id="SuccessPasswordChange"></span></i>
+			</form>
+		</section>
+	</div>
+	<!-- TEIL PASSWORT ÄNDERN ENDE -->
+
+	<!-- TEIL Reg (Start) -->
+	<div id="RegPanel">
+		<section class="container">
+			<form id="my-form" onsubmit="event.preventDefault(); createCustomer()">
+				<center>
+					<h1>Registrieren</h1>
+				</center>
+				<div class="msg"></div>
+				<div>
+					<label>Benutzername <span>(E-Mail-Adresse):</span></label>
+					<input type="email" name="usernamereg" id="usernamereg" required />
+					<i><span id="UsernameNotMatch"></span></i>
+				</div>
+				<div>
+					<label>Passwort <span>(mind. 6 Zeichen, einen Gross- und Kleinbuchstaben und eine
+							Zahl):</span></label>
+					<input type="password" name="pwdreg" id="pwdreg" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+						minlength="6"
+						title="Muss mindestens eine Zahl, einen Groß- und Kleinbuchstaben und mindestens 6 oder mehr Zeichen enthalten"
+						required>
+				</div>
+				<div>
+					<label>Passwort wiederholen:<span></span></label>
+					<input type="password" name="pwdreg2" id="pwdreg2" minlength="6" required>
+					<i><span id="PasswordNotMatch"></span></i>
+				</div>
+				<div>
+					<label>Vorname <span>(mind. 2 Zeichen):</span></label>
+					<input type="text" name="vname" id="vname" pattern="[A-zÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŒœŸ-]{2,50}"
+						title="Muss aus Buchstaben bestehen z.B. Max" required>
+				</div>
+				<div>
+					<label>Nachname <span>(mind. 2 Zeichen):</span></label>
+					<input type="text" name="nname" id="nname" pattern="[A-zÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŒœŸ-]{2,50}"
+						title="Muss aus Buchstaben bestehen z.B. Mustermann" required>
+				</div>
+				<div class="row">
+					<div class="column-left">
+						<label>Strasse:</label>
+						<input type="text" name="strasse" id="strasse" pattern="[A-zÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŒœŸ.-]{2,50}"
+							title="Muss aus Buchstaben bestehen z.B. Werdstrasse" required>
+					</div>
+					<div class="column-right">
+						<label>Hausnummer:</label>
+						<input type="text" name="hnummer" id="hnummer"
+							title="Kann aus Zahlen und Buchstaben bestehen z.B. 12B" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column-left">
+						<label>PLZ <span>(4 Ziffern):</span></label>
+						<input type="text" name="plz" id="plz" maxlength="4" minlength="4" pattern="^[0-9]{4}$"
+							title="Muss aus vier Zahlen bestehen z.B. 8004" required>
+						<i><span id="PlzNotMatch"></span></i>
+					</div>
+					<div class="column-right">
+						<label>Ortschaft:</label>
+						<input type="text" name="ort" id="ort" pattern="[A-zÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŒœŸ-]{2,50}"
+							title="Muss aus Buchstaben bestehen z.B. Zürich" required>
+					</div>
+				</div>
+				<input type="submit" value="Konto erstellen" id="register" class="btn">
+				<i><span id="SuccessRegistration"></span></i>
+				</<>
 
 
-		loginForm.addEventListener('submit', e => {
-			e.preventDefault();
-			alert('Test');
-
-			// Credit: https://stackoverflow.com/questions/22195065/how-to-send-a-json-object-using-html-form-data
-			var formData = JSON.stringify($("#loginform").serializeArray());
+		</section>
+	</div>
+	<!-- TEIL Reg (Ende) -->
 
 
-
-			$.ajax({
-				type: "POST",
-				url: "/api/customer/createCustomer",
-				data: formData,
-				success: testAlert,
-				dataType: "json",
-				contentType: "application/json"
-			});
-
-			console.log('JS Test')
-		});
+	<!-- TEIL MATTHIAS (START) -->
+	<div id="ShopPanel">
+		<!-- <section class="container">
 
 
-		function testAlert() {
+		Bestellung anlegen Button 
+		<input type="button" class="btn" id="createOrder" value="Bestellung anlegen" onClick="createOrder()">
 
-			alert('In Function');
-		}
+		<form id="takeAndSendOrder">
+			<input type="number" id="orderitem1" placeholder="10">
+			<input type="button" id="addToOrder1" value="1" onCLick="addArticleToOrder1()"> <br />
 
-	</script>
+			<input type="number" id="orderitem2" placeholder="orderitem2">
+			<input type="button" id="addToOrder2" value="2" onCLick="addArticleToOrder2()"> <br />
+
+			<input type="number" id="orderitem3" placeholder="orderitem3">
+			<input type="button" id="addToOrder3" value="3" onCLick="addArticleToOrder3()"> <br />
+
+			<input type="number" id="orderitem4" placeholder="orderitem4">
+			<input type="button" id="addToOrder4" value="4" onCLick="addArticleToOrder4()"> <br />
+
+			<input type="button" id="sendOrder" value="Bestellung berechnen" onCLick="calculateCostOfOrder()">
+
+		</form>
+
+
+	</section>
+     TEIL MATTHIAS (ENDE) -->
+		<!-- SEVERIN -->
+		<section class="container">
+			<table style="width:100%">
+				<tbody>
+					<tr>
+						<td><img class="product" src="images/p1.png"><br>Flick Flack Uhr (P1)</td>
+						<td><img class="product" src="images/p2.png"><br>Tumi Rucksack (P2)</td>
+					</tr>
+
+					<tr>
+						<td><input class="num" type="number" id="orderitem1" value="1" min="0" max="999" step="1" required>
+							<input class="btncart" id="addToOrder1" type="button" value="In den Warenkorb"
+								onCLick="addArticleToOrder1()">
+						</td>
+						<td><input class="num" type="number" id="orderitem2" value="1" min="0" max="999" step="1" required>
+							<input class="btncart" id="addToOrder2" type="button" value="In den Warenkorb"
+								onCLick="addArticleToOrder2()">
+						</td>
+					</tr>
+
+					<tr>
+						<td><img class="product" src="images/p3.png"><br>ON Schuh (P3)</td>
+						<td><img class="product" src="images/p4.png"><br>Ray Ban Brille (P4)</td>
+					</tr>
+					<tr>
+						<td><input class="num" type="number" id="orderitem3" value="1" min="0" max="999" step="1" required>
+							<input class="btncart" id="addToOrder3" type="button" value="In den Warenkorb"
+								onCLick="addArticleToOrder3()">
+						</td>
+						<td><input class="num" type="number" id="orderitem4" value="1" min="0" max="999" step="1" required>
+							<input class="btncart" id="addToOrder4" type="button" value="In den Warenkorb"
+								onCLick="addArticleToOrder4()">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<div>
+				<i><span id="SuccessBasket"></span></i>
+			</div>
+			<hr>
+			<br>
+			<div class="column">
+				<form id="my-form">
+					<h1>Warenkorb</h1>
+				</form>
+				<table width="100%">
+					<tr>
+						<td width="75%">Flick Flack Uhr (P1):</td>
+						<td width="25%"><label id="p1txt"> </label></td>
+					</tr>
+					<tr>
+						<td width="75%">Tumi Rucksack (P2):</td>
+						<td width="25%"><label id="p2txt"> </label></td>
+					</tr>
+					<tr>
+						<td width="75%">ON Schuh (P3):</td>
+						<td width="25%"><label id="p3txt"> </label></td>
+					</tr>
+					<tr>
+						<td width="75%">Ray Ban Brille (P4):</td>
+						<td width="25%"><label id="p4txt"> </label></td>
+					</tr>
+				
+				</table >
+				<ul>
+					<input type="button" class="btn" id="calcship" value="Versand berechnen"
+						onClick="calculateCostOfOrder()">
+						<i><span id="FailedCalculateOrder"></span></i>
+					<li>
+						<center> Versandkosten: <b><label id="total"></label></b></center>
+					</li>
+					<input type="button" class="btn" id="createOrder" value="Bestellung absenden"
+						onClick="createOrder()">
+						<i><span id="SuccessSubmit"></span></i>
+				</ul>
+				</selection>
+			</div>
+	</div>
+
+
+	</div>
 
 </body>
 
 </html>
-
-<script>
-
-</script>
