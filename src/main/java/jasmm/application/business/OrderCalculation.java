@@ -2,6 +2,11 @@ package jasmm.application.business;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Business Logik - Brechnung der benötigten Paletten
+ * @author Julia
+ *
+ */
 @Service
 public class OrderCalculation {
 	

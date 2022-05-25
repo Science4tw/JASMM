@@ -1,5 +1,9 @@
 package jasmm.application.service;
 
+/*
+ * Repräsentiert die Message der berechneten Transportkosten (nicht mehr benötigt)
+ * @author Matthias
+ */
 public class MessageCalculatedOrder {
 	
 	private int orderid;

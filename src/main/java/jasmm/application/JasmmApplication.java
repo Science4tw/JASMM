@@ -1,6 +1,5 @@
 package jasmm.application;
 
-
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -9,33 +8,22 @@ import java.util.logging.SimpleFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 import jasmm.application.persistence.Article;
 import jasmm.application.persistence.ArticleRepository;
 
 @SpringBootApplication
-@ComponentScan({ "jasmm.application", "jasmm.persistence", "jasmm.persistence.OrderRepository", "jasmm.service.order", })
 public class JasmmApplication {
 
-	// @Autowired
-	// private CustomerRepository customerRepository;
-
-	private Article article1;
-	private Article article2;
-	private Article article3;
-	private Article article4;
-	
 	// Logger
 	static Logger logger = ServiceLocator.getServiceLocator().getLogger();	
     private static FileHandler fh;     
     private static SimpleFormatter formatter = new SimpleFormatter();  
 
-	@Autowired
-	private ArticleRepository articleRepository;
-
 	public static void main(String[] args) {
 		
+		
+		// Logger & Filehandler
 		// Credit: https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
 	    try {  
 
@@ -53,6 +41,18 @@ public class JasmmApplication {
 		SpringApplication.run(JasmmApplication.class, args);
 	}
 
+	
+	/**
+	 * Erstmaliges erstellen der Artikel
+	 */
+	private Article article1;
+	private Article article2;
+	private Article article3;
+	private Article article4;
+	
+	@Autowired
+	private ArticleRepository articleRepository;
+	
 //	@PostConstruct
 //	public void createArticles() {
 //

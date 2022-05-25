@@ -1,7 +1,5 @@
 package jasmm.application.persistence;
 
-import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 

@@ -2,7 +2,7 @@ package jasmm.application.service;
 
 
 /*
- * Repräsentiert die MEssage für eine neue Order
+ * Repräsentiert die Message für eine neue Order
  * @author Matthias
  */
 public class MessageNewOrder {
