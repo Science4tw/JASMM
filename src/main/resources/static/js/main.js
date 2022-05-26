@@ -56,7 +56,7 @@ function createCustomer() {
 function responseRegister(response) {
 	if (response == 0) {
 		$('#usernamereg').val(''); // André - Username leeren
-		$("#SuccessRegistration").text("Die E-Mail Adresse ist ungültig oder bereits vergeben. Bitte versuchen Sie es nochmals.") //André - Fehelermeldung
+		$("#SuccessRegistration").text("Die E-Mail-Adresse ist bereits vergeben. Bitte versuchen Sie es nochmals.") //André - Fehelermeldung
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 	} else if (response == -2) {
