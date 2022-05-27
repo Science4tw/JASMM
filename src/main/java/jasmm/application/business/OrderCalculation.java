@@ -146,8 +146,8 @@ public class OrderCalculation {
 
 				double allRest = (restP1 * HIGHT_P1) + (restP2 * HIGHT_P2) + (restP3 * HIGHT_P3) + (restP4 * HIGHT_P4);
 
-				System.out.println("allRest " + allRest);
-				System.out.println("*********");
+				//System.out.println("allRest " + allRest);
+				//System.out.println("*********");
 
 				// wenn alle Restprodukte weniger als 2200 cm Höhe benötigen, können sie auf
 				// einander gestappelt werden. Angefangen wird bei der Abfrage P3, da diese
