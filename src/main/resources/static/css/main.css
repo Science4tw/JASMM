@@ -175,3 +175,9 @@ button:hover {
 	width: 100%;
 	
 }
+
+
+.btn:disabled,
+.btn[disabled]{
+  background-color: #eee;
+}
