@@ -49,16 +49,16 @@
   }
 }
   
-  #my-form {
+  .my-form {
     padding: 2rem;
     background: #f4f4f4;
   }
   
-  #my-form label {
+  .my-form label {
     display: block;
   }
   
-  #my-form input[type='text'] {
+  .my-form input[type='text'] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -66,14 +66,14 @@
     border: 1px solid #ccc;
   }
   
-    #my-form input[type='password'] {
+    .my-form input[type='password'] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
   }
-    #my-form input[type='email'] {
+    .my-form input[type='email'] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
