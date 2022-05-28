@@ -600,3 +600,10 @@ function handleShippingCostResponse(response) {
 
 // TEIL Julia (Ende)
 
+ function checkNumber(element) {
+        let value;
+        value = parseInt(element.value);
+        if(isNaN(value)) value = 0;
+        element.value = value;
+    }
+
