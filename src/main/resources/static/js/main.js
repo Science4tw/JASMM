@@ -356,12 +356,10 @@ function createOrder() {
 function responseCreateOrder(response) {
 
 	orderid = response;
-	// André - habe den Alert rausgenommen, die Funktion funktioniert
-	//alert("Die Order für den Kunden mit der ID " + customerid + " wurde gespeichert. Die OrderID lautet: " + orderid);
+
 }
 
-// let articleid = -1;
-// let amount = -1;
+
 
 function failedAmount() {
 
@@ -428,7 +426,7 @@ function addArticleToOrder1() {
 			contentType: 'application/json'
 		});
 
-		console.log(JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }));
+		// console.log(JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }));
 
 	} else { // André
 		failedAmount(); // André
@@ -466,7 +464,7 @@ function addArticleToOrder2() {
 			contentType: 'application/json'
 		});
 
-		console.log(JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid, customerid: customerid }));
+		// console.log(JSON.stringify({ articleid: articleid2, amount: articleamount2, orderid: orderid, customerid: customerid }));
 
 	} else { // André
 		failedAmount(); // André
@@ -502,7 +500,7 @@ function addArticleToOrder3() {
 			contentType: 'application/json'
 		});
 
-		console.log(JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }));
+		// console.log(JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }));
 
 	} else { // André
 		failedAmount(); // André
@@ -538,7 +536,7 @@ function addArticleToOrder4() {
 			contentType: 'application/json'
 		});
 
-		console.log(JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid, customerid: customerid }));
+		// console.log(JSON.stringify({ articleid: articleid4, amount: articleamount4, orderid: orderid, customerid: customerid }));
 	} else { // André
 		failedAmount(); // André
 	}
