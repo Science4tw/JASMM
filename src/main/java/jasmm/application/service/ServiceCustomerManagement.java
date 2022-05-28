@@ -24,6 +24,10 @@ import jasmm.application.persistence.CityRepository;
 import jasmm.application.persistence.Customer;
 import jasmm.application.persistence.CustomerRepository;
 
+/* Service für das Customer Handling
+ * Author: Michèle
+ */
+
 @RestController
 public class ServiceCustomerManagement {
 
@@ -40,7 +44,7 @@ public class ServiceCustomerManagement {
 	private static final int iterations = 127;
 	private final byte[] salt = new byte[64];
 
-	// Michèle
+	
 	// Registrierung: neuen Kunden erstellen & in DB speichern
 	@PostMapping(path = "/createCustomer", produces = "application/json")
 	public int createCustomer(@RequestBody MessageNewCustomer m) {
@@ -53,8 +57,8 @@ public class ServiceCustomerManagement {
 				Float distanceOfCustomer = cityOfCustomer.getDistance();
 				Customer c = new Customer();
 				c.setUsername(m.getUsername());
-				String hashedPassword = hash(m.getPassword()); //Passwortverschlüsselung
-				c.setPassword(hashedPassword); 
+				String hashedPassword = hash(m.getPassword()); // Passwortverschlüsselung
+				c.setPassword(hashedPassword);
 				c.setFirstName(m.getFirstName());
 				c.setLastName(m.getLastName());
 				c.setStreet(m.getStreet());
@@ -70,7 +74,7 @@ public class ServiceCustomerManagement {
 				logger.info("Registrierung fehlgeschlagen. Ungültige Postleitzahl " + m.getZipCode());
 				return -2;
 			}
-		} else {
+		} else { // Username existiert bereits in der DB
 			logger.info("Registrierung fehlgeschlagen. Benutzername " + m.getUsername() + " bereits vergeben");
 			return 0;
 		}
@@ -80,10 +84,18 @@ public class ServiceCustomerManagement {
 	// Quelle: https://nullbeans.com/hashing-passwords-in-spring-applications/
 	private String hash(String password) {
 		try {
-			char[] chars = password.toCharArray();
+			char[] chars = password.toCharArray(); // Die einzelnen Zeichen des Passworts wird in ein Zeichen-Array
+													// gespeichert
+			// Hashing des Passworts mit 127 Iterationen des Hash-Algorithmus und Key-Grösse
+			// von 512 Bytes
 			PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 512);
-			SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512"); // PBKDF2WithHmacSHA1
+			SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512"); // Hash-Länge von 512 Bits;
+																							// PBKDF2WithHmacSHA1 wäre
+																							// eine Hash-Länge von 160
+																							// Bits
 			byte[] hash = skf.generateSecret(spec).getEncoded();
+			// Das Hash-Byte-Array in einen String konvertieren mittels Base64, damit es in
+			// der DB gespeichert werden kann
 			String hashAsString = Base64.getMimeEncoder().encodeToString(hash);
 			return hashAsString;
 		} catch (Exception e) {
@@ -92,47 +104,42 @@ public class ServiceCustomerManagement {
 		}
 	}
 
-	// Michèle
+	
 	// Login: Validierung Benutzername & Passwort
 	@PostMapping(path = "/login", produces = "application/json")
 	public int validateLogin(@RequestBody MessageLogin m) {
 		boolean userNameCheck = customerRepository.existsByUsername(m.getUsername());
 
-		if (userNameCheck == true) {
+		if (userNameCheck == true) { //Benutzername existiert in der DB
 			Customer c = customerRepository.findByUsername(m.getUsername());
-			String hashedPasswordFromDB = c.getPassword();
-			//try {
-				String hashedPasswordFromLogin = hash(m.getPassword());
-				
-				if (hashedPasswordFromDB.equals(hashedPasswordFromLogin)) {
-					logger.info("Login erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID "
-							+ c.getCustomerid() + ")");
-					return c.getCustomerid();
-				} else {
-					logger.info("Login fehlgeschlagen. Falsches Passwort. Kunde: " + c.getFirstName() + " "
-							+ c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
-					return 0;
-				}
-			//} catch (Exception e) {
-				//logger.warning("Hashing des Passworts nicht möglich");
-				//return -10;
-			//}
+			
+			String hashedPasswordFromDB = c.getPassword(); //das verschlüsselte Passwort von der DB holen
+			String hashedPasswordFromLogin = hash(m.getPassword()); //das vom User eingegebene Passwort verschlüsseln
 
+			if (hashedPasswordFromDB.equals(hashedPasswordFromLogin)) {
+				logger.info("Login erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName() + " (Kunden-ID "
+						+ c.getCustomerid() + ")");
+				return c.getCustomerid();
+			} else {
+				logger.info("Login fehlgeschlagen. Falsches Passwort. Kunde: " + c.getFirstName() + " "
+						+ c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
+				return 0;
+			}
 		} else {
 			logger.info("Login fehlgeschlagen. Unbekannter Benutzername " + m.getUsername());
 			return 0;
 		}
 	}
 
-	// Michèle
+	
 	// Kundenkonto: Daten eines Kunden abfragen
 	@GetMapping(path = "/getCustomer/{customerid}", produces = "application/json")
 	public Customer getCustomer(@PathVariable int customerid) {
-		return customerRepository.findById(customerid).get();
+		return customerRepository.findById(customerid).get(); //komplettes Customer-Objekt wird zurückgegeben
 
 	}
 
-	// Michèle
+	
 	// Kundenkonto: Kundendaten ändern bzw. überschreiben
 	@PutMapping(path = "/updateCustomer/{customerid}", produces = "application/json")
 	public boolean updateCustomer(@PathVariable int customerid, @RequestBody MessageUpdateCustomer m) {
@@ -140,7 +147,7 @@ public class ServiceCustomerManagement {
 		if (c == null)
 			return false;
 		boolean plzCheck = cityRepository.existsByZipcode(m.getZipCode());
-		if (plzCheck == true) {
+		if (plzCheck == true) { //Eingabe einer gültigen PLZ
 			City cityOfCustomer = cityRepository.findByZipcode(m.getZipCode());
 			Float distanceOfCustomer = cityOfCustomer.getDistance();
 			c.setFirstName(m.getFirstName());
@@ -154,31 +161,31 @@ public class ServiceCustomerManagement {
 			logger.info("Kundendaten erfolgreich geändert. Kunde: " + c.getFirstName() + " " + c.getLastName()
 					+ " (Kunden-ID " + c.getCustomerid() + "). Lieferdistanz: " + c.getDistance() + "km");
 			return true;
-		} else {
+		} else { //bei Eingabe einer ungültigen PLZ
 			logger.info("Kundendatenänderung fehlgeschlagen. Ungültige Postleitzahl " + m.getZipCode() + ". Kunde: "
 					+ c.getFirstName() + " " + c.getLastName() + " (Kunden-ID " + c.getCustomerid() + ")");
 			return false;
 		}
 	}
 
-	// Michèle
-	// Passwort ändern
+
+	// Kundenkonto: Passwort ändern
 	@PutMapping(path = "/changePassword/{customerid}", produces = "application/json")
 	public boolean changePassword(@PathVariable int customerid, @RequestBody MessageChangePassword m) {
 		System.out.println("Kunden-ID bei PW-Änderung: " + customerid);
 		Customer c = customerRepository.getById(customerid);
 		if (c == null)
 			return false;
-		String hashedOldPasswordFromDB = c.getPassword();
-		String hashedOldPasswordFromInput = hash(m.getPassword());
-		if (hashedOldPasswordFromDB.equals(hashedOldPasswordFromInput)) {
-			String hashedNewPassword = hash(m.getPasswordToUpdate());
+		String hashedOldPasswordFromDB = c.getPassword(); //bestehendes verschlüsseltes PW aus DB holen
+		String hashedOldPasswordFromInput = hash(m.getPassword()); //bestehendes PW aus der Benutzereingabe verschlüsseln
+		if (hashedOldPasswordFromDB.equals(hashedOldPasswordFromInput)) { //Eingabe bestehendes Passwort = korrekt
+			String hashedNewPassword = hash(m.getPasswordToUpdate()); //das neue PW aus der Benutzereingabe verschlüsseln
 			c.setPassword(hashedNewPassword);
 			c = customerRepository.save(c);
 			logger.info("Passwortänderung erfolgreich. Kunde: " + c.getFirstName() + " " + c.getLastName()
 					+ " (Kunden-ID: " + c.getCustomerid() + ")");
 			return true;
-		} else {
+		} else { //Eingabe bestehendes PW = falsch
 			logger.info("Passwortänderung fehlgeschlagen. Falsche Eingabe beim bestehenden Passwort. Kunde: "
 					+ c.getFirstName() + " " + c.getLastName() + " (Kunden-ID: " + c.getCustomerid() + ")");
 			return false;
@@ -186,7 +193,7 @@ public class ServiceCustomerManagement {
 
 	}
 
-	// Michèle
+	
 	// Logout
 	@PostMapping(path = "/logout", produces = "application/json")
 	public boolean logoutCustomer(@RequestBody MessageLogout m) {
