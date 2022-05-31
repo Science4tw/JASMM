@@ -55,29 +55,29 @@ function createCustomer() {
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
 	if (response == 0) {
-		$('#usernamereg').val(''); // André - Username leeren
-		$("#SuccessRegistration").text("Die E-Mail-Adresse ist bereits vergeben. Bitte versuchen Sie es nochmals.") //André - Fehlermeldung
-		$("#SuccessRegistration").css('color', 'red'); //André
-		$("#SuccessRegistration").fadeOut(5000); // André
+		$('#usernamereg').val(''); // Username leeren
+		$("#SuccessRegistration").text("Die E-Mail-Adresse ist bereits vergeben. Bitte versuchen Sie es nochmals.") // Fehlermeldung
+		$("#SuccessRegistration").css('color', 'red'); // Änderung der Farbe
+		$("#SuccessRegistration").fadeOut(5000); // Nachricht nach 5 Sek. ausblenden
 	} else if (response == -2) {
-		$('#plz').val(''); // André - PLZ leeren
-		$("#SuccessRegistration").text("Ungültige Postleitzahl. Bitte versuchen Sie es nochmals.") //André - Fehlermeldung
-		$("#SuccessRegistration").css('color', 'red'); //André
-		$("#SuccessRegistration").fadeOut(5000); // André
+		$('#plz').val(''); // PLZ leeren
+		$("#SuccessRegistration").text("Ungültige Postleitzahl. Bitte versuchen Sie es nochmals.") // Fehlermeldung
+		$("#SuccessRegistration").css('color', 'red'); //
+		$("#SuccessRegistration").fadeOut(5000); //
 
 	} else {
 		customerid = response;
-		$("#SuccessRegistration").text("Ihr Benutzerkonto wurde erstellt. Sie können sich nun einloggen."); //André - Erfolgsmeldung
-		$("#SuccessRegistration").css('color', 'green'); //André
-		$('#usernamereg').val(''); //André - Bei erfolgreichem Registrieren werden Eingaben gelöscht.
-		$('#pwdreg').val(''); // André
-		$('#pwdreg2').val(''); // André
-		$('#vname').val(''); // André
-		$('#nname').val(''); // André
-		$('#strasse').val(''); // André
-		$('#hnummer').val(''); // André
-		$('#plz').val(''); // André
-		$('#ort').val(''); // André
+		$("#SuccessRegistration").text("Ihr Benutzerkonto wurde erstellt. Sie können sich nun einloggen."); //Erfolgsmeldung
+		$("#SuccessRegistration").css('color', 'green'); //
+		$('#usernamereg').val(''); // Bei erfolgreichem Registrieren werden Eingaben gelöscht.
+		$('#pwdreg').val(''); 
+		$('#pwdreg2').val(''); 
+		$('#vname').val(''); 
+		$('#nname').val(''); 
+		$('#strasse').val(''); 
+		$('#hnummer').val(''); 
+		$('#plz').val(''); 
+		$('#ort').val(''); 
 	}
 
 }
@@ -105,7 +105,7 @@ function loginResponse(response) {
 	var button1 = document.getElementById("LoginLogout") //Severin
 	var button2 = document.getElementById("RegKon") //Severin
 	var button3 = document.getElementById("Shop") //Severin
-	$("#customerId").fadeIn(); // André
+	$("#customerId").fadeIn(); // André - Nachricht einblenden
 
 	if (response == 0) {
 		$("#customerId").empty();
@@ -113,7 +113,7 @@ function loginResponse(response) {
 		$('#username').val(''); // André
 		$("#customerId").text("Ihre Anmeldedaten sind nicht korrekt. Bitte versuchen Sie es nochmals."); //André - Fehlermeldung
 		$("#customerId").css('color', 'red'); //André
-		$("#customerId").fadeOut(2500);
+		$("#customerId").fadeOut(2500); // André - Meldung nach 2.5 Sek. ausblenden.
 
 	} else {
 		$("#customerId").text("Login erfolgreich. Sie können nun den Shop oder das Kundenkonto aufrufen."); // André - Erfolgsmeldung
@@ -173,7 +173,7 @@ function updateCustomerData() {
 	let streetNrInputKto = document.querySelector('#hnummerKto');
 	let zipCodeInputKto = document.querySelector('#plzKto');
 	let cityInputKto = document.querySelector('#ortKto');
-	$("#infoUpdateCustomerData").fadeIn(); // André
+	$("#infoUpdateCustomerData").fadeIn(); // André - Erfolgsmeldung anzeigen
 
 	$.ajax({
 		type: "PUT", //Mutieren eines Kunden
@@ -189,14 +189,14 @@ function updateCustomerData() {
 //Kundenkonto: Erfolgs- od. Fehlermeldung bzgl. Änderung der Kundendaten 
 function handleCustomerUpdateResponse(response) {
 	if (response == true) {
-		$("#infoUpdateCustomerData").text("Ihre Kundendaten wurden erfolgreich geändert.") //André
-		$("#infoUpdateCustomerData").css('color', 'green'); //André
+		$("#infoUpdateCustomerData").text("Ihre Kundendaten wurden erfolgreich geändert.")
+		$("#infoUpdateCustomerData").css('color', 'green');
 	} else {
 		$('#plzKto').val(''); //André - Wenn PLZ nicht existiert, wird Feld geleert.
-		$("#infoUpdateCustomerData").text("Änderung fehlgeschlagen. Bitte geben Sie eine gültige PLZ ein.") //André
-		$("#infoUpdateCustomerData").css('color', 'red'); //André
+		$("#infoUpdateCustomerData").text("Änderung fehlgeschlagen. Bitte geben Sie eine gültige PLZ ein.") 
+		$("#infoUpdateCustomerData").css('color', 'red'); 
 	}
-	$("#infoUpdateCustomerData").fadeOut(5000); // André
+	$("#infoUpdateCustomerData").fadeOut(5000); // Ausblenden nach 5 Sek.
 }
 
 //Michèle & André
@@ -205,9 +205,9 @@ function changePassword() {
 	let oldPwdInputUser = document.querySelector("#oldPwd");
 	let newPwd1InputUser = document.querySelector("#newPwd1");
 	let newPwd2InputUser = document.querySelector("#newPwd2");
-	$("#SuccessPasswordChange").fadeIn(); // André
+	$("#SuccessPasswordChange").fadeIn(); // Meldung anzeigen
 
-	if (newPwd1InputUser.value === newPwd2InputUser.value) { // André - Fehleingabe abfangen von PW
+	if (newPwd1InputUser.value === newPwd2InputUser.value) { // Fehleingabe abfangen von Passwort
 
 		$.ajax({
 			type: "PUT", //Mutieren eines Kunden (sicherer als GET)
@@ -218,33 +218,33 @@ function changePassword() {
 			contentType: 'application/json'
 		});
 	} else {
-		$('#oldPwd').val(''); //André - Wenn Änderung fehlschlägt, alle drei Felder leeren
-		$('#newPwd1').val(''); //André
-		$('#newPwd2').val(''); //André
-		$("#SuccessPasswordChange").text("Die Passworteingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.") //André
-		$("#SuccessPasswordChange").css('color', 'red'); //André
+		$('#oldPwd').val(''); // Wenn Änderung fehlschlägt, alle drei Felder leeren
+		$('#newPwd1').val(''); 
+		$('#newPwd2').val(''); 
+		$("#SuccessPasswordChange").text("Die Passworteingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.") // Fehlermeldung
+		$("#SuccessPasswordChange").css('color', 'red');
 	}
-	$("#SuccessPasswordChange").fadeOut(7000); // André
+	$("#SuccessPasswordChange").fadeOut(7000);
 }
 
 //André
 //Passwort ändern: Erfolgs- bzw. Fehlermeldung bzgl. Änderung
 function handleChangePwdResponse(response) {
 	if (response == true) {
-		$('#oldPwd').val(''); //André - Wenn Änderung fehlschlägt, alle drei Felder leeren
-		$('#newPwd1').val(''); //André
-		$('#newPwd2').val('');//André
-		$("#SuccessPasswordChange").text("Passwort wurde erfolgreich geändert.")//André
-		$("#SuccessPasswordChange").css('color', 'green');//André
+		$('#oldPwd').val(''); //Wenn Änderung erfolgreich, alle drei Felder leeren
+		$('#newPwd1').val('');
+		$('#newPwd2').val('');
+		$("#SuccessPasswordChange").text("Passwort wurde erfolgreich geändert.")
+		$("#SuccessPasswordChange").css('color', 'green');
 
 	} else {
-		$('#oldPwd').val('');//André
-		$('#newPwd1').val('');//André
-		$('#newPwd2').val('');//André
-		$("#SuccessPasswordChange").text("Aktuelles Passwort ist falsch. Bitte versuchen Sie es nochmals.")//André
-		$("#SuccessPasswordChange").css('color', 'red');//André
+		$('#oldPwd').val('');//Wenn Änderung fehlschlägt, alle drei Felder leeren
+		$('#newPwd1').val('');
+		$('#newPwd2').val('');
+		$("#SuccessPasswordChange").text("Aktuelles Passwort ist falsch. Bitte versuchen Sie es nochmals.")
+		$("#SuccessPasswordChange").css('color', 'red');
 	}
-	$("#SuccessPasswordChange").fadeOut(7000); // André
+	$("#SuccessPasswordChange").fadeOut(7000);
 }
 
 //Michèle
@@ -334,7 +334,7 @@ function createOrder() {
 	label3.innerHTML = ("0 Stk."); // Severin
 	label4.innerHTML = ("0 Stk."); // Severin
 
-	$('#createOrder').prop('disabled', true); // André 
+	$('#createOrder').prop('disabled', true); // André - Button disabled
 
 	$.ajax({
 		type: "POST",
@@ -345,8 +345,8 @@ function createOrder() {
 		contentType: 'application/json'
 	});
 
-	if ($("#createOrder").click(function() { // André
-		$(this).data('clicked', true);
+	if ($("#createOrder").click(function() { // André - Erst wenn der Button geklickt werden konnte, Bestellung absenden. 
+		$(this).data('clicked', true); // André 
 		submitOrderSuccessful(); // André - Setzt Labels zurück, da Bestellung abgesendet und neue Order angelegt.
 	}));
 }
@@ -359,12 +359,12 @@ function responseCreateOrder(response) {
 }
 
 
-
+// André - Meldung bei Falscheingabe einer Menge
 function failedAmount() {
 
-	$("#SuccessBasket").text("Ungültige Eingabe. Bitte versuchen Sie es nochmals.") //André
-	$("#SuccessBasket").css('color', 'red'); //André
-	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
+	$("#SuccessBasket").text("Ungültige Eingabe. Bitte versuchen Sie es nochmals.");
+	$("#SuccessBasket").css('color', 'red'); 
+	$("#SuccessBasket").fadeOut(4000); //Meldung wird nach 4 sek. ausgeblendet. 
 }
 
 function responseAddArticleToOrder(response) {
@@ -380,18 +380,19 @@ function responseAddArticleToOrder(response) {
 	$("#SuccessBasket").fadeOut(4000); // André - Meldung wird nach 4 sek. ausgeblendet. 
 }
 
-function submitOrderSuccessful() { // André
+// André
+function submitOrderSuccessful() {
 	$("#SuccessBasket").text(""); //Textfeld wird zurückgesetzt
 
-	$('#orderitem1').val('1'); //André - Labels und total zurücksetzen
-	$('#orderitem2').val('1'); // André
+	$('#orderitem1').val('1'); //Labels und total zurücksetzen
+	$('#orderitem2').val('1');
 	$('#orderitem3').val('1');
 	$('#orderitem4').val('1');
 	$('#total').text('');
 
-	$("#SuccessSubmit").text("Bestellung erfolgreich versendet. Sie können nun eine neue Bestellung erfassen.")//André
-	$("#SuccessSubmit").css('color', 'green');//André
-	$("#SuccessSubmit").fadeOut(10000); // André
+	$("#SuccessSubmit").text("Bestellung erfolgreich versendet. Sie können nun eine neue Bestellung erfassen.");
+	$("#SuccessSubmit").css('color', 'green');
+	$("#SuccessSubmit").fadeOut(10000); // Erfolgsmeldung nach 10 Sek. ausblenden.
 }
 
 
@@ -406,13 +407,13 @@ function addArticleToOrder1() {
 	//articleid = articleid.value zu 1 geändert, kann man löschen
 	amount = article1amount.value;
 	amountResult = amount == 1 ? "Uhr" : "Uhren" //André
-	amountResult2 = amount == 0 ? "entfernt." : "hinzugefügt.";
+	amountResult2 = amount == 0 ? "entfernt." : "hinzugefügt."; // André - Bei 0 gleich true, wird Text auf entfernt gesetzt. Bei false auf hinzuzfügen. 
 	$("#SuccessBasket").fadeIn(); // André
 
 	// Von André ausgeklammert:
 	//alert("Article ID : " + articleid + "---Order ID : " + orderid + "----Amount : " + amount);
 
-	if (amount >= 0 && amount !== "") { // André 
+	if (amount >= 0 && amount !== "") { // André - Prüft ob Menge im Feld grösser gleich 0 und nicht leer ist.
 
 		label.innerHTML = (amount + " Stk."); // Severin // von André verschoben
 
@@ -428,7 +429,7 @@ function addArticleToOrder1() {
 		// console.log(JSON.stringify({ articleid: articleid, amount: amount, orderid: orderid, customerid: customerid }));
 
 	} else { // André
-		failedAmount(); // André
+		failedAmount(); // André - Fehlermeldung
 	}
 }
 
@@ -445,7 +446,7 @@ function addArticleToOrder2() {
 	//articleid2 = everin articleid2.value  SEVERIN kann man löschen
 	articleamount2 = articleamount2.value;
 	amountResult = articleamount2 == 1 ? "Rucksack" : "Rucksäcke" //André
-	amountResult2 = articleamount2 == 0 ? "entfernt." : "hinzugefügt.";
+	amountResult2 = articleamount2 == 0 ? "entfernt." : "hinzugefügt."; // André
 	$("#SuccessBasket").fadeIn(); // André
 
 	//André - ausgeklammert
@@ -481,7 +482,7 @@ function addArticleToOrder3() {
 	//articleid3 = articleid3.value SEVERIN kann man löschen
 	articleamount3 = articleamount3.value;
 	amountResult = articleamount3 == 1 ? "Schuhe" : "Schuhe" //André
-	amountResult2 = articleamount3 == 0 ? "entfernt." : "hinzugefügt.";
+	amountResult2 = articleamount3 == 0 ? "entfernt." : "hinzugefügt."; // André
 	$("#SuccessBasket").fadeIn(); // André
 
 
@@ -517,7 +518,7 @@ function addArticleToOrder4() {
 	//articleid4 = articleid4.value SEVERIN kann man löschen
 	articleamount4 = articleamount4.value;
 	amountResult = articleamount4 == 1 ? "Brille" : "Brillen"; //André
-	amountResult2 = articleamount4 == 0 ? "entfernt." : "hinzugefügt.";
+	amountResult2 = articleamount4 == 0 ? "entfernt." : "hinzugefügt."; // André
 	$("#SuccessBasket").fadeIn(); // André
 
 	// André - ausgeklammert:
@@ -547,17 +548,17 @@ function addArticleToOrder4() {
 
 function calculateCostOfOrder() {
 
-	$("#total").text("");
+	$("#total").text(""); // André
 	$("#SuccessSubmit").text(""); // André
 	$("#SuccessSubmit").fadeIn(); // André
 	$("#FailedCalculateOrder").text("")//André
 	$("#FailedCalculateOrder").fadeIn(); // André
 
 	if (
-		$('#p1txt').text() == '0 Stk.' &&
+		$('#p1txt').text() == '0 Stk.' && 
 		$('#p2txt').text() == '0 Stk.' &&
 		$('#p3txt').text() == '0 Stk.' &&
-		$('#p4txt').text() == '0 Stk.') {
+		$('#p4txt').text() == '0 Stk.') { // André - Wenn Menge bei allen Produkten auf 0 - Fehlermeldung ausgeben. 
 		failedCalculateOrderMessage()
 
 	} else {
@@ -570,7 +571,7 @@ function calculateCostOfOrder() {
 
 		});
 		$("#FailedCalculateOrder").text("")//André
-		$('#createOrder').prop('disabled', false);
+		$('#createOrder').prop('disabled', false); // André - Button klickbar
 
 	}
 
@@ -581,7 +582,7 @@ function failedCalculateOrderMessage() { //André
 	$("#FailedCalculateOrder").css('color', 'red');//André
 	$('#createOrder').prop('disabled', true); //André
 	let lbtot = document.getElementById("total"); //André
-	lbtot.innerHTML = ""; //André
+	lbtot.innerHTML = ""; //André - Feld total leeren
 	$("#FailedCalculateOrder").fadeOut(4000); // André
 }
 
@@ -590,7 +591,7 @@ function handleShippingCostResponse(response) {
 
 	if (response == -1) {
 		let lbtot = document.getElementById("total");
-		lbtot.innerHTML = "Bestellmenge zu gross. Bitte Warenkorb reduzieren";
+		lbtot.innerHTML = "Bestellmenge zu gross. Bitte Warenkorb reduzieren"; // André
 	} else {
 		let lbtot = document.getElementById("total");
 		lbtot.innerHTML = "CHF " + parseFloat(response).toFixed(2); // Severin 2.Dezimal	
@@ -604,8 +605,8 @@ function handleShippingCostResponse(response) {
 //André
  function checkNumber(element) {
         let value;
-        value = parseInt(element.value);
-        if(isNaN(value)) value = 0;
-        element.value = value;
+        value = parseInt(element.value); //Gleitkommazahl wird zu einem Integer umgewandelt. 
+        if(isNaN(value)) value = 0; // Prüft ob value (is not a Number = isNaN) eine Nummer ist. Wenn nicht, wird es auf 0 gesetzt. 
+        element.value = value; // Wert wird dem element übergeben. 
     }
 
