@@ -19,8 +19,8 @@ $(document).ready(function() {
 //Michèle
 //Registrierung neuer Kunde - createCustomer()
 function createCustomer() {
-	let usernameInput = document.querySelector('#usernamereg'); // Severin geändert von username zu usernamereg
-	let pwdInput = document.querySelector("#pwdreg"); //Severin geändert von pwd zu pwdreg
+	let usernameInput = document.querySelector('#usernamereg'); 
+	let pwdInput = document.querySelector("#pwdreg"); 
 	let pwdInput2 = document.querySelector("#pwdreg2");
 	let firstNameInput = document.querySelector("#vname");
 	let lastNameInput = document.querySelector("#nname");
@@ -32,7 +32,7 @@ function createCustomer() {
 
 	if (pwdInput.value === pwdInput2.value) {
 		$.ajax({
-			type: "POST",
+			type: "POST", //Erstellen eines neuen Kunden
 			url: "/createCustomer",
 			data: JSON.stringify({ username: usernameInput.value, password: pwdInput.value, firstName: firstNameInput.value, lastName: lastNameInput.value, street: streetInput.value, streetNr: streetNrInput.value, zipCode: zipCodeInput.value, city: cityInput.value }),
 			success: responseRegister,
@@ -51,12 +51,12 @@ function createCustomer() {
 }
 
 
-//Michèle
+//André
 //Registrierung neuer Kunde - Verarbeitung der Server-Antwort
 function responseRegister(response) {
 	if (response == 0) {
 		$('#usernamereg').val(''); // André - Username leeren
-		$("#SuccessRegistration").text("Die E-Mail-Adresse ist bereits vergeben. Bitte versuchen Sie es nochmals.") //André - Fehelermeldung
+		$("#SuccessRegistration").text("Die E-Mail-Adresse ist bereits vergeben. Bitte versuchen Sie es nochmals.") //André - Fehlermeldung
 		$("#SuccessRegistration").css('color', 'red'); //André
 		$("#SuccessRegistration").fadeOut(5000); // André
 	} else if (response == -2) {
@@ -89,7 +89,7 @@ function loginCustomer() {
 	let password = document.querySelector('#pwd');
 
 	$.ajax({
-		type: "POST",
+		type: "POST", //sicherer als GET
 		url: "/login",
 		data: JSON.stringify({ username: username.value, password: password.value }),
 		success: loginResponse,
@@ -99,7 +99,7 @@ function loginCustomer() {
 	});
 }
 
-//Michèle
+//André & Severin
 //Login des Kunden - Verarbeitung der Server-Antwort
 function loginResponse(response) {
 	var button1 = document.getElementById("LoginLogout") //Severin
@@ -136,7 +136,7 @@ function loginResponse(response) {
 }
 
 //Michèle
-//Nach erfolgreichem Login: Kundendaten aus DB holen
+//Nach erfolgreichem Login: Kundendaten aus DB holen - getCustomer()
 function getCustomer() {
 	$.ajax({
 		type: "GET",
@@ -151,7 +151,7 @@ function getCustomer() {
 
 //Michèle
 //Nach erfolgreichem Login: Kundendaten im Kundenkonto anzeigen
-function handleCustomerDataResponse(customer) {
+function handleCustomerDataResponse(customer) { 
 	$("#customeridKto").val(customer['customerid']);
 	$("#usernameKto").val(customer['username']);
 	$("#pwdKto").val(customer['password']);
@@ -165,9 +165,8 @@ function handleCustomerDataResponse(customer) {
 }
 
 //Michèle
-//Kundenkonto: Übermittlung der neuen Kundendaten; alle Daten überschreiben (ausser Kunden-ID und Benutzername)
+//Kundenkonto: Übermittlung der neuen Kundendaten; alle Daten überschreiben (ausser Kunden-ID und Benutzername) - updateCustomerData()
 function updateCustomerData() {
-	//let pwdInputKto = document.querySelector("#pwdKto");
 	let firstNameInputKto = document.querySelector("#vnameKto");
 	let lastNameInputKto = document.querySelector("#nnameKto");
 	let streetInputKto = document.querySelector('#strasseKto');
@@ -177,7 +176,7 @@ function updateCustomerData() {
 	$("#infoUpdateCustomerData").fadeIn(); // André
 
 	$.ajax({
-		type: "PUT",
+		type: "PUT", //Mutieren eines Kunden
 		url: "/updateCustomer/" + customerid + "",
 		data: JSON.stringify({ firstName: firstNameInputKto.value, lastName: lastNameInputKto.value, street: streetInputKto.value, streetNr: streetNrInputKto.value, zipCode: zipCodeInputKto.value, city: cityInputKto.value }),
 		success: handleCustomerUpdateResponse,
@@ -186,8 +185,8 @@ function updateCustomerData() {
 	});
 }
 
-//Michèle
-//Kundenkonto: Erfolgsmeldung bzgl. Änderung der Kundendaten 
+//André
+//Kundenkonto: Erfolgs- od. Fehlermeldung bzgl. Änderung der Kundendaten 
 function handleCustomerUpdateResponse(response) {
 	if (response == true) {
 		$("#infoUpdateCustomerData").text("Ihre Kundendaten wurden erfolgreich geändert.") //André
@@ -200,8 +199,8 @@ function handleCustomerUpdateResponse(response) {
 	$("#infoUpdateCustomerData").fadeOut(5000); // André
 }
 
-//Michèle
-//Passwort ändern
+//Michèle & André
+//Passwort ändern - changePassword()
 function changePassword() {
 	let oldPwdInputUser = document.querySelector("#oldPwd");
 	let newPwd1InputUser = document.querySelector("#newPwd1");
@@ -211,7 +210,7 @@ function changePassword() {
 	if (newPwd1InputUser.value === newPwd2InputUser.value) { // André - Fehleingabe abfangen von PW
 
 		$.ajax({
-			type: "PUT",
+			type: "PUT", //Mutieren eines Kunden (sicherer als GET)
 			url: "/changePassword/" + customerid + "",
 			data: JSON.stringify({ password: oldPwdInputUser.value, passwordToUpdate: newPwd1InputUser.value }),
 			success: handleChangePwdResponse,
@@ -228,8 +227,8 @@ function changePassword() {
 	$("#SuccessPasswordChange").fadeOut(7000); // André
 }
 
-//Michèle
-//Passwort ändern: Erfolgsmeldung bzgl. Änderung
+//André
+//Passwort ändern: Erfolgs- bzw. Fehlermeldung bzgl. Änderung
 function handleChangePwdResponse(response) {
 	if (response == true) {
 		$('#oldPwd').val(''); //André - Wenn Änderung fehlschlägt, alle drei Felder leeren
@@ -249,7 +248,7 @@ function handleChangePwdResponse(response) {
 }
 
 //Michèle
-//Logout: Klick auf Logout
+//Logout: Klick auf Logout - logoutCustomer()
 function logoutCustomer() {
 
 	$.ajax({
@@ -543,6 +542,7 @@ function addArticleToOrder4() {
 }
 // TEIL MATTHIAS (ENDE)
 
+
 // TEIL Julia (START)
 
 function calculateCostOfOrder() {
@@ -600,6 +600,8 @@ function handleShippingCostResponse(response) {
 
 // TEIL Julia (Ende)
 
+
+//André
  function checkNumber(element) {
         let value;
         value = parseInt(element.value);
