@@ -2,45 +2,45 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+ }
   
-  body {
+body {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
-  }
+}
   
-  ul {
+ul {
     list-style: none;
-  }
+}
   
-  ul li {
+ul li {
     padding: 5px;
     background: #f4f4f4;
     margin: 5px 0;
-  }
+}
 
-  a {
+a {
     color: black;
-  }
+}
 
-  nav {
+nav {
    background: #eee;
-  }
+}
   
-  header{
+header{
     background: #fff;
     padding: 1rem;
     text-align: center;
-  }
+}
   
-  .container {
+.container {
     margin: auto;
     width: 500px;
     overflow: auto;
     padding: 3rem 2rem;
-  }
+}
   
-  @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
    .container {
     margin: auto;
     width: 100%;
@@ -49,39 +49,40 @@
   }
 }
   
-  .my-form {
+.my-form {
     padding: 2rem;
     background: #f4f4f4;
-  }
+}
   
-  .my-form label {
+.my-form label {
     display: block;
-  }
+}
   
-  .my-form input[type='text'] {
+.my-form input[type='text'] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-  }
+}
   
-    .my-form input[type='password'] {
+.my-form input[type='password'] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-  }
-    .my-form input[type='email'] {
+}
+
+ .my-form input[type='email'] {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-  }
+}
   
-  .btn {
+.btn {
     display: block;
     width: 100%;
     padding: 10px 15px;
@@ -90,23 +91,23 @@
     color: #fff;
     border-radius: 5px;
     margin: 5px 0;
-  }
+}
   
-  .btn:hover {
+.btn:hover {
     background: #444;
-  }
+}
   
-  .bg-dark {
+.bg-dark {
     background: #333;
     color: #fff;
-  }
+}
   
-  .error {
+.error {
     background: orangered;
     color: #fff;
     padding: 5px;
     margin: 5px;
-  }
+}
   
 .btncart {
     width: 70%;
@@ -144,7 +145,7 @@
 }
 
 .column {
-  flex: 50%;
+  flex: 80%;
 }
   .container2 {
     width: 50%;
