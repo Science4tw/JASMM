@@ -269,8 +269,8 @@ function logoutResponse() {
 //Severin
 //Panel Switcher
 function switchRegKon() {
-	let text = document.getElementById("RegKon").innerHTML;
-	if (text == "Registrieren") {
+	let text = document.getElementById("RegKon").innerHTML; // Button Registrieren 
+	if (text == "Registrieren") { // Wenn Button Registrieren nur Teil von Panel Regiester anzeigen
 		$("#RegPanel").show();
 		$("#LoginPanel").hide();
 		$("#KontoPanel").hide();
@@ -278,7 +278,7 @@ function switchRegKon() {
 		$("#PasswortPanel").hide();
 
 	}
-	else {
+	else { // Wenn Button Kundenkonto nur Kundenkonto & Passwort ändern anzeigen
 		$("#RegPanel").hide();
 		$("#LoginPanel").hide();
 		$("#KontoPanel").show();
@@ -289,9 +289,9 @@ function switchRegKon() {
 
 //Severin
 //Panel Switcher
-function switchShop() {
-	let text = document.getElementById("Shop").innerHTML;
-	if (text == "Shop") {
+function switchShop() { 
+	let text = document.getElementById("Shop").innerHTML; // Button Shop
+	if (text == "Shop") { // Button wird nach Login auf Shop wechseln, nur Shop Panel anzeigen
 		$("#RegPanel").hide();
 		$("#LoginPanel").hide();
 		$("#KontoPanel").hide();
@@ -303,10 +303,10 @@ function switchShop() {
 //Severin
 //LoginLogout Switcher
 function switchLog() {
-	let text = document.getElementById("LoginLogout").innerHTML;
-	if (text == "Logout") {
+	let text = document.getElementById("LoginLogout").innerHTML; // Button Login
+	if (text == "Logout") { // Button wechslet nach Login auf Logout
 		logoutCustomer();
-	} else {
+	} else { // Wenn Login, dann nur Login Panel anzeigen
 		$("#RegPanel").hide();
 		$("#LoginPanel").show();
 		$("#KontoPanel").hide();
@@ -315,7 +315,7 @@ function switchLog() {
 	}
 }
 
-//Matthias, Severin & André 
+//Severin & André & Matthias
 //Anlegen einer neugen Bestellung
 function createOrder() {
 
