@@ -98,7 +98,7 @@ function loginCustomer() {
 	});
 }
 
-//André & Severin
+//Severin & André
 //Login des Kunden - Verarbeitung der Server-Antwort
 function loginResponse(response) {
 	var button1 = document.getElementById("LoginLogout")
@@ -469,12 +469,12 @@ function addArticleToOrder3() {
 
 		label.innerHTML = (articleamount3 + " Stk."); 
 		$.ajax({
-			type: "PUT",
-			url: "/order/" + orderid + "/addArticle",
-			data: JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }),
-			success: responseAddArticleToOrder,
-			dataType: 'json',
-			contentType: 'application/json'
+			type: "PUT", // Wiederholbar wird immer überschrieben
+			url: "/order/" + orderid + "/addArticle", // Url 
+			data: JSON.stringify({ articleid: articleid3, amount: articleamount3, orderid: orderid, customerid: customerid }), //Werte werden übergeben
+			success: responseAddArticleToOrder, //  Antwort vom Server nach Abschluss
+			dataType: 'json',  // Json vom Server
+			contentType: 'application/json' // Json an Server
 		});
 
 	} else { 
