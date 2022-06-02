@@ -18,7 +18,7 @@ $(document).ready(function() {
 // Michèle & André
 // Registrierung neuer Kunde - createCustomer()
 function createCustomer() {
-	let usernameInput = document.querySelector('#usernamereg'); 
+	let usernameInput = document.querySelector('#usernamereg'); // Feld aus HTML lesen
 	let pwdInput = document.querySelector("#pwdreg"); 
 	let pwdInput2 = document.querySelector("#pwdreg2");
 	let firstNameInput = document.querySelector("#vname");
@@ -27,7 +27,7 @@ function createCustomer() {
 	let streetNrInput = document.querySelector('#hnummer');
 	let zipCodeInput = document.querySelector('#plz');
 	let cityInput = document.querySelector('#ort');
-	$("#SuccessRegistration").fadeIn(); // André
+	$("#SuccessRegistration").fadeIn(); // Einblenden Meldung
 
 	if (pwdInput.value === pwdInput2.value) { // Wenn Passwort Feld 1 mit Passwort Feld 2 überreinstimmt
 		$.ajax({
@@ -40,8 +40,8 @@ function createCustomer() {
 		});
 
 	} else {
-		$('#pwdreg').val(''); //André - Wenn Passwörter nicht übereinstimmen, Textfelder leeren.
-		$('#pwdreg2').val(''); // André
+		$('#pwdreg').val(''); // Wenn Passwörter nicht übereinstimmen, Textfelder leeren.
+		$('#pwdreg2').val('');
 		$("#SuccessRegistration").text("Die Passworteingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.");  // Meldung ausgeben
 		$("#SuccessRegistration").css('color', 'red');
 		$("#SuccessRegistration").fadeOut(5000); 
@@ -85,7 +85,7 @@ function responseRegister(response) {
 //Login des Kunden - loginCustomer()
 function loginCustomer() {
 	let username = document.querySelector('#username');
-	let password = document.querySelector('#pwd');
+	let password = document.querySelector('#pwd'); 
 
 	$.ajax({
 		type: "POST", //sicherer als GET
@@ -117,14 +117,14 @@ function loginResponse(response) {
 	} else {
 		$("#customerId").text("Login erfolgreich. Sie können nun den Shop oder das Kundenkonto aufrufen."); // Erfolgsmeldung
 		$("#customerId").css('color', 'green'); 
-		customerid = response;
+		customerid = response; // customer ID wird von -1 auf 1 gesetzt.
 		$('#pwd').prop("disabled", true); // Nach dem Login werden die Textfelder disabled.
 		$('#username').prop("disabled", true);
 		$('#loginButton').prop('disabled', true); // Button nicht mehr klickbar
-		getCustomer();
-		createOrder();
-		$("#Shop").show();
-		button1.innerHTML = "Logout";
+		getCustomer();	// Kundendaten werden ins Kundenkontopannel eingefühgt
+		createOrder(); // Bestellung wird angelegt
+		$("#Shop").show(); // Button Shop einblenden
+		button1.innerHTML = "Logout"; // Menübutton unbenennen
 		button2.innerHTML = "Kundenkonto";
 		button3.innerHTML = "Shop";
 	}
@@ -220,7 +220,7 @@ function changePassword() {
 		$("#SuccessPasswordChange").text("Die Passworteingabe stimmt nicht überein. Bitte versuchen Sie es nochmals.") // Fehlermeldung
 		$("#SuccessPasswordChange").css('color', 'red');
 	}
-	$("#SuccessPasswordChange").fadeOut(7000);
+	$("#SuccessPasswordChange").fadeOut(7000); // Ausblenden nach 7 Sek. 
 }
 
 //André
@@ -240,7 +240,7 @@ function handleChangePwdResponse(response) {
 		$("#SuccessPasswordChange").text("Aktuelles Passwort ist falsch. Bitte versuchen Sie es nochmals.")
 		$("#SuccessPasswordChange").css('color', 'red');
 	}
-	$("#SuccessPasswordChange").fadeOut(7000);
+	$("#SuccessPasswordChange").fadeOut(7000); // Ausblenden nach 7 Sek.
 }
 
 //Michèle
@@ -256,8 +256,8 @@ function logoutCustomer() {
 		contentType: 'application/json',
 
 	});
-	$('#loginButton').prop('disabled', false); // André - LoginButton wieder klickbar
-	window.setTimeout('window.location = "/index.html"', 1000); //Severin -> Weiterleitung mit Delay
+	$('#loginButton').prop('disabled', false); // LoginButton wieder klickbar
+	window.setTimeout('window.location = "/index.html"', 1000); // Weiterleitung mit Delay
 }
 
 //Michèle
@@ -341,7 +341,7 @@ function createOrder() {
 	});
 
 	if ($("#createOrder").click(function() { // Erst wenn der Button geklickt werden konnte, Bestellung absenden. 
-		$(this).data('clicked', true);
+		$(this).data('clicked', true); // Button geklickt = true
 		submitOrderSuccessful(); // Setzt Labels zurück, da Bestellung abgesendet und neue Order angelegt.
 	}));
 }
@@ -365,9 +365,9 @@ function failedAmount() {
 //André 
 function responseAddArticleToOrder(response) {
 
-	$("#SuccessBasket").fadeIn(); 
+	$("#SuccessBasket").fadeIn(); // Einblenden
 	if (response == true) {
-		$("#SuccessBasket").text(amountResult + " dem Warenkorb " + amountResult2)
+		$("#SuccessBasket").text(amountResult + " dem Warenkorb " + amountResult2) // Erfolgsmeldung, hinzugefügt oder entfernt
 		$("#SuccessBasket").css('color', 'green');
 	} else {
 		$("#SuccessBasket").text("Hinzufügen " + amountResult + " fehlgeschlagen. Bitte versuchen Sie es nochmals.")
@@ -400,7 +400,7 @@ function addArticleToOrder1() {
 	let label = document.getElementById("p1txt"); 
 	
 	amount = article1amount.value;
-	amountResult = amount == 1 ? "Uhr" : "Uhren" 
+	amountResult = amount == 1 ? "Uhr" : "Uhren" // Mehr- oder Einzahl
 	amountResult2 = amount == 0 ? "entfernt." : "hinzugefügt."; // Bei 0 gleich true, wird Text auf entfernt gesetzt. Bei false auf hinzuzfügen. 
 	$("#SuccessBasket").fadeIn();
 
@@ -542,7 +542,7 @@ function calculateCostOfOrder() {
 	}
 }
 
-//André
+//André & Severin
 function failedCalculateOrderMessage() {
 	
 	$("#FailedCalculateOrder").text("Keine Produkte im Warenkorb. Bitte versuchen Sie es nochmals.")
