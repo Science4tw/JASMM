@@ -40,25 +40,25 @@ Kundenkonto inkl. Passwort ändern:
 - Das neue Passwort wird wieder verschlüsselt in der Datenbank gespeichert (siehe Punkt 3 Passwortverschlüsselung). 
 
 Logout: 
--Nach dem Logout befindet sich der Kunde wieder auf der Login-Seite. 
+- Nach dem Logout befindet sich der Kunde wieder auf der Login-Seite. 
 
 ZUSÄTZLICH UMGESETZTE FEATURES 
-Frontend: Diverse Client-seitige Validierungen der Benutzereingaben, so dass nur syntaktisch gültige und vollständige Eingaben an den Server gesendet werden: 
-	- Registrieren: 
-		-Benutzername: Prüft, ob es vor und nach dem @-Zeichen einen Buchstaben hat. 
-	- Registrieren & Kundenkonto: 
-		- Vorname, Nachname, Strasse, Ortschaft: Prüft, ob mindestens 2 Zeichen eingegeben wurden. 
-		- Postleitzahl: Prüft, ob es sich um eine vierstellige Zahl handelt. 
-	- Registrieren & Passwort ändern: 
-		- Passwort & Passwort wiederholen: Prüft, ob mindestens eine Zahl, ein Gross- und Kleinbuchstabe und mindestens 6 oder mehr Zeichen enthalten sind und ob die Passwörter übereinstimmen.  
-	- Shop: 
-		- Nur Eingabe von Zahlen möglich (Ausnahme ist der Buchstabe e = Eulersche Zahl). 
-		- Eingabe von e und ‘null’ (leeres Feld) wird abgefangen. 
-		- Eingabe von Gleitkommazahlen werden auf ganze Zahlen abgerundet. 
-		- Ein- und Mehrzahl wird bei der Erfolgsmeldung berücksichtigt. 
-		- Hinzufügen (Wert>=1) oder Entfernen (Wert==0) eines Produktes wird bei der Erfolgsmeldung berücksichtigt.  
-Frontend: Ansprechendes Design mittels diverser CSS-Formatierungen. 
-Frontend: Webshop wurde im Responsive Design umgesetzt, so dass sich die Darstellung automatisch an die jeweilige Gerätegrösse anpasst. 
-Backend: Um die Sicherheit zu erhöhen, werden die Passwörter verschlüsselt in der Datenbank gespeichert (mittels Hash-Funktion) 
-Backend: Der JASMM Onlineshop ist über die Domain http://jasmm.ch verfügbar. Es wurde ein kompatibles Package (WAR File) vom Projekt erstellt, auf dem Tomcat Server konfiguriert und installiert.  
-Backend: Die Daten werden auf einer externen MySQL Datenbank abgespeichert. Die MySQL Datenbank läuft auf einem Webserver, somit hat man jederzeit und überall Zugriff auf die Daten. 
+- Frontend: Diverse Client-seitige Validierungen der Benutzereingaben, so dass nur syntaktisch gültige und vollständige Eingaben an den Server gesendet werden: 
+	Registrieren: 
+		1. Benutzername: Prüft, ob es vor und nach dem @-Zeichen einen Buchstaben hat. 
+	Registrieren & Kundenkonto: 
+		1. Vorname, Nachname, Strasse, Ortschaft: Prüft, ob mindestens 2 Zeichen eingegeben wurden. 
+		2. Postleitzahl: Prüft, ob es sich um eine vierstellige Zahl handelt. 
+	Registrieren & Passwort ändern: 
+		1. Passwort & Passwort wiederholen: Prüft, ob mindestens eine Zahl, ein Gross- und Kleinbuchstabe und mindestens 6 oder mehr Zeichen enthalten sind und ob die Passwörter übereinstimmen.  
+	Shop: 
+		1. Nur Eingabe von Zahlen möglich (Ausnahme ist der Buchstabe e = Eulersche Zahl). 
+		2. Eingabe von e und ‘null’ (leeres Feld) wird abgefangen. 
+		3. Eingabe von Gleitkommazahlen werden auf ganze Zahlen abgerundet. 
+		4. Ein- und Mehrzahl wird bei der Erfolgsmeldung berücksichtigt. 
+		5. Hinzufügen (Wert>=1) oder Entfernen (Wert==0) eines Produktes wird bei der Erfolgsmeldung berücksichtigt.  
+- Frontend: Ansprechendes Design mittels diverser CSS-Formatierungen. 
+- Frontend: Webshop wurde im Responsive Design umgesetzt, so dass sich die Darstellung automatisch an die jeweilige Gerätegrösse anpasst. 
+- Backend: Um die Sicherheit zu erhöhen, werden die Passwörter verschlüsselt in der Datenbank gespeichert (mittels Hash-Funktion) 
+- Backend: Der JASMM Onlineshop ist über die Domain http://jasmm.ch verfügbar. Es wurde ein kompatibles Package (WAR File) vom Projekt erstellt, auf dem Tomcat Server konfiguriert und installiert.  
+- Backend: Die Daten werden auf einer externen MySQL Datenbank abgespeichert. Die MySQL Datenbank läuft auf einem Webserver, somit hat man jederzeit und überall Zugriff auf die Daten. 
